@@ -11,4 +11,11 @@ module.exports = {
     ['--watch', '--config', require.resolve('./webpack.config')],
     { stdio: 'inherit', env: { ...process.env, BABEL_CONFIG: JSON.stringify(lang.babelConfig) } },
   ),
+  mapEslintConfig: config => ({
+    ...config,
+    env: {
+      ...config.env,
+      webextensions: true,
+    },
+  }),
 }
