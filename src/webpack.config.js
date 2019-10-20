@@ -27,6 +27,14 @@ module.exports = {
   module: {
     rules: [
       {
+        enforce: 'pre',
+        test: /\.js$/,
+        use: {
+          loader: 'eslint-loader',
+          options: { baseConfig: JSON.parse(process.env.ESLINT_CONFIG) },
+        }
+      },
+      {
         test: /\.js$/,
         use: {
           loader: 'babel-loader',
