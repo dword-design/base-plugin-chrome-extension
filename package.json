@@ -1,0 +1,19 @@
+{
+  "name": "@dword-design/base-plugin-chrome-extension",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "files": ["src/index.js", "src/webpack.config.js"],
+  "repository": "https://github.com/dword-design/base-plugin-chrome-extension",
+  "author": "Sebastian Landwehr <info@dword-design.de>",
+  "license": "MIT",
+  "dependencies": {
+    "babel-loader": "^8.0.6",
+    "better-node-env": "^1.0.3",
+    "child-process-promise": "^2.2.1",
+    "clean-webpack-plugin": "^3.0.0",
+    "copy-webpack-plugin": "^5.0.4",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.9",
+    "zip-webpack-plugin": "^3.0.0"
+  }
+}
