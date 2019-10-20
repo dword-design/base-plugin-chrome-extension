@@ -1,12 +1,16 @@
 {
   "name": "@dword-design/base-plugin-chrome-extension",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "src/index.js",
-  "files": ["src/index.js", "src/webpack.config.js"],
+  "files": [
+    "src/index.js",
+    "src/webpack.config.js"
+  ],
   "repository": "https://github.com/dword-design/base-plugin-chrome-extension",
   "author": "Sebastian Landwehr <info@dword-design.de>",
   "license": "MIT",
   "dependencies": {
+    "@babel/core": "^7.6.4",
     "babel-loader": "^8.0.6",
     "better-node-env": "^1.0.3",
     "child-process-promise": "^2.2.1",
