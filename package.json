@@ -1,6 +1,6 @@
 {
   "name": "@dword-design/base-chrome-extension",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "src/index.js",
   "files": [
     "src/index.js",
@@ -13,7 +13,6 @@
   "author": "Sebastian Landwehr <info@dword-design.de>",
   "license": "MIT",
   "dependencies": {
-    "@babel/core": "^7.6.4",
     "@dword-design/base-core": "^2.0.0",
     "babel-loader": "^8.0.6",
     "better-node-env": "^1.0.3",
