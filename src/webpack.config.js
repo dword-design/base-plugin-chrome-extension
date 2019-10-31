@@ -1,12 +1,11 @@
-const CopyWebpackPlugin = require('copy-webpack-plugin')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const ZipWebpackPlugin = require('zip-webpack-plugin')
-const nodeEnv = require('better-node-env')
-const { babelConfigFilename, eslintConfigFilename } = require('@dword-design/base-core')
+import CopyWebpackPlugin from 'copy-webpack-plugin'
+import { CleanWebpackPlugin } from 'clean-webpack-plugin'
+import ZipWebpackPlugin from 'zip-webpack-plugin'
+import nodeEnv from 'better-node-env'
+import { babelConfigFilename, eslintConfigFilename } from '@dword-design/base'
+import { mergeAll } from '@functions'
 
-const baseEslintConfig = require(eslintConfigFilename)
-
-module.exports = {
+export default {
   mode: nodeEnv,
   devtool: false,
   entry: {
@@ -19,13 +18,13 @@ module.exports = {
     new CleanWebpackPlugin(),
     new CopyWebpackPlugin(['static'], { copyUnmodified: true }),
     ...nodeEnv === 'production'
-     ? [
-       new ZipWebpackPlugin({
-        path: '..',
-        filename: 'dist.zip',
-      }),
-    ]
-    : [],
+      ? [
+        new ZipWebpackPlugin({
+          path: '..',
+          filename: 'dist.zip',
+        }),
+      ]
+      : [],
   ],
   module: {
     rules: [
@@ -35,15 +34,16 @@ module.exports = {
         use: {
           loader: 'eslint-loader',
           options: {
-            baseConfig: {
-              ...baseEslintConfig,
-              env: {
-                ...baseEslintConfig.env,
-                webextensions: true,
+            baseConfig: mergeAll([
+              require(eslintConfigFilename),
+              {
+                env: {
+                  webextensions: true,
+                },
               },
-            }
+            ]),
           },
-        }
+        },
       },
       {
         test: /\.js$/,
@@ -52,8 +52,8 @@ module.exports = {
           options: {
             configFile: babelConfigFilename,
           },
-        }
-      }
+        },
+      },
     ],
   },
 }

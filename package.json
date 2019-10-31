@@ -1,19 +1,21 @@
 {
   "name": "@dword-design/base-chrome-extension",
-  "version": "0.1.1",
-  "main": "src/index.js",
+  "version": "0.1.2",
+  "main": "dist/index.js",
   "files": [
-    "src/index.js",
-    "src/webpack.config.js"
+    "dist"
   ],
   "bin": {
-    "base-chrome-extension": "./src/index.js"
+    "base-chrome-extension": "./dist/index.js"
   },
   "repository": "https://github.com/dword-design/base-chrome-extension",
   "author": "Sebastian Landwehr <info@dword-design.de>",
   "license": "MIT",
+  "scripts": {
+    "prepare": "base prepare"
+  },
   "dependencies": {
-    "@dword-design/base-core": "^2.0.0",
+    "@dword-design/base": "^1.0.0",
     "babel-loader": "^8.0.6",
     "better-node-env": "^1.0.3",
     "child-process-promise": "^2.2.1",

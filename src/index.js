@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-const { base } = require('@dword-design/base-core')
-const { spawn } = require('child-process-promise')
+import { base } from '@dword-design/base'
+import { spawn } from 'child_process'
 
 base({
   prepare: () => spawn('webpack', ['--config', require.resolve('./webpack.config')], { stdio: 'inherit' }),
