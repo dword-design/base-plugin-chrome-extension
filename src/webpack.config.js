@@ -2,6 +2,9 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const ZipWebpackPlugin = require('zip-webpack-plugin')
 const nodeEnv = require('better-node-env')
+const { babelConfigFilename, eslintConfigFilename } = require('@dword-design/base-core')
+
+const baseEslintConfig = require(eslintConfigFilename)
 
 module.exports = {
   mode: nodeEnv,
@@ -31,14 +34,24 @@ module.exports = {
         test: /\.js$/,
         use: {
           loader: 'eslint-loader',
-          options: { baseConfig: JSON.parse(process.env.ESLINT_CONFIG) },
+          options: {
+            baseConfig: {
+              ...baseEslintConfig,
+              env: {
+                ...baseEslintConfig.env,
+                webextensions: true,
+              },
+            }
+          },
         }
       },
       {
         test: /\.js$/,
         use: {
           loader: 'babel-loader',
-          options: JSON.parse(process.env.BABEL_CONFIG),
+          options: {
+            configFile: babelConfigFilename,
+          },
         }
       }
     ],
