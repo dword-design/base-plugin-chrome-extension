@@ -1,6 +1,6 @@
 {
   "name": "@dword-design/base-chrome-extension",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "main": "dist/index.js",
   "files": [
     "dist"
@@ -19,10 +19,8 @@
   "dependencies": {
     "@dword-design/base": "^1.1.0",
     "babel-loader": "^8.0.6",
-    "better-node-env": "^1.0.3",
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^5.0.4",
-    "eslint": "^6.6.0",
     "eslint-loader": "^3.0.2",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10",

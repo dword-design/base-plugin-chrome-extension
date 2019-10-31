@@ -1,7 +1,7 @@
 import CopyWebpackPlugin from 'copy-webpack-plugin'
 import { CleanWebpackPlugin } from 'clean-webpack-plugin'
 import ZipWebpackPlugin from 'zip-webpack-plugin'
-import nodeEnv from 'better-node-env'
+import nodeEnv from 'node-env'
 import { babelConfigFilename, eslintConfigFilename } from '@dword-design/base'
 import { mergeAll } from '@functions'
 
