@@ -710,10 +710,10 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@dword-design/base@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@dword-design/base/-/base-1.0.0.tgz#3af342fbda6b60f78c515c4de08609f1783e352f"
-  integrity sha512-bH8D+69kKM0D6kzuLvlvND5aBtV2Jgpgg1EmYyHxGyGVEQJTmvqrXS9lEVVR0a1GWS3s/wHvSCMoaaLSytObMA==
+"@dword-design/base@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@dword-design/base/-/base-1.1.0.tgz#08aee84d2d4acb0c8202b08abd7390864f56cbc7"
+  integrity sha512-WQpTVCpDCGi5mxibFwEYkSSj+iZq8XSucN+ZqMZAhrLd02iROfF8wIZSnSFq6917kxVk+nKToA8+rCqOeJHHCA==
   dependencies:
     "@babel/cli" "^7.6.4"
     "@babel/core" "^7.6.4"
@@ -2478,12 +2478,15 @@ depcheck@dword-design/depcheck#fork:
     lodash "^4.17.11"
     minimatch "^3.0.2"
     node-sass-tilde-importer "^1.0.2"
+    pkg-up "^3.1.0"
     please-upgrade-node "^3.1.1"
     require-from-string "^2.0.2"
     require-package-name "^2.0.1"
     resolve "^1.10.0"
-    walkdir "0.0.12"
-    yargs "^12.0.1"
+    resolve-from "^5.0.0"
+    vue-template-compiler "^2.6.10"
+    walkdir "^0.3.2"
+    yargs "^13.2.2"
 
 deprecate@^1.0.0:
   version "1.1.1"
@@ -4916,7 +4919,7 @@ mos@dword-design/mos#fork/mos:
     mos-plugin-dependencies "^2.2.2"
     mos-plugin-ejs "^1.1.2"
     mos-plugin-example "^1.1.2"
-    mos-plugin-installation "^1.2.2"
+    mos-plugin-installation dword-design/mos-plugin-installation#fork
     mos-plugin-license "^1.2.2"
     mos-plugin-markdownscript "^2.1.2"
     mos-plugin-package-json "^2.1.2"
@@ -7309,10 +7312,10 @@ watchpack@^1.6.0:
     graceful-fs "^4.1.2"
     neo-async "^2.5.0"
 
-webpack-cli@^3.3.9:
-  version "3.3.9"
-  resolved "https://registry.yarnpkg.com/webpack-cli/-/webpack-cli-3.3.9.tgz#79c27e71f94b7fe324d594ab64a8e396b9daa91a"
-  integrity sha512-xwnSxWl8nZtBl/AFJCOn9pG7s5CYUYdZxmmukv+fAHLcBIHM36dImfpQg3WfShZXeArkWlf6QRw24Klcsv8a5A==
+webpack-cli@^3.3.10:
+  version "3.3.10"
+  resolved "https://registry.yarnpkg.com/webpack-cli/-/webpack-cli-3.3.10.tgz#17b279267e9b4fb549023fae170da8e6e766da13"
+  integrity sha512-u1dgND9+MXaEt74sJR4PR7qkPxXUSQ0RXYq8x1L6Jg1MYVEmGPrH6Ah6C4arD4r0J1P5HKjRqpab36k0eIzPqg==
   dependencies:
     chalk "2.4.2"
     cross-spawn "6.0.5"
