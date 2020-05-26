@@ -1,29 +1,43 @@
 {
-  "name": "@dword-design/base-chrome-extension",
-  "version": "0.1.5",
+  "name": "@dword-design/base-config-chrome-extension",
+  "version": "1.0.0",
+  "description": "",
+  "repository": "dword-design/base-config-chrome-extension",
+  "license": "MIT",
+  "author": "Sebastian Landwehr <info@dword-design.de>",
   "main": "dist/index.js",
   "files": [
     "dist"
   ],
-  "bin": {
-    "base-chrome-extension": "./dist/index.js"
-  },
-  "repository": "https://github.com/dword-design/base-chrome-extension",
-  "author": "Sebastian Landwehr <info@dword-design.de>",
-  "license": "MIT",
   "scripts": {
+    "commit": "base commit",
+    "dev": "base dev",
     "prepare": "base prepare",
-    "start": "base start",
+    "prepublishOnly": "base prepublishOnly",
     "test": "base test"
   },
   "dependencies": {
-    "@dword-design/base": "^1.1.0",
+    "@dword-design/eslint-config": "^1.16.2",
     "babel-loader": "^8.0.6",
+    "better-node-env": "^1.0.3",
     "clean-webpack-plugin": "^3.0.0",
-    "copy-webpack-plugin": "^5.0.4",
-    "eslint-loader": "^3.0.2",
+    "copy-webpack-plugin": "^6.0.1",
+    "eslint-loader": "^4.0.2",
+    "execa": "^4.0.2",
+    "fs-extra": "^9.0.0",
+    "get-package-name": "^1.1.0",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10",
     "zip-webpack-plugin": "^3.0.0"
+  },
+  "devDependencies": {
+    "@dword-design/base": "^6.10.2",
+    "@dword-design/functions": "^1.1.2",
+    "glob-promise": "^3.4.0",
+    "output-files": "^1.1.16",
+    "with-local-tmp-dir": "^2.2.10"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

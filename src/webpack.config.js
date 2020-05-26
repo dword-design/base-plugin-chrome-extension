@@ -1,30 +1,37 @@
 import CopyWebpackPlugin from 'copy-webpack-plugin'
 import { CleanWebpackPlugin } from 'clean-webpack-plugin'
 import ZipWebpackPlugin from 'zip-webpack-plugin'
-import nodeEnv from 'node-env'
-import { babelConfigFilename, eslintConfigFilename } from '@dword-design/base'
-import { mergeAll } from '@functions'
+import nodeEnv from 'better-node-env'
+import getPackageName from 'get-package-name'
+import { existsSync } from 'fs-extra'
 
 export default {
-  mode: nodeEnv,
+  mode: nodeEnv === 'production' ? nodeEnv : 'development',
   devtool: false,
   entry: {
-    background: './src/background.js',
-    content: './src/content.js',
-    options: './src/options.js',
-    popup: './src/popup.js',
+    ...(existsSync('background.js') && { background: './background.js' }),
+    ...(existsSync('content.js') && { content: './content.js' }),
+    ...(existsSync('options.js') && { options: './options.js' }),
+    ...(existsSync('popup.js') && { popup: './popup.js' }),
   },
   plugins: [
     new CleanWebpackPlugin(),
-    new CopyWebpackPlugin(['static'], { copyUnmodified: true }),
-    ...nodeEnv === 'production'
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: 'assets', to: 'assets', noErrorOnMissing: true },
+        'manifest.json',
+        { from: 'options.html', noErrorOnMissing: true },
+        { from: 'popup.html', noErrorOnMissing: true },
+      ],
+    }),
+    ...(nodeEnv === 'production'
       ? [
-        new ZipWebpackPlugin({
-          path: '..',
-          filename: 'dist.zip',
-        }),
-      ]
-      : [],
+          new ZipWebpackPlugin({
+            path: '..',
+            filename: 'dist.zip',
+          }),
+        ]
+      : []),
   ],
   module: {
     rules: [
@@ -32,26 +39,17 @@ export default {
         enforce: 'pre',
         test: /\.js$/,
         use: {
-          loader: 'eslint-loader',
+          loader: getPackageName(require.resolve('eslint-loader')),
           options: {
-            baseConfig: mergeAll([
-              require(eslintConfigFilename),
-              {
-                env: {
-                  webextensions: true,
-                },
-              },
-            ]),
+            failOnWarning: true,
+            fix: true,
           },
         },
       },
       {
         test: /\.js$/,
         use: {
-          loader: 'babel-loader',
-          options: {
-            configFile: babelConfigFilename,
-          },
+          loader: getPackageName(require.resolve('babel-loader')),
         },
       },
     ],

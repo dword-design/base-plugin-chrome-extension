@@ -1,9 +1,41 @@
-#!/usr/bin/env node
+import { outputFile } from 'fs-extra'
+import getPackageName from 'get-package-name'
+import dev from './dev'
+import prepublishOnly from './prepublish-only'
+import lint from './lint'
 
-import { base } from '@dword-design/base'
-import { spawn } from 'child_process'
-
-base({
-  prepare: () => spawn('webpack', ['--config', require.resolve('./webpack.config')], { stdio: 'inherit' }),
-  start: () => spawn('webpack', ['--watch', '--config', require.resolve('./webpack.config')], { stdio: 'inherit' }),
-})
+export default {
+  allowedMatches: [
+    'assets',
+    'background.js',
+    'content.js',
+    'manifest.json',
+    'options.html',
+    'popup.html',
+    'options.js',
+    'popup.js',
+    'model',
+  ],
+  gitignore: ['/.eslintrc.json'],
+  test: lint,
+  prepare: () =>
+    outputFile(
+      '.eslintrc.json',
+      JSON.stringify(
+        {
+          extends: getPackageName(
+            require.resolve('@dword-design/eslint-config')
+          ),
+          env: {
+            webextensions: true,
+          },
+        },
+        undefined,
+        2
+      )
+    ),
+  commands: {
+    dev,
+    prepublishOnly,
+  },
+}
