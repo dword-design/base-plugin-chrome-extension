@@ -38,6 +38,7 @@ export default {
       {
         enforce: 'pre',
         test: /\.js$/,
+        exclude: /(node_modules)/,
         use: {
           loader: getPackageName(require.resolve('eslint-loader')),
           options: {
