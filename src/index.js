@@ -6,6 +6,7 @@ import lint from './lint'
 
 export default {
   allowedMatches: [
+    'artifacts',
     'assets',
     'background.js',
     'content.js',

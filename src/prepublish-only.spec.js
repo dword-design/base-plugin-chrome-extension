@@ -40,6 +40,7 @@ export default {
     test: async () => {
       expect(await glob('*')).toEqual(
         expect.arrayContaining([
+          'artifacts',
           'assets',
           'background.js',
           'content.js',

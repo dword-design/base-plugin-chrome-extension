@@ -1,9 +1,11 @@
 import CopyWebpackPlugin from 'copy-webpack-plugin'
 import { CleanWebpackPlugin } from 'clean-webpack-plugin'
-import ZipWebpackPlugin from 'zip-webpack-plugin'
+import { WebExtWebpackPlugin } from 'webext-webpack-plugin'
+import WebpackBar from 'webpackbar'
 import nodeEnv from 'better-node-env'
 import getPackageName from 'get-package-name'
 import { existsSync } from 'fs-extra'
+import config from './config'
 
 export default {
   mode: nodeEnv === 'production' ? nodeEnv : 'development',
@@ -15,6 +17,7 @@ export default {
     ...(existsSync('popup.js') && { popup: './popup.js' }),
   },
   plugins: [
+    new WebpackBar(),
     new CleanWebpackPlugin(),
     new CopyWebpackPlugin({
       patterns: [
@@ -24,14 +27,15 @@ export default {
         { from: 'popup.html', noErrorOnMissing: true },
       ],
     }),
-    ...(nodeEnv === 'production'
-      ? [
-          new ZipWebpackPlugin({
-            path: '..',
-            filename: 'dist.zip',
-          }),
-        ]
-      : []),
+    new WebExtWebpackPlugin({
+      build: {
+        artifactsDir: 'artifacts',
+      },
+      run: {
+        startUrl: config.startUrl,
+        target: 'chromium',
+      },
+    }),
   ],
   module: {
     rules: [
