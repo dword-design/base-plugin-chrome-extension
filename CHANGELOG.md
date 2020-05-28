@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/dword-design/base-config-web-extension/compare/v1.1.0...v1.2.0) (2020-05-28)
+
+
+### Features
+
+* add manifest linting ([731957d](https://github.com/dword-design/base-config-web-extension/commit/731957d293eaa0676d3e30be77ac38d77a5ebde6))
+
 # [1.1.0](https://github.com/dword-design/base-config-web-extension/compare/v1.0.1...v1.1.0) (2020-05-28)
 
 
