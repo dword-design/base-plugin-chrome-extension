@@ -64,19 +64,4 @@ export default {
         "'foo' is assigned a value but never used"
       )
     }),
-  'missing manifest file': () =>
-    withLocalTmpDir(async () => {
-      await outputFiles({
-        'package.json': JSON.stringify(
-          {
-            baseConfig: require.resolve('.'),
-          },
-          undefined,
-          2
-        ),
-      })
-
-      await execa.command('base prepare')
-      await expect(lint()).rejects.toThrow('TYPE_NO_MANIFEST_JSON')
-    }),
 }
