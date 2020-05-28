@@ -1,8 +1,8 @@
 {
-  "name": "@dword-design/base-config-chrome-extension",
+  "name": "@dword-design/base-config-web-extension",
   "version": "1.0.0",
   "description": "",
-  "repository": "dword-design/base-config-chrome-extension",
+  "repository": "dword-design/base-config-web-extension",
   "license": "MIT",
   "author": "Sebastian Landwehr <info@dword-design.de>",
   "main": "dist/index.js",

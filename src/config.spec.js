@@ -8,7 +8,7 @@ export default {
       await outputFile(
         'package.json',
         JSON.stringify({
-          baseConfig: 'chrome-extension',
+          baseConfig: 'web-extension',
         })
       )
       expect(stealthyRequire(require.cache, () => require('./config'))).toEqual(
@@ -21,13 +21,13 @@ export default {
         'package.json',
         JSON.stringify({
           baseConfig: {
-            name: 'chrome-extension',
+            name: 'web-extension',
             startUrl: 'https://google.com',
           },
         })
       )
       expect(
         stealthyRequire(require.cache, () => require('./config'))
-      ).toEqual({ name: 'chrome-extension', startUrl: 'https://google.com' })
+      ).toEqual({ name: 'web-extension', startUrl: 'https://google.com' })
     }),
 }
