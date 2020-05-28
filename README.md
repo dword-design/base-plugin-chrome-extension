@@ -1,9 +1,9 @@
 <!-- TITLE/ -->
-# @dword-design/base-config-chrome-extension
+# @dword-design/base-config-web-extension
 <!-- /TITLE -->
 
 <!-- BADGES/ -->
-[![NPM version](https://img.shields.io/npm/v/@dword-design/base-config-chrome-extension.svg)](https://npmjs.org/package/@dword-design/base-config-chrome-extension)
+[![NPM version](https://img.shields.io/npm/v/@dword-design/base-config-web-extension.svg)](https://npmjs.org/package/@dword-design/base-config-web-extension)
 ![Linux macOS Windows compatible](https://img.shields.io/badge/os-linux%20%7C%C2%A0macos%20%7C%C2%A0windows-blue)
 [![Build status](https://img.shields.io/github/workflow/status/dword-design/base-config-web-extension/build)](https://github.com/dword-design/base-config-web-extension/actions)
 [![Coverage status](https://img.shields.io/coveralls/dword-design/base-config-web-extension)](https://coveralls.io/github/dword-design/base-config-web-extension)
@@ -22,10 +22,10 @@
 
 ```bash
 # NPM
-$ npm install @dword-design/base-config-chrome-extension
+$ npm install @dword-design/base-config-web-extension
 
 # Yarn
-$ yarn add @dword-design/base-config-chrome-extension
+$ yarn add @dword-design/base-config-web-extension
 ```
 <!-- /INSTALL -->
 
