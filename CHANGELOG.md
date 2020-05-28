@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/dword-design/base-config-web-extension/compare/v1.2.0...v1.2.1) (2020-05-28)
+
+
+### Bug Fixes
+
+* remove web-ext linging ([74a1d84](https://github.com/dword-design/base-config-web-extension/commit/74a1d84e31ce7d2c4de19dbc18424684dd859655))
+
 # [1.2.0](https://github.com/dword-design/base-config-web-extension/compare/v1.1.0...v1.2.0) (2020-05-28)
 
 
