@@ -27,7 +27,11 @@
     "fs-extra": "^9.0.0",
     "get-package-name": "^1.1.0",
     "load-pkg": "^4.0.0",
+    "node-sass": "^4.14.1",
+    "raw-loader": "^4.0.1",
+    "sass-loader": "^8.0.2",
     "webext-webpack-plugin": "dword-design/webext-webpack-plugin#fork",
+    "webextension-polyfill": "^0.6.0",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10",
     "webpackbar": "^4.0.0"

@@ -27,8 +27,8 @@ export default {
           extends: getPackageName(
             require.resolve('@dword-design/eslint-config')
           ),
-          env: {
-            webextensions: true,
+          globals: {
+            browser: 'readonly',
           },
         },
         undefined,

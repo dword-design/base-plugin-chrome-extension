@@ -21,6 +21,7 @@ export default {
     new CleanWebpackPlugin(),
     new CopyWebpackPlugin({
       patterns: [
+        { from: require.resolve('webextension-polyfill') },
         { from: 'assets', to: 'assets', noErrorOnMissing: true },
         'manifest.json',
         { from: 'options.html', noErrorOnMissing: true },
@@ -56,6 +57,13 @@ export default {
         use: {
           loader: getPackageName(require.resolve('babel-loader')),
         },
+      },
+      {
+        test: /\.s[ac]ss$/i,
+        use: [
+          getPackageName(require.resolve('raw-loader')),
+          getPackageName(require.resolve('sass-loader')),
+        ],
       },
     ],
   },

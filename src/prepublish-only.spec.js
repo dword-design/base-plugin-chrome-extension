@@ -56,6 +56,7 @@ export default {
       expect(await glob('*', { cwd: 'dist' })).toEqual([
         'assets',
         'background.js',
+        'browser-polyfill.js',
         'content.js',
         'manifest.json',
         'options.html',
