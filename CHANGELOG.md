@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/dword-design/base-config-web-extension/compare/v1.3.0...v1.4.0) (2020-05-29)
+
+
+### Features
+
+* add browser polyfill and sass support ([a4ac2f8](https://github.com/dword-design/base-config-web-extension/commit/a4ac2f890ff10519ae124558ca7c918d5dda09b4))
+
 # [1.3.0](https://github.com/dword-design/base-config-web-extension/compare/v1.2.1...v1.3.0) (2020-05-29)
 
 
