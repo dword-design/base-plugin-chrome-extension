@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/dword-design/base-config-web-extension/compare/v1.2.1...v1.3.0) (2020-05-29)
+
+
+### Features
+
+* add target param ([06dcb67](https://github.com/dword-design/base-config-web-extension/commit/06dcb677d6a9290d0a82225728265424ab7d091d))
+
 ## [1.2.1](https://github.com/dword-design/base-config-web-extension/compare/v1.2.0...v1.2.1) (2020-05-28)
 
 
