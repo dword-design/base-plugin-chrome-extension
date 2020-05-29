@@ -1,3 +1,15 @@
+# [1.6.0](https://github.com/dword-design/base-config-web-extension/compare/v1.5.0...v1.6.0) (2020-05-29)
+
+
+### Bug Fixes
+
+* fix typo ([ce3bf26](https://github.com/dword-design/base-config-web-extension/commit/ce3bf268736e3c3559b18374dcba3189f2334e5f))
+
+
+### Features
+
+* add release config ([85cb727](https://github.com/dword-design/base-config-web-extension/commit/85cb727ca10c0a9ea7a567d95a189d152ffa2aff))
+
 # [1.5.0](https://github.com/dword-design/base-config-web-extension/compare/v1.4.0...v1.5.0) (2020-05-29)
 
 
