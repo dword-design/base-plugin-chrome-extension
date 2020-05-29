@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/dword-design/base-config-web-extension/compare/v1.4.0...v1.5.0) (2020-05-29)
+
+
+### Features
+
+* generate manifest.json from config.json ([d0f743e](https://github.com/dword-design/base-config-web-extension/commit/d0f743e22e87907bff85cab6c34c07b57ce87e90))
+
 # [1.4.0](https://github.com/dword-design/base-config-web-extension/compare/v1.3.0...v1.4.0) (2020-05-29)
 
 
