@@ -19,6 +19,7 @@
   "dependencies": {
     "@dword-design/eslint-config": "^1.16.2",
     "@dword-design/functions": "^1.1.2",
+    "@semantic-release/exec": "^5.0.0",
     "babel-loader": "^8.0.6",
     "better-node-env": "^1.0.3",
     "clean-webpack-plugin": "^3.0.0",
@@ -31,6 +32,7 @@
     "node-sass": "^4.14.1",
     "raw-loader": "^4.0.1",
     "sass-loader": "^8.0.2",
+    "semantic-release-chrome": "^1.1.3",
     "webext-webpack-plugin": "dword-design/webext-webpack-plugin#fork",
     "webextension-polyfill": "^0.6.0",
     "webpack": "^4.41.2",
