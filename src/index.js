@@ -58,7 +58,7 @@ export default {
       {
         asset: 'extension.zip',
         extensionId: baseConfig.chromeExtensionId,
-        ...(packageConfig.isPrivate && { target: 'trustedTesters' }),
+        ...(packageConfig.private && { target: 'trustedTesters' }),
       },
     ],
   ],
