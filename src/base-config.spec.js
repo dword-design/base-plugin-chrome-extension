@@ -11,9 +11,9 @@ export default {
           baseConfig: 'web-extension',
         })
       )
-      expect(stealthyRequire(require.cache, () => require('./config'))).toEqual(
-        {}
-      )
+      expect(
+        stealthyRequire(require.cache, () => require('./base-config'))
+      ).toEqual({})
     }),
   valid: () =>
     withLocalTmpDir(async () => {
@@ -27,7 +27,7 @@ export default {
         })
       )
       expect(
-        stealthyRequire(require.cache, () => require('./config'))
+        stealthyRequire(require.cache, () => require('./base-config'))
       ).toEqual({ name: 'web-extension', startUrl: 'https://google.com' })
     }),
 }

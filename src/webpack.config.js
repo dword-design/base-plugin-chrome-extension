@@ -5,7 +5,8 @@ import WebpackBar from 'webpackbar'
 import nodeEnv from 'better-node-env'
 import getPackageName from 'get-package-name'
 import { existsSync } from 'fs-extra'
-import config from './config'
+import baseConfig from './base-config'
+import configToManifest from './config-to-manifest'
 
 export default {
   mode: nodeEnv === 'production' ? nodeEnv : 'development',
@@ -21,9 +22,13 @@ export default {
     new CleanWebpackPlugin(),
     new CopyWebpackPlugin({
       patterns: [
+        {
+          from: 'config.json',
+          to: 'manifest.json',
+          transform: configToManifest,
+        },
         { from: require.resolve('webextension-polyfill') },
         { from: 'assets', to: 'assets', noErrorOnMissing: true },
-        'manifest.json',
         { from: 'options.html', noErrorOnMissing: true },
         { from: 'popup.html', noErrorOnMissing: true },
       ],
@@ -33,7 +38,7 @@ export default {
         artifactsDir: 'artifacts',
       },
       run: {
-        startUrl: config.startUrl,
+        startUrl: baseConfig.startUrl,
         target: process.env.WEB_EXT_TARGET,
       },
     }),

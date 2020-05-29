@@ -10,7 +10,7 @@ export default {
     'assets',
     'background.js',
     'content.js',
-    'manifest.json',
+    'config.json',
     'options.html',
     'popup.html',
     'options.js',

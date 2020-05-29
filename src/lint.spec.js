@@ -12,11 +12,9 @@ export default {
           import './model/foo'
 
         `,
-        'manifest.json': JSON.stringify(
+        'config.json': JSON.stringify(
           {
             name: 'foo',
-            version: '1.0',
-            manifest_version: 2,
           },
           undefined,
           2
@@ -41,11 +39,9 @@ export default {
           const foo = 'bar'
           
         `,
-        'manifest.json': JSON.stringify(
+        'config.json': JSON.stringify(
           {
             name: 'foo',
-            version: '1.0',
-            manifest_version: 2,
           },
           undefined,
           2

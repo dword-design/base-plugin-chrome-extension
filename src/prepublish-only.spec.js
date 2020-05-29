@@ -3,6 +3,7 @@ import withLocalTmpDir from 'with-local-tmp-dir'
 import outputFiles from 'output-files'
 import execa from 'execa'
 import glob from 'glob-promise'
+import P from 'path'
 
 const runTest = ({ files, test = noop }) => () =>
   withLocalTmpDir(async () => {
@@ -23,12 +24,14 @@ export default {
         export default foo
   
       `,
-      'manifest.json': '{}',
+      'config.json': JSON.stringify({ name: 'Foo' }, undefined, 2),
       'model/foo.js': 'export default 1',
       'options.html': '',
       'options.js': '',
       'package.json': JSON.stringify(
         {
+          version: '2.0.0',
+          description: 'foo bar',
           baseConfig: require.resolve('.'),
         },
         undefined,
@@ -45,7 +48,7 @@ export default {
           'background.js',
           'content.js',
           'dist',
-          'manifest.json',
+          'config.json',
           'model',
           'options.html',
           'options.js',
@@ -64,19 +67,22 @@ export default {
         'popup.html',
         'popup.js',
       ])
-    },
-  },
-  minimal: {
-    files: {
-      'background.js': '',
-      'manifest.json': '{}',
-      'package.json': JSON.stringify(
-        {
-          baseConfig: require.resolve('.'),
+      expect(require(P.join(process.cwd(), 'dist', 'manifest.json'))).toEqual({
+        name: 'Foo',
+        description: 'foo bar',
+        version: '2.0.0',
+        manifest_version: 2,
+        content_scripts: [
+          {
+            js: ['browser-polyfill.js', 'content.js'],
+            matches: ['<all_urls>'],
+          },
+        ],
+        background: {
+          scripts: ['browser-polyfill.js', 'background.js'],
+          persistent: false,
         },
-        undefined,
-        2
-      ),
+      })
     },
   },
 } |> mapValues(runTest)

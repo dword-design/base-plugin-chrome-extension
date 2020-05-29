@@ -1,6 +1,6 @@
 import execa from 'execa'
 
-export default (target = 'chromium') =>
+export default (target = 'firefox-desktop') =>
   execa(
     'webpack-cli',
     ['--watch', '--config', require.resolve('./webpack.config')],
