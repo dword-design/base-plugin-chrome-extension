@@ -33,7 +33,7 @@ export default {
       },
       run: {
         startUrl: config.startUrl,
-        target: 'chromium',
+        target: process.env.WEB_EXT_TARGET,
       },
     }),
   ],

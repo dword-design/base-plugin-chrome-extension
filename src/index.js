@@ -36,7 +36,10 @@ export default {
       )
     ),
   commands: {
-    dev,
+    dev: {
+      arguments: '[target]',
+      handler: dev,
+    },
     prepublishOnly,
   },
 }
