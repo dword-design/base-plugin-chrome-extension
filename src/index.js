@@ -1,12 +1,9 @@
 import { outputFile } from 'fs-extra'
 import getPackageName from 'get-package-name'
-import loadPkg from 'load-pkg'
 import baseConfig from './base-config'
 import dev from './dev'
 import prepublishOnly from './prepublish-only'
 import lint from './lint'
-
-const packageConfig = loadPkg.sync() || {}
 
 export default {
   allowedMatches: [
@@ -58,7 +55,7 @@ export default {
       {
         asset: 'extension.zip',
         extensionId: baseConfig.chromeExtensionId,
-        ...(packageConfig.private && { target: 'trustedTesters' }),
+        target: 'draft',
       },
     ],
   ],
