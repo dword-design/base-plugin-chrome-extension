@@ -1,3 +1,10 @@
+## [1.6.1](https://github.com/dword-design/base-config-web-extension/compare/v1.6.0...v1.6.1) (2020-05-31)
+
+
+### Bug Fixes
+
+* do not publish chrome extensions ([b6c830b](https://github.com/dword-design/base-config-web-extension/commit/b6c830b13bc60d1d483a81b97d8b46cdbeb539aa))
+
 # [1.6.0](https://github.com/dword-design/base-config-web-extension/compare/v1.5.0...v1.6.0) (2020-05-29)
 
 
