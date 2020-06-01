@@ -1,3 +1,10 @@
+## [1.6.3](https://github.com/dword-design/base-config-web-extension/compare/v1.6.2...v1.6.3) (2020-06-01)
+
+
+### Bug Fixes
+
+* add newline to developer.md ([866d295](https://github.com/dword-design/base-config-web-extension/commit/866d2953df354ed28b101f95870e65518ae0c3b5))
+
 ## [1.6.2](https://github.com/dword-design/base-config-web-extension/compare/v1.6.1...v1.6.2) (2020-06-01)
 
 
