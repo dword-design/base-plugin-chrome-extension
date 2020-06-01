@@ -10,4 +10,5 @@ export default endent`
   ## Building the extension
   1. \`yarn --frozen-lockfile\`
   1. \`yarn prepublishOnly\`
+  
 `
