@@ -1,9 +1,10 @@
-import { outputFile } from 'fs-extra'
+import outputFiles from 'output-files'
 import getPackageName from 'get-package-name'
 import baseConfig from './base-config'
 import dev from './dev'
 import prepublishOnly from './prepublish-only'
 import lint from './lint'
+import developerMd from './developer-md.config'
 
 export default {
   allowedMatches: [
@@ -12,6 +13,7 @@ export default {
     'background.js',
     'content.js',
     'config.json',
+    'DEVELOPER.md',
     'options.html',
     'popup.html',
     'options.js',
@@ -21,9 +23,8 @@ export default {
   gitignore: ['/.eslintrc.json'],
   test: lint,
   prepare: () =>
-    outputFile(
-      '.eslintrc.json',
-      JSON.stringify(
+    outputFiles({
+      '.eslintrc.json': JSON.stringify(
         {
           extends: getPackageName(
             require.resolve('@dword-design/eslint-config')
@@ -34,8 +35,9 @@ export default {
         },
         undefined,
         2
-      )
-    ),
+      ),
+      'DEVELOPER.md': developerMd,
+    }),
   commands: {
     dev: {
       arguments: '[target]',
