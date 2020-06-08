@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/dword-design/base-config-web-extension/compare/v1.6.3...v1.7.0) (2020-06-08)
+
+
+### Features
+
+* auto-generate icon manifest config ([ec1d4e4](https://github.com/dword-design/base-config-web-extension/commit/ec1d4e4370ba2f5b6fdd3e85d59357b78cae0052))
+
 ## [1.6.3](https://github.com/dword-design/base-config-web-extension/compare/v1.6.2...v1.6.3) (2020-06-01)
 
 
