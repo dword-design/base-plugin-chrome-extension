@@ -9,6 +9,14 @@ export default async configString => {
   return JSON.stringify({
     ...(packageConfig |> pick(['version', 'description'])),
     manifest_version: 2,
+    ...(existsSync('assets/icon.png') && {
+      browser_action: {
+        default_icon: 'assets/icon.png',
+      },
+      icons: {
+        '128': 'assets/icon.png',
+      },
+    }),
     ...(existsSync('content.js') && {
       content_scripts: [
         {

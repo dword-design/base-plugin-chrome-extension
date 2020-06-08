@@ -14,6 +14,7 @@ export default {
     'content.js',
     'config.json',
     'DEVELOPER.md',
+    'icon.png',
     'options.html',
     'popup.html',
     'options.js',
