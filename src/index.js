@@ -1,5 +1,6 @@
 import outputFiles from 'output-files'
 import getPackageName from 'get-package-name'
+import execa from 'execa'
 import baseConfig from './base-config'
 import dev from './dev'
 import prepublishOnly from './prepublish-only'
@@ -21,7 +22,7 @@ export default {
     'popup.js',
     'model',
   ],
-  gitignore: ['/.eslintrc.json'],
+  gitignore: ['/.eslintrc.json', '/artifacts', 'source.zip'],
   test: lint,
   prepare: () =>
     outputFiles({
@@ -45,6 +46,7 @@ export default {
       handler: dev,
     },
     prepublishOnly,
+    source: () => execa.command('git archive --output=source.zip HEAD'),
   },
   deployPlugins: [
     [
