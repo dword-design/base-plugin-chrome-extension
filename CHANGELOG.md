@@ -1,3 +1,10 @@
+## [1.8.1](https://github.com/dword-design/base-config-web-extension/compare/v1.8.0...v1.8.1) (2020-06-12)
+
+
+### Bug Fixes
+
+* rename to lint ([19b8361](https://github.com/dword-design/base-config-web-extension/commit/19b8361795addf42566b477a652568a68f05d382))
+
 # [1.8.0](https://github.com/dword-design/base-config-web-extension/compare/v1.7.0...v1.8.0) (2020-06-08)
 
 
