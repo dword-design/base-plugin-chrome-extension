@@ -23,7 +23,7 @@ export default {
     'model',
   ],
   gitignore: ['/.eslintrc.json', '/artifacts', 'source.zip'],
-  test: lint,
+  lint,
   prepare: () =>
     outputFiles({
       '.eslintrc.json': JSON.stringify(
