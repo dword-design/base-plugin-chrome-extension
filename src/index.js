@@ -22,7 +22,7 @@ export default {
     'popup.js',
     'model',
   ],
-  gitignore: ['/.eslintrc.json', '/artifacts', 'source.zip'],
+  gitignore: ['/.eslintrc.json', '/artifacts', '/dist', 'source.zip'],
   lint,
   prepare: () =>
     outputFiles({
