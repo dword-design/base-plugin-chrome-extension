@@ -1,3 +1,10 @@
+## [1.8.2](https://github.com/dword-design/base-config-web-extension/compare/v1.8.1...v1.8.2) (2020-06-14)
+
+
+### Bug Fixes
+
+* add dist to gitignore ([b0615ae](https://github.com/dword-design/base-config-web-extension/commit/b0615ae8676b7d3d902a221d7f51f15e73af2be2))
+
 ## [1.8.1](https://github.com/dword-design/base-config-web-extension/compare/v1.8.0...v1.8.1) (2020-06-12)
 
 
