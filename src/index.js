@@ -23,6 +23,7 @@ export default {
     'model',
   ],
   gitignore: ['/.eslintrc.json', '/artifacts', '/dist', 'source.zip'],
+  editorIgnore: ['.eslintrc.json', 'dist'],
   lint,
   prepare: () =>
     outputFiles({
