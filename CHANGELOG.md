@@ -1,3 +1,10 @@
+## [1.8.3](https://github.com/dword-design/base-config-web-extension/compare/v1.8.2...v1.8.3) (2020-06-28)
+
+
+### Bug Fixes
+
+* trigger release ([709825b](https://github.com/dword-design/base-config-web-extension/commit/709825b95de9cb493af572823e3eeeb62b5cdb85))
+
 ## [1.8.2](https://github.com/dword-design/base-config-web-extension/compare/v1.8.1...v1.8.2) (2020-06-14)
 
 
