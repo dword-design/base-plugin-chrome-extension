@@ -1,38 +1,42 @@
 import { endent, mapValues, noop } from '@dword-design/functions'
-import withLocalTmpDir from 'with-local-tmp-dir'
-import outputFiles from 'output-files'
 import execa from 'execa'
-import glob from 'glob-promise'
+import globby from 'globby'
+import outputFiles from 'output-files'
 import P from 'path'
+import withLocalTmpDir from 'with-local-tmp-dir'
 
-const runTest = ({ files, test = noop }) => () =>
-  withLocalTmpDir(async () => {
-    await outputFiles(files)
+const runTest = config => () => {
+  config = { test: noop, ...config }
+  return withLocalTmpDir(async () => {
+    await outputFiles(config.files)
     await execa.command('base prepare')
     await execa.command('base prepublishOnly')
-    return test()
+    return config.test()
   })
+}
 
 export default {
   valid: {
     files: {
       'assets/foo.png': '',
       'background.js': '',
+      'config.json': JSON.stringify({ name: 'Foo' }, undefined, 2),
       'content.js': endent`
         import foo from './model/foo'
-  
+
         export default foo
-  
+
       `,
-      'config.json': JSON.stringify({ name: 'Foo' }, undefined, 2),
       'model/foo.js': 'export default 1',
+      'node_modules/base-config-self/index.js':
+        "module.exports = require('../../../src')",
       'options.html': '',
       'options.js': '',
       'package.json': JSON.stringify(
         {
-          version: '2.0.0',
+          baseConfig: 'self',
           description: 'foo bar',
-          baseConfig: require.resolve('.'),
+          version: '2.0.0',
         },
         undefined,
         2
@@ -41,7 +45,7 @@ export default {
       'popup.js': '',
     },
     test: async () => {
-      expect(await glob('*')).toEqual(
+      expect(await globby('*', { onlyFiles: false })).toEqual(
         expect.arrayContaining([
           'artifacts',
           'assets',
@@ -56,7 +60,7 @@ export default {
           'popup.js',
         ])
       )
-      expect(await glob('*', { cwd: 'dist' })).toEqual([
+      expect(await globby('*', { cwd: 'dist', onlyFiles: false })).toEqual([
         'assets',
         'background.js',
         'browser-polyfill.js',
@@ -68,20 +72,20 @@ export default {
         'popup.js',
       ])
       expect(require(P.join(process.cwd(), 'dist', 'manifest.json'))).toEqual({
-        name: 'Foo',
-        description: 'foo bar',
-        version: '2.0.0',
-        manifest_version: 2,
+        background: {
+          persistent: false,
+          scripts: ['browser-polyfill.js', 'background.js'],
+        },
         content_scripts: [
           {
             js: ['browser-polyfill.js', 'content.js'],
             matches: ['<all_urls>'],
           },
         ],
-        background: {
-          scripts: ['browser-polyfill.js', 'background.js'],
-          persistent: false,
-        },
+        description: 'foo bar',
+        manifest_version: 2,
+        name: 'Foo',
+        version: '2.0.0',
       })
     },
   },

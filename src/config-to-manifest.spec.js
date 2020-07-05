@@ -1,6 +1,7 @@
-import withLocalTmpDir from 'with-local-tmp-dir'
-import outputFiles from 'output-files'
 import { mapValues } from '@dword-design/functions'
+import outputFiles from 'output-files'
+import withLocalTmpDir from 'with-local-tmp-dir'
+
 import subject from './config-to-manifest'
 
 const runTest = options => () =>
@@ -14,42 +15,16 @@ const runTest = options => () =>
   })
 
 export default {
-  empty: {
-    result: {
-      manifest_version: 2,
-    },
-  },
-  name: {
-    config: {
-      name: 'Foo',
-    },
-    result: {
-      name: 'Foo',
-      manifest_version: 2,
-    },
-  },
-  package: {
+  'background script': {
     files: {
-      'package.json': JSON.stringify({
-        version: '1.0.0',
-        description: 'foo',
-      }),
+      'background.js': '',
     },
     result: {
-      manifest_version: 2,
-      version: '1.0.0',
-      description: 'foo',
-    },
-  },
-  icon: {
-    files: {
-      'assets/icon.png': '',
-    },
-    result: {
-      manifest_version: 2,
-      icons: {
-        '128': 'assets/icon.png',
+      background: {
+        persistent: false,
+        scripts: ['browser-polyfill.js', 'background.js'],
       },
+      manifest_version: 2,
     },
   },
   'browser action': {
@@ -59,32 +34,22 @@ export default {
       },
     },
     result: {
-      manifest_version: 2,
       browser_action: {
         foo: 'bar',
       },
-    },
-  },
-  'browser action true': {
-    config: {
-      browser_action: true,
-    },
-    result: {
       manifest_version: 2,
-      browser_action: {},
     },
   },
   'browser action and icon': {
-    files: {
-      'assets/icon.png': '',
-    },
     config: {
       browser_action: {
         foo: 'bar',
       },
     },
+    files: {
+      'assets/icon.png': '',
+    },
     result: {
-      manifest_version: 2,
       browser_action: {
         default_icon: 'assets/icon.png',
         foo: 'bar',
@@ -92,58 +57,16 @@ export default {
       icons: {
         '128': 'assets/icon.png',
       },
-    },
-  },
-  'content script': {
-    files: {
-      'content.js': '',
-    },
-    result: {
       manifest_version: 2,
-      content_scripts: [
-        {
-          js: ['browser-polyfill.js', 'content.js'],
-          matches: ['<all_urls>'],
-        },
-      ],
     },
   },
-  matches: {
-    files: {
-      'content.js': '',
-    },
+  'browser action true': {
     config: {
-      matches: ['foo'],
+      browser_action: true,
     },
     result: {
+      browser_action: {},
       manifest_version: 2,
-      content_scripts: [
-        {
-          js: ['browser-polyfill.js', 'content.js'],
-          matches: ['foo'],
-        },
-      ],
-    },
-  },
-  'background script': {
-    files: {
-      'background.js': '',
-    },
-    result: {
-      manifest_version: 2,
-      background: {
-        scripts: ['browser-polyfill.js', 'background.js'],
-        persistent: false,
-      },
-    },
-  },
-  permissions: {
-    config: {
-      permissions: ['storage'],
-    },
-    result: {
-      manifest_version: 2,
-      permissions: ['storage'],
     },
   },
   'browser specific settings': {
@@ -155,12 +78,90 @@ export default {
       },
     },
     result: {
-      manifest_version: 2,
       browser_specific_settings: {
         gecko: {
           id: '{071e944b-8d1c-4b48-8bba-4c2519deee01}',
         },
       },
+      manifest_version: 2,
+    },
+  },
+  'content script': {
+    files: {
+      'content.js': '',
+    },
+    result: {
+      content_scripts: [
+        {
+          js: ['browser-polyfill.js', 'content.js'],
+          matches: ['<all_urls>'],
+        },
+      ],
+      manifest_version: 2,
+    },
+  },
+  empty: {
+    result: {
+      manifest_version: 2,
+    },
+  },
+  icon: {
+    files: {
+      'assets/icon.png': '',
+    },
+    result: {
+      icons: {
+        '128': 'assets/icon.png',
+      },
+      manifest_version: 2,
+    },
+  },
+  matches: {
+    config: {
+      matches: ['foo'],
+    },
+    files: {
+      'content.js': '',
+    },
+    result: {
+      content_scripts: [
+        {
+          js: ['browser-polyfill.js', 'content.js'],
+          matches: ['foo'],
+        },
+      ],
+      manifest_version: 2,
+    },
+  },
+  name: {
+    config: {
+      name: 'Foo',
+    },
+    result: {
+      manifest_version: 2,
+      name: 'Foo',
+    },
+  },
+  package: {
+    files: {
+      'package.json': JSON.stringify({
+        description: 'foo',
+        version: '1.0.0',
+      }),
+    },
+    result: {
+      description: 'foo',
+      manifest_version: 2,
+      version: '1.0.0',
+    },
+  },
+  permissions: {
+    config: {
+      permissions: ['storage'],
+    },
+    result: {
+      manifest_version: 2,
+      permissions: ['storage'],
     },
   },
 } |> mapValues(runTest)

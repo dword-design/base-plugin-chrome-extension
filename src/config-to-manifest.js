@@ -1,12 +1,11 @@
-import loadPkg from 'load-pkg'
-import { existsSync } from 'fs-extra'
 import { pick } from '@dword-design/functions'
+import { existsSync } from 'fs-extra'
+import loadPkg from 'load-pkg'
 
 export default async configString => {
   const packageConfig = await loadPkg()
   const config = JSON.parse(configString)
   const iconExists = existsSync('assets/icon.png')
-
   return JSON.stringify({
     name: config.name,
     ...(packageConfig |> pick(['version', 'description'])),
@@ -32,8 +31,8 @@ export default async configString => {
     }),
     ...(existsSync('background.js') && {
       background: {
-        scripts: ['browser-polyfill.js', 'background.js'],
         persistent: false,
+        scripts: ['browser-polyfill.js', 'background.js'],
       },
     }),
     ...(config |> pick(['permissions', 'browser_specific_settings'])),

@@ -1,11 +1,12 @@
-import outputFiles from 'output-files'
-import getPackageName from 'get-package-name'
 import execa from 'execa'
+import getPackageName from 'get-package-name'
+import outputFiles from 'output-files'
+
 import baseConfig from './base-config'
 import dev from './dev'
-import prepublishOnly from './prepublish-only'
-import lint from './lint'
 import developerMd from './developer-md.config'
+import lint from './lint'
+import prepublishOnly from './prepublish-only'
 
 export default {
   allowedMatches: [
@@ -22,25 +23,6 @@ export default {
     'popup.js',
     'model',
   ],
-  gitignore: ['/.eslintrc.json', '/artifacts', '/dist', 'source.zip'],
-  editorIgnore: ['.eslintrc.json', 'dist'],
-  lint,
-  prepare: () =>
-    outputFiles({
-      '.eslintrc.json': JSON.stringify(
-        {
-          extends: getPackageName(
-            require.resolve('@dword-design/eslint-config')
-          ),
-          globals: {
-            browser: 'readonly',
-          },
-        },
-        undefined,
-        2
-      ),
-      'DEVELOPER.md': developerMd,
-    }),
   commands: {
     dev: {
       arguments: '[target]',
@@ -48,6 +30,17 @@ export default {
     },
     prepublishOnly,
     source: () => execa.command('git archive --output=source.zip HEAD'),
+  },
+  deployAssets: [
+    {
+      label: 'Extension',
+      path: 'extension.zip',
+    },
+  ],
+  deployEnv: {
+    GOOGLE_CLIENT_ID: '${{ secrets.GOOGLE_CLIENT_ID }}',
+    GOOGLE_CLIENT_SECRET: '${{ secrets.GOOGLE_CLIENT_SECRET }}',
+    GOOGLE_REFRESH_TOKEN: '${{ secrets.GOOGLE_REFRESH_TOKEN }}',
   },
   deployPlugins: [
     [
@@ -65,15 +58,23 @@ export default {
       },
     ],
   ],
-  deployEnv: {
-    GOOGLE_CLIENT_ID: '${{ secrets.GOOGLE_CLIENT_ID }}',
-    GOOGLE_CLIENT_SECRET: '${{ secrets.GOOGLE_CLIENT_SECRET }}',
-    GOOGLE_REFRESH_TOKEN: '${{ secrets.GOOGLE_REFRESH_TOKEN }}',
-  },
-  deployAssets: [
-    {
-      path: 'extension.zip',
-      label: 'Extension',
-    },
-  ],
+  editorIgnore: ['.eslintrc.json', 'dist'],
+  gitignore: ['/.eslintrc.json', '/artifacts', '/dist', 'source.zip'],
+  lint,
+  prepare: () =>
+    outputFiles({
+      '.eslintrc.json': JSON.stringify(
+        {
+          extends: getPackageName(
+            require.resolve('@dword-design/eslint-config')
+          ),
+          globals: {
+            browser: 'readonly',
+          },
+        },
+        undefined,
+        2
+      ),
+      'DEVELOPER.md': developerMd,
+    }),
 }
