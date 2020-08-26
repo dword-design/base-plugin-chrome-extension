@@ -1,3 +1,11 @@
+## [1.8.5](https://github.com/dword-design/base-config-web-extension/compare/v1.8.4...v1.8.5) (2020-08-26)
+
+
+### Bug Fixes
+
+* **deps:** update dependency sass-loader to v10 ([88dd47a](https://github.com/dword-design/base-config-web-extension/commit/88dd47a142d32f23353122e5bbf0c24e8e9c63b5))
+* upgrades ([6c4574e](https://github.com/dword-design/base-config-web-extension/commit/6c4574eac5bfe40e7a7e0127672d0479c397fa68))
+
 ## [1.8.4](https://github.com/dword-design/base-config-web-extension/compare/v1.8.3...v1.8.4) (2020-07-05)
 
 
