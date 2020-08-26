@@ -12,7 +12,7 @@ export default async configString => {
     manifest_version: 2,
     ...(iconExists && {
       icons: {
-        '128': 'assets/icon.png',
+        128: 'assets/icon.png',
       },
     }),
     ...('browser_action' in config && {

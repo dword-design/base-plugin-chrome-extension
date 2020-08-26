@@ -55,7 +55,7 @@ export default {
         foo: 'bar',
       },
       icons: {
-        '128': 'assets/icon.png',
+        128: 'assets/icon.png',
       },
       manifest_version: 2,
     },
@@ -111,7 +111,7 @@ export default {
     },
     result: {
       icons: {
-        '128': 'assets/icon.png',
+        128: 'assets/icon.png',
       },
       manifest_version: 2,
     },
