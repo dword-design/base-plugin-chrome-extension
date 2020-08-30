@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/dword-design/base-config-web-extension/compare/v1.8.5...v1.9.0) (2020-08-30)
+
+
+### Features
+
+* auto-add popup.html to manifest ([9a9b9a5](https://github.com/dword-design/base-config-web-extension/commit/9a9b9a5c589e3aee8bb0d7ffb23376ef8cfb8ab0))
+
 ## [1.8.5](https://github.com/dword-design/base-config-web-extension/compare/v1.8.4...v1.8.5) (2020-08-26)
 
 
