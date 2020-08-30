@@ -6,6 +6,7 @@ export default async configString => {
   const packageConfig = await loadPkg()
   const config = JSON.parse(configString)
   const iconExists = existsSync('assets/icon.png')
+  const popupExists = existsSync('popup.html')
   return JSON.stringify({
     name: config.name,
     ...(packageConfig |> pick(['version', 'description'])),
@@ -15,9 +16,10 @@ export default async configString => {
         128: 'assets/icon.png',
       },
     }),
-    ...('browser_action' in config && {
+    ...(('browser_action' in config || popupExists) && {
       browser_action: {
         ...(iconExists && { default_icon: 'assets/icon.png' }),
+        ...(popupExists && { default_popup: 'popup.html' }),
         ...(typeof config.browser_action === 'object' && config.browser_action),
       },
     }),

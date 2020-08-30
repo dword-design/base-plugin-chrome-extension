@@ -76,6 +76,9 @@ export default {
           persistent: false,
           scripts: ['browser-polyfill.js', 'background.js'],
         },
+        browser_action: {
+          default_popup: 'popup.html',
+        },
         content_scripts: [
           {
             js: ['browser-polyfill.js', 'content.js'],

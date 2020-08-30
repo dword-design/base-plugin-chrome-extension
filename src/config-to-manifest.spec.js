@@ -164,4 +164,15 @@ export default {
       permissions: ['storage'],
     },
   },
+  'popup.html': {
+    files: {
+      'popup.html': '',
+    },
+    result: {
+      browser_action: {
+        default_popup: 'popup.html',
+      },
+      manifest_version: 2,
+    },
+  },
 } |> mapValues(runTest)
