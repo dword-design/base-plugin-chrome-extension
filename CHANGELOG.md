@@ -1,3 +1,10 @@
+# [1.10.0](https://github.com/dword-design/base-config-web-extension/compare/v1.9.0...v1.10.0) (2020-10-30)
+
+
+### Features
+
+* move developer.md into readme ([886b236](https://github.com/dword-design/base-config-web-extension/commit/886b23698c61bd9b4fa4a98531cb7f629b1e7012))
+
 # [1.9.0](https://github.com/dword-design/base-config-web-extension/compare/v1.8.5...v1.9.0) (2020-08-30)
 
 
