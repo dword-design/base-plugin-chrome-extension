@@ -32,7 +32,6 @@
     "get-package-name": "^1.1.0",
     "load-pkg": "^4.0.0",
     "node-sass": "^4.14.1",
-    "output-files": "^1.1.16",
     "raw-loader": "^4.0.1",
     "sass-loader": "^10.0.0",
     "semantic-release-chrome": "dword-design/semantic-release-chrome#fork",
@@ -45,6 +44,7 @@
   "devDependencies": {
     "@dword-design/base": "^6.10.2",
     "globby": "^11.0.1",
+    "output-files": "^1.1.16",
     "stealthy-require": "^1.1.1",
     "with-local-tmp-dir": "^2.2.10"
   },

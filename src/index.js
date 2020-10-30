@@ -1,10 +1,10 @@
+import { endent } from '@dword-design/functions'
 import execa from 'execa'
+import { outputFile } from 'fs-extra'
 import getPackageName from 'get-package-name'
-import outputFiles from 'output-files'
 
 import baseConfig from './base-config'
 import dev from './dev'
-import developerMd from './developer-md.config'
 import lint from './lint'
 import prepublishOnly from './prepublish-only'
 
@@ -15,7 +15,6 @@ export default {
     'background.js',
     'content.js',
     'config.json',
-    'DEVELOPER.md',
     'icon.png',
     'options.html',
     'popup.html',
@@ -62,8 +61,9 @@ export default {
   gitignore: ['/.eslintrc.json', '/artifacts', '/dist', 'source.zip'],
   lint,
   prepare: () =>
-    outputFiles({
-      '.eslintrc.json': JSON.stringify(
+    outputFile(
+      '.eslintrc.json',
+      JSON.stringify(
         {
           extends: getPackageName(
             require.resolve('@dword-design/eslint-config')
@@ -74,7 +74,32 @@ export default {
         },
         undefined,
         2
-      ),
-      'DEVELOPER.md': developerMd,
-    }),
+      )
+    ),
+  readmeInstallString: endent`
+    ## Recommended setup
+    * Node.js 12.16.0
+    * Yarn 1.21.1
+    
+    ## Install
+    \`\`\`bash
+    $ yarn --frozen-lockfile
+    \`\`\`
+
+    ## Running a development server
+    \`\`\`bash
+    $ yarn dev [target]
+    \`\`\`
+    Available targets are \`firefox\` and \`chrome\`. Default is \`firefox\`.
+
+    ## Building the extension for upload
+    \`\`\`bash
+    $ yarn prepublishOnly
+    \`\`\`
+
+    ## Archiving the source for upload
+    \`\`\`bash
+    $ yarn source
+    \`\`\`
+  `,
 }
