@@ -1,3 +1,12 @@
+## [1.10.1](https://github.com/dword-design/base-config-web-extension/compare/v1.10.0...v1.10.1) (2020-12-10)
+
+
+### Bug Fixes
+
+* **config:** Update changed files ([236946a](https://github.com/dword-design/base-config-web-extension/commit/236946a3023e0cf6ed283b50cb66151f671bb6df))
+* **deps:** update dependency execa to v5 ([d18bc4e](https://github.com/dword-design/base-config-web-extension/commit/d18bc4e11f2791fb6befe65c54a6497e7ec4f6fe))
+* **deps:** update dependency webextension-polyfill to ^0.7.0 ([cc7dc10](https://github.com/dword-design/base-config-web-extension/commit/cc7dc107f53dda32f82d2b39e9b6973bb7893204))
+
 # [1.10.0](https://github.com/dword-design/base-config-web-extension/compare/v1.9.0...v1.10.0) (2020-10-30)
 
 
