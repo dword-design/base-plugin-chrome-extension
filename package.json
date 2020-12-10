@@ -31,7 +31,7 @@
     "fs-extra": "^9.0.0",
     "get-package-name": "^1.1.0",
     "load-pkg": "^4.0.0",
-    "node-sass": "^4.14.1",
+    "node-sass": "^5.0.0",
     "raw-loader": "^4.0.1",
     "sass-loader": "^10.0.0",
     "semantic-release-chrome": "dword-design/semantic-release-chrome#fork",
