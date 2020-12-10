@@ -1,3 +1,11 @@
+## [1.10.2](https://github.com/dword-design/base-config-web-extension/compare/v1.10.1...v1.10.2) (2020-12-10)
+
+
+### Bug Fixes
+
+* upgrades ([28e3cb2](https://github.com/dword-design/base-config-web-extension/commit/28e3cb230e2eab5a8a37d05e105b2c42e10600cf))
+* **deps:** update dependency node-sass to v5 ([b536630](https://github.com/dword-design/base-config-web-extension/commit/b5366302623860c0cd4da72dbf3258b58b38786e))
+
 ## [1.10.1](https://github.com/dword-design/base-config-web-extension/compare/v1.10.0...v1.10.1) (2020-12-10)
 
 
