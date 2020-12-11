@@ -38,7 +38,7 @@
     "webext-webpack-plugin": "dword-design/webext-webpack-plugin#fork",
     "webextension-polyfill": "^0.7.0",
     "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.10",
+    "webpack-cli": "^4.0.0",
     "webpackbar": "^4.0.0"
   },
   "devDependencies": {
