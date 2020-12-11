@@ -1,3 +1,10 @@
+## [1.10.3](https://github.com/dword-design/base-config-web-extension/compare/v1.10.2...v1.10.3) (2020-12-11)
+
+
+### Bug Fixes
+
+* replace get-package-name with depcheck-package-name ([66bbb7c](https://github.com/dword-design/base-config-web-extension/commit/66bbb7c06d09320b1e36db8e04aae2086e02cee0))
+
 ## [1.10.2](https://github.com/dword-design/base-config-web-extension/compare/v1.10.1...v1.10.2) (2020-12-10)
 
 
