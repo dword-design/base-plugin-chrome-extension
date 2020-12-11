@@ -1,7 +1,7 @@
 import { endent } from '@dword-design/functions'
+import packageName from 'depcheck-package-name'
 import execa from 'execa'
 import { outputFile } from 'fs-extra'
-import getPackageName from 'get-package-name'
 
 import baseConfig from './base-config'
 import dev from './dev'
@@ -43,13 +43,13 @@ export default {
   },
   deployPlugins: [
     [
-      getPackageName(require.resolve('@semantic-release/exec')),
+      packageName`@semantic-release/exec`,
       {
         prepareCmd: 'yarn prepublishOnly',
       },
     ],
     [
-      getPackageName(require.resolve('semantic-release-chrome')),
+      packageName`semantic-release-chrome`,
       {
         asset: 'extension.zip',
         extensionId: baseConfig.chromeExtensionId,
@@ -65,9 +65,7 @@ export default {
       '.eslintrc.json',
       JSON.stringify(
         {
-          extends: getPackageName(
-            require.resolve('@dword-design/eslint-config')
-          ),
+          extends: packageName`@dword-design/eslint-config`,
           globals: {
             browser: 'readonly',
           },
@@ -80,7 +78,7 @@ export default {
     ## Recommended setup
     * Node.js 12.16.0
     * Yarn 1.21.1
-    
+
     ## Install
     \`\`\`bash
     $ yarn --frozen-lockfile
