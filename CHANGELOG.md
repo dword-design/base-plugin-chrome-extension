@@ -1,3 +1,10 @@
+## [1.10.4](https://github.com/dword-design/base-config-web-extension/compare/v1.10.3...v1.10.4) (2020-12-11)
+
+
+### Bug Fixes
+
+* **deps:** update dependency webpack-cli to v4 ([59b6c74](https://github.com/dword-design/base-config-web-extension/commit/59b6c744a9f4f4e63dcfdde885381278d1f01f9c))
+
 ## [1.10.3](https://github.com/dword-design/base-config-web-extension/compare/v1.10.2...v1.10.3) (2020-12-11)
 
 
