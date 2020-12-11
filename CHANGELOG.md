@@ -1,3 +1,10 @@
+## [1.10.5](https://github.com/dword-design/base-config-web-extension/compare/v1.10.4...v1.10.5) (2020-12-11)
+
+
+### Bug Fixes
+
+* add depcheck sass parser ([42856f7](https://github.com/dword-design/base-config-web-extension/commit/42856f79b0c7b13b6344a9dc58ec44919646bf06))
+
 ## [1.10.4](https://github.com/dword-design/base-config-web-extension/compare/v1.10.3...v1.10.4) (2020-12-11)
 
 
