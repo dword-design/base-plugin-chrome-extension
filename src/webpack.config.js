@@ -1,8 +1,8 @@
 import nodeEnv from 'better-node-env'
 import { CleanWebpackPlugin } from 'clean-webpack-plugin'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
+import packageName from 'depcheck-package-name'
 import { existsSync } from 'fs-extra'
-import getPackageName from 'get-package-name'
 import { WebExtWebpackPlugin } from 'webext-webpack-plugin'
 import WebpackBar from 'webpackbar'
 
@@ -25,7 +25,7 @@ export default {
         exclude: /(node_modules)/,
         test: /\.js$/,
         use: {
-          loader: getPackageName(require.resolve('eslint-loader')),
+          loader: packageName`eslint-loader`,
           options: {
             failOnWarning: true,
             fix: true,
@@ -35,15 +35,12 @@ export default {
       {
         test: /\.js$/,
         use: {
-          loader: getPackageName(require.resolve('babel-loader')),
+          loader: packageName`babel-loader`,
         },
       },
       {
         test: /\.s[ac]ss$/i,
-        use: [
-          getPackageName(require.resolve('raw-loader')),
-          getPackageName(require.resolve('sass-loader')),
-        ],
+        use: [packageName`raw-loader`, packageName`sass-loader`],
       },
     ],
   },
