@@ -1,3 +1,4 @@
+import depcheckParserSass from '@dword-design/depcheck-parser-sass'
 import { endent } from '@dword-design/functions'
 import packageName from 'depcheck-package-name'
 import execa from 'execa'
@@ -29,6 +30,11 @@ export default {
     },
     prepublishOnly,
     source: () => execa.command('git archive --output=source.zip HEAD'),
+  },
+  depcheckConfig: {
+    parsers: {
+      '*.scss': depcheckParserSass,
+    },
   },
   deployAssets: [
     {
