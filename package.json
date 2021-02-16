@@ -10,7 +10,7 @@
     "dist"
   ],
   "scripts": {
-    "clean": "base clean",
+    "check-unknown-files": "base check-unknown-files",
     "commit": "base commit",
     "dev": "base dev",
     "lint": "base lint",
@@ -43,7 +43,7 @@
     "webpackbar": "^4.0.0"
   },
   "devDependencies": {
-    "@dword-design/base": "^6.10.2",
+    "@dword-design/base": "^7.0.0",
     "globby": "^11.0.1",
     "output-files": "^1.1.16",
     "stealthy-require": "^1.1.1",
