@@ -1,3 +1,10 @@
+## [1.10.7](https://github.com/dword-design/base-config-web-extension/compare/v1.10.6...v1.10.7) (2021-03-17)
+
+
+### Bug Fixes
+
+* lock file maintenance ([#22](https://github.com/dword-design/base-config-web-extension/issues/22)) ([6c17ab5](https://github.com/dword-design/base-config-web-extension/commit/6c17ab54ca1a9c3fca5e5886e79a42757980f617))
+
 ## [1.10.6](https://github.com/dword-design/base-config-web-extension/compare/v1.10.5...v1.10.6) (2021-03-09)
 
 
