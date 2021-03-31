@@ -7,6 +7,7 @@ import subject from './config-to-manifest'
 const runTest = options => () =>
   withLocalTmpDir(async () => {
     const files = options.files || {}
+
     const config = options.config || {}
     await outputFiles(files)
     expect(config |> JSON.stringify |> subject |> await |> JSON.parse).toEqual(

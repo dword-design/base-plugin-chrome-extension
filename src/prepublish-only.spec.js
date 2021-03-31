@@ -7,10 +7,12 @@ import withLocalTmpDir from 'with-local-tmp-dir'
 
 const runTest = config => () => {
   config = { test: noop, ...config }
+
   return withLocalTmpDir(async () => {
     await outputFiles(config.files)
     await execa.command('base prepare')
     await execa.command('base prepublishOnly')
+
     return config.test()
   })
 }
