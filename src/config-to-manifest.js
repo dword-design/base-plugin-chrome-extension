@@ -4,9 +4,13 @@ import loadPkg from 'load-pkg'
 
 export default async configString => {
   const packageConfig = await loadPkg()
+
   const config = JSON.parse(configString)
+
   const iconExists = existsSync('assets/icon.png')
+
   const popupExists = existsSync('popup.html')
+
   return JSON.stringify({
     name: config.name,
     ...(packageConfig |> pick(['version', 'description'])),

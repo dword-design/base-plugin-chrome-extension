@@ -64,7 +64,7 @@ $ yarn add @dword-design/base-config-web-extension
 <!-- LICENSE/ -->
 ## Contribute
 
-Are you missing something or want to contribute? Feel free to file an [issue](https://github.com/dword-design/base-config-web-extension/issues) or [pull request](https://github.com/dword-design/base-config-web-extension/pulls)! ⚙️
+Are you missing something or want to contribute? Feel free to file an [issue](https://github.com/dword-design/base-config-web-extension/issues) or a [pull request](https://github.com/dword-design/base-config-web-extension/pulls)! ⚙️
 
 ## Support
 
