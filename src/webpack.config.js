@@ -1,5 +1,4 @@
 import nodeEnv from 'better-node-env'
-import { CleanWebpackPlugin } from 'clean-webpack-plugin'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
 import packageName from 'depcheck-package-name'
 import { existsSync } from 'fs-extra'
@@ -44,9 +43,11 @@ export default {
       },
     ],
   },
+  output: {
+    clean: true,
+  },
   plugins: [
     new WebpackBar(),
-    new CleanWebpackPlugin(),
     new CopyWebpackPlugin({
       patterns: [
         {
