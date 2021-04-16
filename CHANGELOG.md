@@ -1,3 +1,10 @@
+## [1.10.12](https://github.com/dword-design/base-config-web-extension/compare/v1.10.11...v1.10.12) (2021-04-16)
+
+
+### Bug Fixes
+
+* upgrade config ([#31](https://github.com/dword-design/base-config-web-extension/issues/31)) ([9183a27](https://github.com/dword-design/base-config-web-extension/commit/9183a278790114d6daff77068d9afd322abce345))
+
 ## [1.10.11](https://github.com/dword-design/base-config-web-extension/compare/v1.10.10...v1.10.11) (2021-04-16)
 
 
