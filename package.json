@@ -38,7 +38,7 @@
     "semantic-release-chrome": "dword-design/semantic-release-chrome#fork",
     "webext-webpack-plugin": "dword-design/webext-webpack-plugin#fork",
     "webextension-polyfill": "^0.7.0",
-    "webpack": "^5.33.2",
+    "webpack": "^5.34.0",
     "webpack-cli": "^4.0.0",
     "webpackbar": "^4.0.0"
   },
