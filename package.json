@@ -43,7 +43,7 @@
     "webpackbar": "^4.0.0"
   },
   "devDependencies": {
-    "@dword-design/base": "^7.0.0",
+    "@dword-design/base": "^7.13.2",
     "globby": "^11.0.1",
     "output-files": "^1.1.16",
     "stealthy-require": "^1.1.1",
