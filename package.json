@@ -1,7 +1,7 @@
 {
   "name": "@dword-design/base-config-web-extension",
   "version": "1.10.12",
-  "description": "",
+  "description": null,
   "repository": "dword-design/base-config-web-extension",
   "funding": "https://www.buymeacoffee.com/dword",
   "license": "MIT",
@@ -54,5 +54,7 @@
   },
   "baseConfig": {
     "useJobMatrix": false
-  }
+  },
+  "homepage": null,
+  "keywords": []
 }
