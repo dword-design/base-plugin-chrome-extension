@@ -1,3 +1,10 @@
+## [1.10.15](https://github.com/dword-design/base-config-web-extension/compare/v1.10.14...v1.10.15) (2021-04-26)
+
+
+### Bug Fixes
+
+* update dependency with-local-tmp-dir to v3 ([#41](https://github.com/dword-design/base-config-web-extension/issues/41)) ([b3a9a61](https://github.com/dword-design/base-config-web-extension/commit/b3a9a61713d52add49bbd1978341e639be06c83a))
+
 ## [1.10.14](https://github.com/dword-design/base-config-web-extension/compare/v1.10.13...v1.10.14) (2021-04-22)
 
 
