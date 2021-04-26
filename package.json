@@ -47,7 +47,7 @@
     "globby": "^11.0.1",
     "output-files": "^1.1.16",
     "stealthy-require": "^1.1.1",
-    "with-local-tmp-dir": "^2.2.10"
+    "with-local-tmp-dir": "^3.0.0"
   },
   "publishConfig": {
     "access": "public"
