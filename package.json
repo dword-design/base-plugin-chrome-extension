@@ -29,7 +29,7 @@
     "depcheck-package-name": "^1.0.0",
     "eslint-loader": "^4.0.2",
     "execa": "^5.0.0",
-    "fs-extra": "^9.0.0",
+    "fs-extra": "^10.0.0",
     "load-pkg": "^4.0.0",
     "node-sass": "^5.0.0",
     "raw-loader": "^4.0.1",
