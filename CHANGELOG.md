@@ -1,3 +1,15 @@
+## [1.10.18](https://github.com/dword-design/base-config-web-extension/compare/v1.10.17...v1.10.18) (2021-05-04)
+
+
+### Bug Fixes
+
+* update dependency @dword-design/depcheck-parser-sass to v2 ([#49](https://github.com/dword-design/base-config-web-extension/issues/49)) ([eabed51](https://github.com/dword-design/base-config-web-extension/commit/eabed5137fbf2d5603f80f1060bebdce5b7500d1))
+* update dependency @dword-design/functions to v4 ([#51](https://github.com/dword-design/base-config-web-extension/issues/51)) ([2ce43b1](https://github.com/dword-design/base-config-web-extension/commit/2ce43b1e30b44f6e1ccde016f4dd4f03aa95d7fc))
+* update dependency depcheck-package-name to v2 ([#52](https://github.com/dword-design/base-config-web-extension/issues/52)) ([36ca13b](https://github.com/dword-design/base-config-web-extension/commit/36ca13b8baf7b313a5062f1cba0546ee135a9175))
+* update dependency fs-extra to v10 ([#53](https://github.com/dword-design/base-config-web-extension/issues/53)) ([005e38e](https://github.com/dword-design/base-config-web-extension/commit/005e38e20a4f303889a80ffdbcefecf91e9e4683))
+* update dependency output-files to v2 ([#54](https://github.com/dword-design/base-config-web-extension/issues/54)) ([f71ac6e](https://github.com/dword-design/base-config-web-extension/commit/f71ac6e0c22611e656bb9a494aed68f1dd08a374))
+* update dependency with-local-tmp-dir to v4 ([#55](https://github.com/dword-design/base-config-web-extension/issues/55)) ([e94d6a2](https://github.com/dword-design/base-config-web-extension/commit/e94d6a2707155b0647eb154444094215b6acad37))
+
 ## [1.10.17](https://github.com/dword-design/base-config-web-extension/compare/v1.10.16...v1.10.17) (2021-05-03)
 
 
