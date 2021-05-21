@@ -25,7 +25,7 @@
     "@semantic-release/exec": "^5.0.0",
     "babel-loader": "^8.0.6",
     "better-node-env": "^1.0.3",
-    "copy-webpack-plugin": "^8.1.1",
+    "copy-webpack-plugin": "^9.0.0",
     "depcheck-package-name": "^2.0.0",
     "eslint-loader": "^4.0.2",
     "execa": "^5.0.0",
