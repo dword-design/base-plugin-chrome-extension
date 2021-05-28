@@ -1,3 +1,10 @@
+## [1.10.22](https://github.com/dword-design/base-config-web-extension/compare/v1.10.21...v1.10.22) (2021-05-28)
+
+
+### Bug Fixes
+
+* update dependency copy-webpack-plugin to v9 ([826c0da](https://github.com/dword-design/base-config-web-extension/commit/826c0dafd9e9afd84d94abbae3a529ddf48fbeca))
+
 ## [1.10.21](https://github.com/dword-design/base-config-web-extension/compare/v1.10.20...v1.10.21) (2021-05-28)
 
 
