@@ -10,7 +10,6 @@ import lint from './lint'
 import prepublishOnly from './prepublish-only'
 
 export default {
-  isLockFileFixCommitType: true,
   allowedMatches: [
     'artifacts',
     'assets',
@@ -66,6 +65,7 @@ export default {
   ],
   editorIgnore: ['.eslintrc.json', 'dist'],
   gitignore: ['/.eslintrc.json', '/artifacts', '/dist', 'source.zip'],
+  isLockFileFixCommitType: true,
   lint,
   prepare: () =>
     outputFile(
