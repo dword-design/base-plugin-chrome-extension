@@ -1,3 +1,10 @@
+## [1.10.23](https://github.com/dword-design/base-config-web-extension/compare/v1.10.22...v1.10.23) (2021-05-31)
+
+
+### Bug Fixes
+
+* make lock file fix commit type ([077fb33](https://github.com/dword-design/base-config-web-extension/commit/077fb33c8e442dfcd2a376407d68e06610e6e632))
+
 ## [1.10.22](https://github.com/dword-design/base-config-web-extension/compare/v1.10.21...v1.10.22) (2021-05-28)
 
 
