@@ -33,7 +33,7 @@ export default {
   },
   depcheckConfig: {
     parsers: {
-      '*.scss': depcheckParserSass,
+      '**/*.scss': depcheckParserSass,
     },
   },
   deployAssets: [
