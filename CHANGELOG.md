@@ -1,3 +1,10 @@
+## [1.10.24](https://github.com/dword-design/base-config-web-extension/compare/v1.10.23...v1.10.24) (2021-06-10)
+
+
+### Bug Fixes
+
+* fix depcheck parser ([b9bcd27](https://github.com/dword-design/base-config-web-extension/commit/b9bcd27e214572218c5db1be446cc27f2ee84e4c))
+
 ## [1.10.23](https://github.com/dword-design/base-config-web-extension/compare/v1.10.22...v1.10.23) (2021-05-31)
 
 
