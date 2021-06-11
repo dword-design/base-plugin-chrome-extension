@@ -1,12 +1,12 @@
 import { endent, noop } from '@dword-design/functions'
+import puppeteer from '@dword-design/puppeteer'
 import tester from '@dword-design/tester'
 import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
 import execa from 'execa'
+import express from 'express'
 import globby from 'globby'
 import outputFiles from 'output-files'
 import P from 'path'
-import express from 'express'
-import puppeteer from '@dword-design/puppeteer'
 
 export default tester(
   {
@@ -93,30 +93,33 @@ export default tester(
   },
   [
     {
-      transform: test => async function () {
-        test = { test: noop, ...test }
-        await outputFiles(test.files)
-        await execa.command('base prepare')
-        await execa.command('base prepublishOnly')
-        const browser = await puppeteer.launch({
-          headless: false,
-          args: [
-            `--load-extension=${P.join(process.cwd(), 'dist')}`,
-            `--disable-extensions-except=${P.join(process.cwd(), 'dist')}`,
-          ],
-        })
-        this.page = await browser.newPage()
-        const server = express()
-          .get('/', (req, res) => res.send(''))
-          .listen(3000)
-        try {
-          await test.test.call(this)
-        } finally {
-          await this.page.close()
-          await browser.close()
-          await server.close()
-        }
-      },
+      transform: test =>
+        async function () {
+          test = { test: noop, ...test }
+          await outputFiles(test.files)
+          await execa.command('base prepare')
+          await execa.command('base prepublishOnly')
+
+          const browser = await puppeteer.launch({
+            args: [
+              `--load-extension=${P.join(process.cwd(), 'dist')}`,
+              `--disable-extensions-except=${P.join(process.cwd(), 'dist')}`,
+            ],
+            headless: false,
+          })
+          this.page = await browser.newPage()
+
+          const server = express()
+            .get('/', (req, res) => res.send(''))
+            .listen(3000)
+          try {
+            await test.test.call(this)
+          } finally {
+            await this.page.close()
+            await browser.close()
+            await server.close()
+          }
+        },
     },
     testerPluginTmpDir(),
   ]
