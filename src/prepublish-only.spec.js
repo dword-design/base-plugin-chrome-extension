@@ -1,7 +1,6 @@
 import { endent, noop } from '@dword-design/functions'
 import tester from '@dword-design/tester'
 import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
-import puppeteer from '@dword-design/puppeteer'
 import execa from 'execa'
 import globby from 'globby'
 import outputFiles from 'output-files'
@@ -37,7 +36,7 @@ export default tester(
         'popup.html': '',
         'popup.js': '',
       },
-      async test() {
+      test: async () => {
         expect(await globby('*', { onlyFiles: false })).toEqual(
           expect.arrayContaining([
             'artifacts',
@@ -85,24 +84,20 @@ export default tester(
             version: '2.0.0',
           }
         )
-        await this.page.goto('https://google.com')
-        await this.page.screenshot({ path: '../screenshot.png' })
       },
     },
   },
   [
     {
-      transform: test => async function () {
-        test = { test: noop, ...test }
-        await outputFiles(test.files)
-        await execa.command('base prepare')
-        await execa.command('base prepublishOnly')
-        const browser = await puppeteer.launch({ headless: false, args: [`--load-extension=${process.cwd()}`, `--disable-extensions-except=${process.cwd()}`] })
-        const page = await browser.newPage()
-        await test.test.call({ page })
-        await page.close()
-        await browser.close()
-      },
+      transform: test =>
+        async function () {
+          test = { test: noop, ...test }
+          await outputFiles(test.files)
+          await execa.command('base prepare')
+          await execa.command('base prepublishOnly')
+
+          return test.test.call(this)
+        },
     },
     testerPluginTmpDir(),
   ]
