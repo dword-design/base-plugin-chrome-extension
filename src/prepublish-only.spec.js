@@ -5,6 +5,8 @@ import execa from 'execa'
 import globby from 'globby'
 import outputFiles from 'output-files'
 import P from 'path'
+import express from 'express'
+import puppeteer from '@dword-design/puppeteer'
 
 export default tester(
   {
@@ -36,7 +38,7 @@ export default tester(
         'popup.html': '',
         'popup.js': '',
       },
-      test: async () => {
+      async test() {
         expect(await globby('*', { onlyFiles: false })).toEqual(
           expect.arrayContaining([
             'artifacts',
@@ -84,20 +86,37 @@ export default tester(
             version: '2.0.0',
           }
         )
+        await this.page.goto('http://localhost:3000')
+        expect(await this.page.screenshot()).toMatchImageSnapshot(this)
       },
     },
   },
   [
     {
-      transform: test =>
-        async function () {
-          test = { test: noop, ...test }
-          await outputFiles(test.files)
-          await execa.command('base prepare')
-          await execa.command('base prepublishOnly')
-
-          return test.test.call(this)
-        },
+      transform: test => async function () {
+        test = { test: noop, ...test }
+        await outputFiles(test.files)
+        await execa.command('base prepare')
+        await execa.command('base prepublishOnly')
+        const browser = await puppeteer.launch({
+          headless: false,
+          args: [
+            `--load-extension=${P.join(process.cwd(), 'dist')}`,
+            `--disable-extensions-except=${P.join(process.cwd(), 'dist')}`,
+          ],
+        })
+        this.page = await browser.newPage()
+        const server = express()
+          .get('/', (req, res) => res.send(''))
+          .listen(3000)
+        try {
+          await test.test.call(this)
+        } finally {
+          await this.page.close()
+          await browser.close()
+          await server.close()
+        }
+      },
     },
     testerPluginTmpDir(),
   ]
