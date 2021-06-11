@@ -1,15 +1,50 @@
 import { endent, noop } from '@dword-design/functions'
+import puppeteer from '@dword-design/puppeteer'
 import tester from '@dword-design/tester'
 import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
 import execa from 'execa'
+import express from 'express'
 import globby from 'globby'
 import outputFiles from 'output-files'
 import P from 'path'
-import express from 'express'
-import puppeteer from '@dword-design/puppeteer'
 
 export default tester(
   {
+    sass: {
+      files: {
+        'assets/style.scss': endent`
+          $color: red;
+
+          body {
+            background: $color;
+          }
+        `,
+        'config.json': JSON.stringify({ name: 'Foo' }, undefined, 2),
+        'content.js': endent`
+          import styleCode from './assets/style.scss'
+
+          const style = document.createElement('style')
+          style.type = 'text/css'
+          style.appendChild(document.createTextNode(styleCode))
+          document.getElementsByTagName('head')[0].appendChild(style)
+        `,
+        'node_modules/base-config-self/index.js':
+          "module.exports = require('../../../src')",
+        'package.json': JSON.stringify(
+          {
+            baseConfig: 'self',
+            description: 'foo bar',
+            version: '2.0.0',
+          },
+          undefined,
+          2
+        ),
+      },
+      async test() {
+        await this.page.goto('http://localhost:3000')
+        expect(await this.page.screenshot()).toMatchImageSnapshot(this)
+      },
+    },
     valid: {
       files: {
         'assets/foo.png': '',
@@ -93,30 +128,33 @@ export default tester(
   },
   [
     {
-      transform: test => async function () {
-        test = { test: noop, ...test }
-        await outputFiles(test.files)
-        await execa.command('base prepare')
-        await execa.command('base prepublishOnly')
-        const browser = await puppeteer.launch({
-          headless: false,
-          args: [
-            `--load-extension=${P.join(process.cwd(), 'dist')}`,
-            `--disable-extensions-except=${P.join(process.cwd(), 'dist')}`,
-          ],
-        })
-        this.page = await browser.newPage()
-        const server = express()
-          .get('/', (req, res) => res.send(''))
-          .listen(3000)
-        try {
-          await test.test.call(this)
-        } finally {
-          await this.page.close()
-          await browser.close()
-          await server.close()
-        }
-      },
+      transform: test =>
+        async function () {
+          test = { test: noop, ...test }
+          await outputFiles(test.files)
+          await execa.command('base prepare')
+          await execa.command('base prepublishOnly')
+
+          const browser = await puppeteer.launch({
+            args: [
+              `--load-extension=${P.join(process.cwd(), 'dist')}`,
+              `--disable-extensions-except=${P.join(process.cwd(), 'dist')}`,
+            ],
+            headless: false,
+          })
+          this.page = await browser.newPage()
+
+          const server = express()
+            .get('/', (req, res) => res.send(''))
+            .listen(3000)
+          try {
+            await test.test.call(this)
+          } finally {
+            await this.page.close()
+            await browser.close()
+            await server.close()
+          }
+        },
     },
     testerPluginTmpDir(),
   ]
