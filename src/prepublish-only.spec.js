@@ -13,10 +13,9 @@ export default tester(
     'browser variable': {
       files: {
         'background.js': endent`
-          /*browser.browserAction.onClicked.addListener(
-            () => */browser.storage.local.set({ enabled: true })
-          /*)
-          browser.browserAction.onClicked.dispatch()*/
+          browser.browserAction.onClicked.addListener(
+            () => browser.storage.local.set({ enabled: true })
+          )
         `,
         'config.json': JSON.stringify({
           browser_action: {},
@@ -43,13 +42,16 @@ export default tester(
         ),
       },
       async test() {
-        const backgroundTarget = await browser.waitForTarget(t => t.type() === 'background_page')
-        const backgroundPage = await backgroundTarget.page()
         await this.page.goto('http://localhost:3000')
-        await this.page.bringToFront()
+
+        const backgroundTarget = await this.browser.waitForTarget(
+          t => t.type() === 'background_page'
+        )
+
+        const backgroundPage = await backgroundTarget.page()
         await backgroundPage.evaluate(() => {
-          chrome.tabs.query({ active: true }, tabs => {
-            chrome.browserAction.onClicked.dispatch(tabs[0]);
+          window.chrome.tabs.query({ active: true }, tabs => {
+            window.chrome.browserAction.onClicked.dispatch(tabs[0])
           })
         })
         expect(await this.page.screenshot()).toMatchImageSnapshot(this)
@@ -179,15 +181,14 @@ export default tester(
           await outputFiles(test.files)
           await execa.command('base prepare')
           await execa.command('base prepublishOnly')
-
-          const browser = await puppeteer.launch({
+          this.browser = await puppeteer.launch({
             args: [
               `--load-extension=${P.join(process.cwd(), 'dist')}`,
               `--disable-extensions-except=${P.join(process.cwd(), 'dist')}`,
             ],
             headless: false,
           })
-          this.page = await browser.newPage()
+          this.page = await this.browser.newPage()
 
           const server = express()
             .get('/', (req, res) => res.send(''))
@@ -196,7 +197,7 @@ export default tester(
             await test.test.call(this)
           } finally {
             await this.page.close()
-            await browser.close()
+            await this.browser.close()
             await server.close()
           }
         },
