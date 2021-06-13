@@ -61,6 +61,24 @@ export default tester(
         expect(await this.page.screenshot()).toMatchImageSnapshot(this)
       },
     },
+    'linting error': {
+      error: "error  'foo' is assigned a value but never used  no-unused-vars",
+      files: {
+        'config.json': JSON.stringify({ name: 'Foo' }),
+        'content.js': 'const foo = 1',
+        'node_modules/base-config-self/index.js':
+          "module.exports = require('../../../src')",
+        'package.json': JSON.stringify(
+          {
+            baseConfig: 'self',
+            description: 'foo bar',
+            version: '2.0.0',
+          },
+          undefined,
+          2
+        ),
+      },
+    },
     sass: {
       files: {
         'assets/style.scss': endent`
@@ -184,6 +202,10 @@ export default tester(
           test = { test: noop, ...test }
           await outputFiles(test.files)
           await execa.command('base prepare')
+          if (test.error) {
+            await expect(execa.command('base prepublishOnly')).rejects.toThrow(test.error)
+            return
+          }
           await execa.command('base prepublishOnly')
           this.browser = await puppeteer.launch({
             args: [
