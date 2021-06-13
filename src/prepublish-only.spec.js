@@ -1,4 +1,4 @@
-import { endent, noop } from '@dword-design/functions'
+import { endent } from '@dword-design/functions'
 import puppeteer from '@dword-design/puppeteer'
 import tester from '@dword-design/tester'
 import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
@@ -59,6 +59,41 @@ export default tester(
         })
         await this.page.waitForSelector('.foo')
         expect(await this.page.screenshot()).toMatchImageSnapshot(this)
+      },
+    },
+    'linting error': {
+      error: "error  'foo' is assigned a value but never used  no-unused-vars",
+      files: {
+        'config.json': JSON.stringify({ name: 'Foo' }),
+        'content.js': 'const foo = 1',
+        'node_modules/base-config-self/index.js':
+          "module.exports = require('../../../src')",
+        'package.json': JSON.stringify(
+          {
+            baseConfig: 'self',
+            description: 'foo bar',
+            version: '2.0.0',
+          },
+          undefined,
+          2
+        ),
+      },
+    },
+    'linting error fixable': {
+      files: {
+        'config.json': JSON.stringify({ name: 'Foo' }),
+        'content.js': "console.log('foo');",
+        'node_modules/base-config-self/index.js':
+          "module.exports = require('../../../src')",
+        'package.json': JSON.stringify(
+          {
+            baseConfig: 'self',
+            description: 'foo bar',
+            version: '2.0.0',
+          },
+          undefined,
+          2
+        ),
       },
     },
     sass: {
@@ -181,28 +216,36 @@ export default tester(
     {
       transform: test =>
         async function () {
-          test = { test: noop, ...test }
           await outputFiles(test.files)
           await execa.command('base prepare')
-          await execa.command('base prepublishOnly')
-          this.browser = await puppeteer.launch({
-            args: [
-              `--load-extension=${P.join(process.cwd(), 'dist')}`,
-              `--disable-extensions-except=${P.join(process.cwd(), 'dist')}`,
-            ],
-            headless: false,
-          })
-          this.page = await this.browser.newPage()
+          if (test.error) {
+            await expect(execa.command('base prepublishOnly')).rejects.toThrow(
+              test.error
+            )
 
-          const server = express()
-            .get('/', (req, res) => res.send(''))
-            .listen(3000)
-          try {
-            await test.test.call(this)
-          } finally {
-            await this.page.close()
-            await this.browser.close()
-            await server.close()
+            return
+          }
+          await execa.command('base prepublishOnly')
+          if (test.test) {
+            this.browser = await puppeteer.launch({
+              args: [
+                `--load-extension=${P.join(process.cwd(), 'dist')}`,
+                `--disable-extensions-except=${P.join(process.cwd(), 'dist')}`,
+              ],
+              headless: false,
+            })
+            this.page = await this.browser.newPage()
+
+            const server = express()
+              .get('/', (req, res) => res.send(''))
+              .listen(3000)
+            try {
+              await test.test.call(this)
+            } finally {
+              await this.page.close()
+              await this.browser.close()
+              await server.close()
+            }
           }
         },
     },

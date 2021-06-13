@@ -1,6 +1,7 @@
 import nodeEnv from 'better-node-env'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
 import packageName from 'depcheck-package-name'
+import EslintWebpackPlugin from 'eslint-webpack-plugin'
 import { existsSync } from 'fs-extra'
 import { WebExtWebpackPlugin } from 'webext-webpack-plugin'
 import WebpackBar from 'webpackbar'
@@ -20,18 +21,6 @@ export default {
   module: {
     rules: [
       {
-        enforce: 'pre',
-        exclude: /(node_modules)/,
-        test: /\.js$/,
-        use: {
-          loader: packageName`eslint-loader`,
-          options: {
-            failOnWarning: true,
-            fix: true,
-          },
-        },
-      },
-      {
         test: /\.js$/,
         use: {
           loader: packageName`babel-loader`,
@@ -47,6 +36,7 @@ export default {
     clean: true,
   },
   plugins: [
+    new EslintWebpackPlugin({ failOnWarning: true, fix: true }),
     new WebpackBar(),
     new CopyWebpackPlugin({
       patterns: [
