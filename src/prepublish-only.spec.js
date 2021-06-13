@@ -1,4 +1,4 @@
-import { endent, noop } from '@dword-design/functions'
+import { endent } from '@dword-design/functions'
 import puppeteer from '@dword-design/puppeteer'
 import tester from '@dword-design/tester'
 import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
@@ -219,7 +219,10 @@ export default tester(
           await outputFiles(test.files)
           await execa.command('base prepare')
           if (test.error) {
-            await expect(execa.command('base prepublishOnly')).rejects.toThrow(test.error)
+            await expect(execa.command('base prepublishOnly')).rejects.toThrow(
+              test.error
+            )
+
             return
           }
           await execa.command('base prepublishOnly')

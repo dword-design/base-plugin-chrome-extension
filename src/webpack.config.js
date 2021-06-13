@@ -1,10 +1,10 @@
 import nodeEnv from 'better-node-env'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
 import packageName from 'depcheck-package-name'
+import EslintWebpackPlugin from 'eslint-webpack-plugin'
 import { existsSync } from 'fs-extra'
 import { WebExtWebpackPlugin } from 'webext-webpack-plugin'
 import WebpackBar from 'webpackbar'
-import EslintWebpackPlugin from 'eslint-webpack-plugin'
 
 import baseConfig from './base-config'
 import configToManifest from './config-to-manifest'

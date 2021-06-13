@@ -11345,6 +11345,13 @@ stdout-stream@^1.4.0:
   dependencies:
     readable-stream "^2.0.1"
 
+stealthy-require-no-leak@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/stealthy-require-no-leak/-/stealthy-require-no-leak-1.0.2.tgz#bd0d184dc3f7dd6179a9e5be24bede3d09b14d01"
+  integrity sha512-oVIoX6rkRFxfxWkz6l/y6VJniXJ7Rs6DxhqQRkafxJDqVJJ0tXPKbJQfj7LdHXbIw8ZSUSSvKFMiM31jLVjwQA==
+  dependencies:
+    stealthy-require "^1.1.1"
+
 stealthy-require@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/stealthy-require/-/stealthy-require-1.1.1.tgz#35b09875b4ff49f26a777e509b3090a3226bf24b"
