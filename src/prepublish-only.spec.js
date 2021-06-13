@@ -10,6 +10,51 @@ import P from 'path'
 
 export default tester(
   {
+    'browser variable': {
+      files: {
+        'background.js': endent`
+          /*browser.browserAction.onClicked.addListener(
+            () => */browser.storage.local.set({ enabled: true })
+          /*)
+          browser.browserAction.onClicked.dispatch()*/
+        `,
+        'config.json': JSON.stringify({
+          browser_action: {},
+          name: 'Foo',
+          permissions: ['storage'],
+        }),
+        'content.js': endent`
+          browser.storage.onChanged.addListener((changes, area) => {
+            if (area === 'local' && changes.enabled?.newValue) {
+              document.querySelector('body').style.background = 'red'
+            }
+          })
+        `,
+        'node_modules/base-config-self/index.js':
+          "module.exports = require('../../../src')",
+        'package.json': JSON.stringify(
+          {
+            baseConfig: 'self',
+            description: 'foo bar',
+            version: '2.0.0',
+          },
+          undefined,
+          2
+        ),
+      },
+      async test() {
+        const backgroundTarget = await browser.waitForTarget(t => t.type() === 'background_page')
+        const backgroundPage = await backgroundTarget.page()
+        await this.page.goto('http://localhost:3000')
+        await this.page.bringToFront()
+        await backgroundPage.evaluate(() => {
+          chrome.tabs.query({ active: true }, tabs => {
+            chrome.browserAction.onClicked.dispatch(tabs[0]);
+          })
+        })
+        expect(await this.page.screenshot()).toMatchImageSnapshot(this)
+      },
+    },
     sass: {
       files: {
         'assets/style.scss': endent`
