@@ -1,3 +1,10 @@
+## [1.10.28](https://github.com/dword-design/base-config-web-extension/compare/v1.10.27...v1.10.28) (2021-06-13)
+
+
+### Bug Fixes
+
+* replace eslint-loader with eslint-webpack-plugin ([#64](https://github.com/dword-design/base-config-web-extension/issues/64)) ([226d37a](https://github.com/dword-design/base-config-web-extension/commit/226d37af18a1f772a516c0263f14ca96e58ce900))
+
 ## [1.10.27](https://github.com/dword-design/base-config-web-extension/compare/v1.10.26...v1.10.27) (2021-06-13)
 
 
