@@ -1,3 +1,10 @@
+## [1.10.29](https://github.com/dword-design/base-config-web-extension/compare/v1.10.28...v1.10.29) (2021-06-13)
+
+
+### Bug Fixes
+
+* add index.spec.js to allowed matches ([a95ce4d](https://github.com/dword-design/base-config-web-extension/commit/a95ce4df084b5c9f70b7a759ce521e44fb7362ec))
+
 ## [1.10.28](https://github.com/dword-design/base-config-web-extension/compare/v1.10.27...v1.10.28) (2021-06-13)
 
 
