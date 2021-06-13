@@ -25,7 +25,9 @@ export default tester(
         'content.js': endent`
           browser.storage.onChanged.addListener((changes, area) => {
             if (area === 'local' && changes.enabled?.newValue) {
-              document.querySelector('body').style.background = 'red'
+              const body = document.querySelector('body')
+              body.classList.add('foo')
+              body.style.background = 'red'
             }
           })
         `,
@@ -44,16 +46,18 @@ export default tester(
       async test() {
         await this.page.goto('http://localhost:3000')
 
+        // https://github.com/puppeteer/puppeteer/issues/2486#issuecomment-602116047
         const backgroundTarget = await this.browser.waitForTarget(
           t => t.type() === 'background_page'
         )
 
         const backgroundPage = await backgroundTarget.page()
         await backgroundPage.evaluate(() => {
-          window.chrome.tabs.query({ active: true }, tabs => {
+          window.chrome.tabs.query({ active: true }, tabs =>
             window.chrome.browserAction.onClicked.dispatch(tabs[0])
-          })
+          )
         })
+        await this.page.waitForSelector('.foo')
         expect(await this.page.screenshot()).toMatchImageSnapshot(this)
       },
     },
