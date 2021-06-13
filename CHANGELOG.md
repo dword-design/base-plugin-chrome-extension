@@ -1,3 +1,10 @@
+## [1.10.30](https://github.com/dword-design/base-config-web-extension/compare/v1.10.29...v1.10.30) (2021-06-13)
+
+
+### Bug Fixes
+
+* replace webext-webpack-plugin with fork ([#65](https://github.com/dword-design/base-config-web-extension/issues/65)) ([d8f33aa](https://github.com/dword-design/base-config-web-extension/commit/d8f33aa602e24b34f34826f62b0b2a22d61b92bb))
+
 ## [1.10.29](https://github.com/dword-design/base-config-web-extension/compare/v1.10.28...v1.10.29) (2021-06-13)
 
 
