@@ -79,6 +79,23 @@ export default tester(
         ),
       },
     },
+    'linting error fixable': {
+      files: {
+        'config.json': JSON.stringify({ name: 'Foo' }),
+        'content.js': "console.log('foo');",
+        'node_modules/base-config-self/index.js':
+          "module.exports = require('../../../src')",
+        'package.json': JSON.stringify(
+          {
+            baseConfig: 'self',
+            description: 'foo bar',
+            version: '2.0.0',
+          },
+          undefined,
+          2
+        ),
+      },
+    },
     sass: {
       files: {
         'assets/style.scss': endent`
@@ -199,7 +216,6 @@ export default tester(
     {
       transform: test =>
         async function () {
-          test = { test: noop, ...test }
           await outputFiles(test.files)
           await execa.command('base prepare')
           if (test.error) {
@@ -207,24 +223,26 @@ export default tester(
             return
           }
           await execa.command('base prepublishOnly')
-          this.browser = await puppeteer.launch({
-            args: [
-              `--load-extension=${P.join(process.cwd(), 'dist')}`,
-              `--disable-extensions-except=${P.join(process.cwd(), 'dist')}`,
-            ],
-            headless: false,
-          })
-          this.page = await this.browser.newPage()
+          if (test.test) {
+            this.browser = await puppeteer.launch({
+              args: [
+                `--load-extension=${P.join(process.cwd(), 'dist')}`,
+                `--disable-extensions-except=${P.join(process.cwd(), 'dist')}`,
+              ],
+              headless: false,
+            })
+            this.page = await this.browser.newPage()
 
-          const server = express()
-            .get('/', (req, res) => res.send(''))
-            .listen(3000)
-          try {
-            await test.test.call(this)
-          } finally {
-            await this.page.close()
-            await this.browser.close()
-            await server.close()
+            const server = express()
+              .get('/', (req, res) => res.send(''))
+              .listen(3000)
+            try {
+              await test.test.call(this)
+            } finally {
+              await this.page.close()
+              await this.browser.close()
+              await server.close()
+            }
           }
         },
     },
