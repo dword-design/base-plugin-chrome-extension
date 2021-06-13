@@ -1,3 +1,10 @@
+## [1.10.27](https://github.com/dword-design/base-config-web-extension/compare/v1.10.26...v1.10.27) (2021-06-13)
+
+
+### Bug Fixes
+
+* update dependency sass-loader to v12 ([#61](https://github.com/dword-design/base-config-web-extension/issues/61)) ([392c38d](https://github.com/dword-design/base-config-web-extension/commit/392c38df03b44be384581ecae9f571dfd787ff17))
+
 ## [1.10.26](https://github.com/dword-design/base-config-web-extension/compare/v1.10.25...v1.10.26) (2021-06-13)
 
 
