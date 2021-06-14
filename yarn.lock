@@ -1164,12 +1164,12 @@
     "@babel/preset-env" "^7.6.3"
     "@babel/preset-typescript" "^7.13.0"
     "@dword-design/functions" "^4.0.0"
-    "@vue/babel-preset-jsx" dword-design/jsx#fork-babel-preset-jsx
+    "@vue/babel-preset-jsx" "github:dword-design/jsx#fork-babel-preset-jsx"
     babel-plugin-add-module-exports "^1.0.2"
     babel-plugin-macros "^3.0.1"
     babel-plugin-module-resolver "^4.0.0"
     babel-plugin-transform-imports "^2.0.0"
-    babel-plugin-wildcard dword-design/babel-plugin-wildcard#fork
+    babel-plugin-wildcard "github:dword-design/babel-plugin-wildcard#fork"
     depcheck-package-name "^2.0.0"
     find-up "^5.0.0"
     param-case "^3.0.3"
@@ -1315,7 +1315,7 @@
   integrity sha512-pIUXdHeV5G4dKwTcAhJcz8hV3B+IxYUBCpoyeYVhTVjidoJ7zxNnpe7fuLQ+yprdzFHllLlnlhixtVLXZY/cGA==
   dependencies:
     delay "^5.0.0"
-    endent dword-design/endent#fork
+    endent "github:dword-design/endent#fork"
     lodash "^4.17.15"
     tinycolor2 "^1.4.1"
 
@@ -1601,9 +1601,9 @@
     "@octokit/types" "^6.0.3"
 
 "@octokit/core@^3.5.0":
-  version "3.5.0"
-  resolved "https://registry.yarnpkg.com/@octokit/core/-/core-3.5.0.tgz#1bb341db7d1c666364d2fd8580576694c9ab5e54"
-  integrity sha512-IKcyllVQe6KPwPPFIaKdbhNNQhmmHIj69PXOseBF6/NglXoKHVe79syEfZj0bz7sP87MOl5jLZadV3slgdZ1vQ==
+  version "3.5.1"
+  resolved "https://registry.yarnpkg.com/@octokit/core/-/core-3.5.1.tgz#8601ceeb1ec0e1b1b8217b960a413ed8e947809b"
+  integrity sha512-omncwpLVxMP+GLpLPgeGJBF6IWJFjXDS5flY5VbppePYX9XehevbDykRH9PdCdvqt9TS5AOTiDide7h0qrkHjw==
   dependencies:
     "@octokit/auth-token" "^2.4.4"
     "@octokit/graphql" "^4.5.8"
@@ -1987,8 +1987,9 @@
     lodash.kebabcase "^4.1.1"
     svg-tags "^1.0.0"
 
-"@vue/babel-preset-jsx@dword-design/jsx#fork-babel-preset-jsx":
+"@vue/babel-preset-jsx@github:dword-design/jsx#fork-babel-preset-jsx":
   version "1.1.2"
+  uid a73cb9961541a60a66b1b99a69a32e00bc66d336
   resolved "https://codeload.github.com/dword-design/jsx/tar.gz/a73cb9961541a60a66b1b99a69a32e00bc66d336"
   dependencies:
     "@vue/babel-helper-vue-jsx-merge-props" "^1.0.0"
@@ -2007,6 +2008,7 @@
 
 "@vue/babel-sugar-inject-h@dword-design/jsx#fork-babel-sugar-inject-h":
   version "1.1.2"
+  uid cc36a2200c059120f37944615fb2ec0e22f8f3cc
   resolved "https://codeload.github.com/dword-design/jsx/tar.gz/cc36a2200c059120f37944615fb2ec0e22f8f3cc"
   dependencies:
     "@babel/plugin-syntax-jsx" "^7.2.0"
@@ -2855,8 +2857,9 @@ babel-plugin-transform-imports@^2.0.0:
     "@babel/types" "^7.4"
     is-valid-path "^0.1.1"
 
-babel-plugin-wildcard@dword-design/babel-plugin-wildcard#fork:
+"babel-plugin-wildcard@github:dword-design/babel-plugin-wildcard#fork":
   version "6.0.0"
+  uid "691d11923ee2dcf63e86f205b0a2c998883e3a3c"
   resolved "https://codeload.github.com/dword-design/babel-plugin-wildcard/tar.gz/691d11923ee2dcf63e86f205b0a2c998883e3a3c"
   dependencies:
     rimraf "^2.6.2"
@@ -4109,6 +4112,7 @@ decompress-response@^3.3.0:
 
 dedent@0.7.0, dedent@dword-design/dedent#fork:
   version "0.7.0"
+  uid c8d46e5017d60504657c2d01b59082c0329a12a7
   resolved "https://codeload.github.com/dword-design/dedent/tar.gz/c8d46e5017d60504657c2d01b59082c0329a12a7"
   dependencies:
     babel-plugin-add-module-exports "^1.0.2"
@@ -4535,8 +4539,9 @@ end-of-stream@^1.0.0, end-of-stream@^1.1.0, end-of-stream@^1.4.1, end-of-stream@
   dependencies:
     once "^1.4.0"
 
-endent@dword-design/endent#fork:
+"endent@github:dword-design/endent#fork":
   version "1.4.0"
+  uid be5433db67eaec07c6c9d00ba3bed2ed946dc664
   resolved "https://codeload.github.com/dword-design/endent/tar.gz/be5433db67eaec07c6c9d00ba3bed2ed946dc664"
   dependencies:
     dedent dword-design/dedent#fork
@@ -10773,6 +10778,7 @@ scss-tokenizer@^0.2.3:
 
 semantic-release-chrome@dword-design/semantic-release-chrome#fork:
   version "0.0.0-development"
+  uid e7c5f0a41cf64b6d72c440ae9ac70c3ca216541e
   resolved "https://codeload.github.com/dword-design/semantic-release-chrome/tar.gz/e7c5f0a41cf64b6d72c440ae9ac70c3ca216541e"
   dependencies:
     "@semantic-release/error" "2.2.0"
