@@ -7,6 +7,9 @@ import express from 'express'
 import globby from 'globby'
 import outputFiles from 'output-files'
 import P from 'path'
+import Xvfb from 'xvfb'
+
+const xvfb = new Xvfb()
 
 export default tester(
   {
@@ -227,6 +230,7 @@ export default tester(
           }
           await execa.command('base prepublishOnly')
           if (test.test) {
+            xvfb.start()
             this.browser = await puppeteer.launch({
               args: [
                 `--load-extension=${P.join(process.cwd(), 'dist')}`,
@@ -245,6 +249,7 @@ export default tester(
               await this.page.close()
               await this.browser.close()
               await server.close()
+              xvfb.stop()
             }
           }
         },
