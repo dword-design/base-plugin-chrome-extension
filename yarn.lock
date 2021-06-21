@@ -1164,12 +1164,12 @@
     "@babel/preset-env" "^7.6.3"
     "@babel/preset-typescript" "^7.13.0"
     "@dword-design/functions" "^4.0.0"
-    "@vue/babel-preset-jsx" "github:dword-design/jsx#fork-babel-preset-jsx"
+    "@vue/babel-preset-jsx" dword-design/jsx#fork-babel-preset-jsx
     babel-plugin-add-module-exports "^1.0.2"
     babel-plugin-macros "^3.0.1"
     babel-plugin-module-resolver "^4.0.0"
     babel-plugin-transform-imports "^2.0.0"
-    babel-plugin-wildcard "github:dword-design/babel-plugin-wildcard#fork"
+    babel-plugin-wildcard dword-design/babel-plugin-wildcard#fork
     depcheck-package-name "^2.0.0"
     find-up "^5.0.0"
     param-case "^3.0.3"
@@ -1315,7 +1315,7 @@
   integrity sha512-LmuqKZCd1iDCcmvwdMUTwbC3uAnaTY5aNtAu2O/bee2t+pRwy40LyWW+jzMMFQ+y42DD90oI2w8gxj0VmANxSw==
   dependencies:
     delay "^5.0.0"
-    endent "github:dword-design/endent#fork"
+    endent dword-design/endent#fork
     lodash "^4.17.15"
     tinycolor2 "^1.4.1"
 
@@ -1990,7 +1990,6 @@
 
 "@vue/babel-preset-jsx@github:dword-design/jsx#fork-babel-preset-jsx":
   version "1.1.2"
-  uid a73cb9961541a60a66b1b99a69a32e00bc66d336
   resolved "https://codeload.github.com/dword-design/jsx/tar.gz/a73cb9961541a60a66b1b99a69a32e00bc66d336"
   dependencies:
     "@vue/babel-helper-vue-jsx-merge-props" "^1.0.0"
@@ -2009,7 +2008,6 @@
 
 "@vue/babel-sugar-inject-h@dword-design/jsx#fork-babel-sugar-inject-h":
   version "1.1.2"
-  uid cc36a2200c059120f37944615fb2ec0e22f8f3cc
   resolved "https://codeload.github.com/dword-design/jsx/tar.gz/cc36a2200c059120f37944615fb2ec0e22f8f3cc"
   dependencies:
     "@babel/plugin-syntax-jsx" "^7.2.0"
@@ -2860,7 +2858,6 @@ babel-plugin-transform-imports@^2.0.0:
 
 "babel-plugin-wildcard@github:dword-design/babel-plugin-wildcard#fork":
   version "6.0.0"
-  uid "691d11923ee2dcf63e86f205b0a2c998883e3a3c"
   resolved "https://codeload.github.com/dword-design/babel-plugin-wildcard/tar.gz/691d11923ee2dcf63e86f205b0a2c998883e3a3c"
   dependencies:
     rimraf "^2.6.2"
@@ -4128,7 +4125,6 @@ decompress-response@^3.3.0:
 
 dedent@0.7.0, dedent@dword-design/dedent#fork:
   version "0.7.0"
-  uid c8d46e5017d60504657c2d01b59082c0329a12a7
   resolved "https://codeload.github.com/dword-design/dedent/tar.gz/c8d46e5017d60504657c2d01b59082c0329a12a7"
   dependencies:
     babel-plugin-add-module-exports "^1.0.2"
@@ -4557,7 +4553,6 @@ end-of-stream@^1.0.0, end-of-stream@^1.1.0, end-of-stream@^1.4.1, end-of-stream@
 
 "endent@github:dword-design/endent#fork":
   version "1.4.0"
-  uid be5433db67eaec07c6c9d00ba3bed2ed946dc664
   resolved "https://codeload.github.com/dword-design/endent/tar.gz/be5433db67eaec07c6c9d00ba3bed2ed946dc664"
   dependencies:
     dedent dword-design/dedent#fork
@@ -10794,7 +10789,6 @@ scss-tokenizer@^0.2.3:
 
 semantic-release-chrome@dword-design/semantic-release-chrome#fork:
   version "0.0.0-development"
-  uid e7c5f0a41cf64b6d72c440ae9ac70c3ca216541e
   resolved "https://codeload.github.com/dword-design/semantic-release-chrome/tar.gz/e7c5f0a41cf64b6d72c440ae9ac70c3ca216541e"
   dependencies:
     "@semantic-release/error" "2.2.0"
@@ -11047,6 +11041,13 @@ slash@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/slash/-/slash-3.0.0.tgz#6539be870c165adbd5240220dbe361f1bc4d4634"
   integrity sha512-g9Q1haeby36OSStwb4ntCGGGaKsaVSjQ68fBxoQcutl5fS1vuY18H3wSt3jFyFtrkx+Kz0V1G85A4MyAdDMi2Q==
+
+sleep@6.1.0:
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/sleep/-/sleep-6.1.0.tgz#5507b520556a82ffb983d39123c5459470fa2a9e"
+  integrity sha512-Z1x4JjJxsru75Tqn8F4tnOFeEu3HjtITTsumYUiuz54sGKdISgLCek9AUlXlVVrkhltRFhNUsJDJE76SFHTDIQ==
+  dependencies:
+    nan "^2.13.2"
 
 slice-ansi@^4.0.0:
   version "4.0.0"
@@ -12678,6 +12679,13 @@ xtend@^4.0.0, xtend@~4.0.1:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/xtend/-/xtend-4.0.2.tgz#bb72779f5fa465186b1f438f674fa347fdb5db54"
   integrity sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==
+
+xvfb@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/xvfb/-/xvfb-0.4.0.tgz#52c4ddb991b7c5ae9d175d35452718b734781e85"
+  integrity sha512-g55AbjcBL4Bztfn7kiUrR0ne8mMUsFODDJ+HFGf5OuHJqKKccpExX2Qgn7VF2eImw1eoh6+riXHser1J4agrFA==
+  optionalDependencies:
+    sleep "6.1.0"
 
 y18n@^4.0.0:
   version "4.0.3"
