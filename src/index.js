@@ -4,12 +4,11 @@ import packageName from 'depcheck-package-name'
 import execa from 'execa'
 import { outputFile } from 'fs-extra'
 
-import baseConfig from './base-config'
 import dev from './dev'
 import lint from './lint'
 import prepublishOnly from './prepublish-only'
 
-export default {
+export default config => ({
   allowedMatches: [
     'artifacts',
     'assets',
@@ -59,7 +58,7 @@ export default {
       packageName`semantic-release-chrome`,
       {
         asset: 'extension.zip',
-        extensionId: baseConfig.chromeExtensionId,
+        extensionId: config.chromeExtensionId,
         target: 'draft',
       },
     ],
@@ -108,4 +107,4 @@ export default {
     $ yarn source
     \`\`\`
   `,
-}
+})

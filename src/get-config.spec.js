@@ -1,6 +1,7 @@
 import { outputFile } from 'fs-extra'
-import stealthyRequire from 'stealthy-require-no-leak'
 import withLocalTmpDir from 'with-local-tmp-dir'
+
+import self from './get-config'
 
 export default {
   string: () =>
@@ -11,9 +12,7 @@ export default {
           baseConfig: 'web-extension',
         })
       )
-      expect(
-        stealthyRequire(require.cache, () => require('./base-config'))
-      ).toEqual({})
+      expect(await self()).toEqual({})
     }),
   valid: () =>
     withLocalTmpDir(async () => {
@@ -26,8 +25,9 @@ export default {
           },
         })
       )
-      expect(
-        stealthyRequire(require.cache, () => require('./base-config'))
-      ).toEqual({ name: 'web-extension', startUrl: 'https://google.com' })
+      expect(await self()).toEqual({
+        name: 'web-extension',
+        startUrl: 'https://google.com',
+      })
     }),
 }
