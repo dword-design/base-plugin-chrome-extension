@@ -34,7 +34,7 @@
     "load-pkg": "^4.0.0",
     "node-sass": "^6.0.0",
     "raw-loader": "^4.0.1",
-    "sass-loader": "^12.0.0",
+    "sass-loader": "^13.0.0",
     "semantic-release-chrome": "dword-design/semantic-release-chrome#fork",
     "webext-webpack-plugin": "^0.0.11",
     "webextension-polyfill": "^0.8.0",
