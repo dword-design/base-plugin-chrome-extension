@@ -2,7 +2,7 @@ import { mapValues } from '@dword-design/functions'
 import outputFiles from 'output-files'
 import withLocalTmpDir from 'with-local-tmp-dir'
 
-import subject from './config-to-manifest'
+import subject from './config-to-manifest.js'
 
 const runTest = options => () =>
   withLocalTmpDir(async () => {

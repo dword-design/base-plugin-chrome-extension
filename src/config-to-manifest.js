@@ -1,5 +1,5 @@
 import { pick } from '@dword-design/functions'
-import { existsSync } from 'fs-extra'
+import fs from 'fs-extra'
 import loadPkg from 'load-pkg'
 
 export default async configString => {
@@ -7,9 +7,9 @@ export default async configString => {
 
   const config = JSON.parse(configString)
 
-  const iconExists = existsSync('assets/icon.png')
+  const iconExists = fs.existsSync('assets/icon.png')
 
-  const popupExists = existsSync('popup.html')
+  const popupExists = fs.existsSync('popup.html')
 
   return JSON.stringify({
     name: config.name,
@@ -27,7 +27,7 @@ export default async configString => {
         ...(typeof config.browser_action === 'object' && config.browser_action),
       },
     }),
-    ...(existsSync('content.js') && {
+    ...(fs.existsSync('content.js') && {
       content_scripts: [
         {
           js: ['browser-polyfill.js', 'content.js'],
@@ -35,7 +35,7 @@ export default async configString => {
         },
       ],
     }),
-    ...(existsSync('background.js') && {
+    ...(fs.existsSync('background.js') && {
       background: {
         persistent: false,
         scripts: ['browser-polyfill.js', 'background.js'],

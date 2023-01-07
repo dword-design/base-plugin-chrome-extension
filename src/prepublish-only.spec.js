@@ -4,6 +4,7 @@ import tester from '@dword-design/tester'
 import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
 import execa from 'execa'
 import express from 'express'
+import fs from 'fs-extra'
 import globby from 'globby'
 import outputFiles from 'output-files'
 import P from 'path'
@@ -34,11 +35,9 @@ export default tester(
             }
           })
         `,
-        'node_modules/base-config-self/index.js':
-          "module.exports = require('../../../src')",
         'package.json': JSON.stringify(
           {
-            baseConfig: 'self',
+            baseConfig: P.resolve('src', 'index.js'),
             description: 'foo bar',
             version: '2.0.0',
           },
@@ -69,11 +68,9 @@ export default tester(
       files: {
         'config.json': JSON.stringify({ name: 'Foo' }),
         'content.js': 'const foo = 1',
-        'node_modules/base-config-self/index.js':
-          "module.exports = require('../../../src')",
         'package.json': JSON.stringify(
           {
-            baseConfig: 'self',
+            baseConfig: P.resolve('src', 'index.js'),
             description: 'foo bar',
             version: '2.0.0',
           },
@@ -86,11 +83,9 @@ export default tester(
       files: {
         'config.json': JSON.stringify({ name: 'Foo' }),
         'content.js': "console.log('foo');",
-        'node_modules/base-config-self/index.js':
-          "module.exports = require('../../../src')",
         'package.json': JSON.stringify(
           {
-            baseConfig: 'self',
+            baseConfig: P.resolve('src', 'index.js'),
             description: 'foo bar',
             version: '2.0.0',
           },
@@ -138,7 +133,7 @@ export default tester(
       files: {
         'assets/foo.png': '',
         'background.js': '',
-        'config.json': JSON.stringify({ name: 'Foo' }, undefined, 2),
+        'config.json': JSON.stringify({ name: 'Foo' }),
         'content.js': endent`
         import './model/foo'
 
@@ -146,13 +141,11 @@ export default tester(
 
       `,
         'model/foo.js': 'export default 1',
-        'node_modules/base-config-self/index.js':
-          "module.exports = require('../../../src')",
         'options.html': '',
         'options.js': '',
         'package.json': JSON.stringify(
           {
-            baseConfig: 'self',
+            baseConfig: P.resolve('src', 'index.js'),
             description: 'foo bar',
             version: '2.0.0',
           },
@@ -189,27 +182,25 @@ export default tester(
           'popup.html',
           'popup.js',
         ])
-        expect(require(P.join(process.cwd(), 'dist', 'manifest.json'))).toEqual(
-          {
-            background: {
-              persistent: false,
-              scripts: ['browser-polyfill.js', 'background.js'],
+        expect(await fs.readJson(P.join('dist', 'manifest.json'))).toEqual({
+          background: {
+            persistent: false,
+            scripts: ['browser-polyfill.js', 'background.js'],
+          },
+          browser_action: {
+            default_popup: 'popup.html',
+          },
+          content_scripts: [
+            {
+              js: ['browser-polyfill.js', 'content.js'],
+              matches: ['<all_urls>'],
             },
-            browser_action: {
-              default_popup: 'popup.html',
-            },
-            content_scripts: [
-              {
-                js: ['browser-polyfill.js', 'content.js'],
-                matches: ['<all_urls>'],
-              },
-            ],
-            description: 'foo bar',
-            manifest_version: 2,
-            name: 'Foo',
-            version: '2.0.0',
-          }
-        )
+          ],
+          description: 'foo bar',
+          manifest_version: 2,
+          name: 'Foo',
+          version: '2.0.0',
+        })
         await this.page.goto('http://localhost:3000')
         expect(await this.page.screenshot()).toMatchImageSnapshot(this)
       },

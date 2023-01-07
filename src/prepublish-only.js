@@ -1,6 +1,14 @@
-import execa from 'execa'
+import webpack from 'webpack'
 
-export default () =>
-  execa('webpack-cli', ['--config', require.resolve('./webpack.config')], {
-    stdio: 'inherit',
-  })
+import getWebpackConfig from './get-webpack-config.js'
+
+export default config => () =>
+  new Promise((resolve, reject) =>
+    webpack(getWebpackConfig(config), error => {
+      if (error) {
+        return reject(error)
+      }
+
+      return resolve()
+    })
+  )

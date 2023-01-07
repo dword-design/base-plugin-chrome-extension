@@ -3,7 +3,7 @@ import execa from 'execa'
 import outputFiles from 'output-files'
 import withLocalTmpDir from 'with-local-tmp-dir'
 
-import lint from './lint'
+import self from './lint.js'
 
 export default {
   errors: () =>
@@ -31,7 +31,7 @@ export default {
         ),
       })
       await execa.command('base prepare')
-      await expect(lint()).rejects.toThrow(
+      await expect(self()).rejects.toThrow(
         "'foo' is assigned a value but never used"
       )
     }),
@@ -61,6 +61,6 @@ export default {
         ),
       })
       await execa.command('base prepare')
-      await lint()
+      await self()
     }),
 }
