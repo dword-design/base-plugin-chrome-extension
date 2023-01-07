@@ -30,7 +30,7 @@
     "depcheck-package-name": "^2.0.0",
     "eslint-webpack-plugin": "^2.5.4",
     "execa": "^5.0.0",
-    "fs-extra": "^10.0.0",
+    "fs-extra": "^11.0.0",
     "load-pkg": "^4.0.0",
     "node-sass": "^6.0.0",
     "raw-loader": "^4.0.1",
