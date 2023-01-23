@@ -147,16 +147,12 @@ export default tester(
         'model/foo.js': 'export default 1',
         'options.html': '',
         'options.js': '',
-        'package.json': JSON.stringify(
-          {
-            baseConfig: P.resolve('src', 'index.js'),
-            description: 'foo bar',
-            version: '2.0.0',
-            type: 'module',
-          },
-          undefined,
-          2
-        ),
+        'package.json': JSON.stringify({
+          baseConfig: P.resolve('src', 'index.js'),
+          description: 'foo bar',
+          version: '2.0.0',
+          type: 'module',
+        }),
         'popup.html': '',
         'popup.js': '',
       },
