@@ -2,10 +2,10 @@ import { endent } from '@dword-design/functions'
 import puppeteer from '@dword-design/puppeteer'
 import tester from '@dword-design/tester'
 import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
-import execa from 'execa'
+import { execaCommand } from 'execa'
 import express from 'express'
 import fs from 'fs-extra'
-import globby from 'globby'
+import { globby } from 'globby'
 import outputFiles from 'output-files'
 import P from 'path'
 import Xvfb from 'xvfb'
@@ -40,6 +40,7 @@ export default tester(
             baseConfig: P.resolve('src', 'index.js'),
             description: 'foo bar',
             version: '2.0.0',
+            type: 'module',
           },
           undefined,
           2
@@ -73,6 +74,7 @@ export default tester(
             baseConfig: P.resolve('src', 'index.js'),
             description: 'foo bar',
             version: '2.0.0',
+            type: 'module',
           },
           undefined,
           2
@@ -88,6 +90,7 @@ export default tester(
             baseConfig: P.resolve('src', 'index.js'),
             description: 'foo bar',
             version: '2.0.0',
+            type: 'module',
           },
           undefined,
           2
@@ -119,6 +122,7 @@ export default tester(
             baseConfig: 'self',
             description: 'foo bar',
             version: '2.0.0',
+            type: 'module',
           },
           undefined,
           2
@@ -148,6 +152,7 @@ export default tester(
             baseConfig: P.resolve('src', 'index.js'),
             description: 'foo bar',
             version: '2.0.0',
+            type: 'module',
           },
           undefined,
           2
@@ -211,15 +216,15 @@ export default tester(
       transform: test =>
         async function () {
           await outputFiles(test.files)
-          await execa.command('base prepare')
+          await execaCommand('base prepare')
           if (test.error) {
-            await expect(execa.command('base prepublishOnly')).rejects.toThrow(
+            await expect(execaCommand('base prepublishOnly')).rejects.toThrow(
               test.error
             )
 
             return
           }
-          await execa.command('base prepublishOnly')
+          await execaCommand('base prepublishOnly')
           if (test.test) {
             xvfb.start()
             this.browser = await puppeteer.launch({

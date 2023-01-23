@@ -1,7 +1,7 @@
 import depcheckParserSass from '@dword-design/depcheck-parser-sass'
 import { endent } from '@dword-design/functions'
 import packageName from 'depcheck-package-name'
-import execa from 'execa'
+import { execaCommand } from 'execa'
 import fs from 'fs-extra'
 
 import dev from './dev.js'
@@ -29,7 +29,7 @@ export default config => ({
       handler: dev,
     },
     prepublishOnly: prepublishOnly(config),
-    source: () => execa.command('git archive --output=source.zip HEAD'),
+    source: () => execaCommand('git archive --output=source.zip HEAD'),
   },
   depcheckConfig: {
     parsers: {
