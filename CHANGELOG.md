@@ -1,3 +1,10 @@
+## [1.10.35](https://github.com/dword-design/base-config-web-extension/compare/v1.10.34...v1.10.35) (2023-05-28)
+
+
+### Bug Fixes
+
+* update dependency webpack to v5.76.0 [security] ([a29436e](https://github.com/dword-design/base-config-web-extension/commit/a29436e3c672edc95c898ab66e43f507daed8083))
+
 ## [1.10.34](https://github.com/dword-design/base-config-web-extension/compare/v1.10.33...v1.10.34) (2021-07-20)
 
 
