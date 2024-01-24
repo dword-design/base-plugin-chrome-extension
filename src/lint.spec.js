@@ -1,66 +1,37 @@
+import { Base } from '@dword-design/base'
 import { endent } from '@dword-design/functions'
-import execa from 'execa'
 import outputFiles from 'output-files'
+import P from 'path'
 import withLocalTmpDir from 'with-local-tmp-dir'
 
-import lint from './lint'
+import self from './lint.js'
 
 export default {
   errors: () =>
     withLocalTmpDir(async () => {
       await outputFiles({
-        'config.json': JSON.stringify(
-          {
-            name: 'foo',
-          },
-          undefined,
-          2
-        ),
+        'config.json': JSON.stringify({ name: 'foo' }),
         'content.js': endent`
           const foo = 'bar'
 
         `,
-        'node_modules/base-config-self/index.js':
-          "module.exports = require('../../../src')",
-        'package.json': JSON.stringify(
-          {
-            baseConfig: 'self',
-          },
-          undefined,
-          2
-        ),
       })
-      await execa.command('base prepare')
-      await expect(lint()).rejects.toThrow(
-        "'foo' is assigned a value but never used"
+      await new Base({ name: P.resolve('..', 'src', 'index.js') }).prepare()
+      await expect(self()).rejects.toThrow(
+        "'foo' is assigned a value but never used",
       )
     }),
   valid: () =>
     withLocalTmpDir(async () => {
       await outputFiles({
-        'config.json': JSON.stringify(
-          {
-            name: 'foo',
-          },
-          undefined,
-          2
-        ),
+        'config.json': JSON.stringify({ name: 'foo' }),
         'content.js': endent`
-          import './model/foo'
+          import './model/foo.js'
 
         `,
         'model/foo.js': '',
-        'node_modules/base-config-self/index.js':
-          "module.exports = require('../../../src')",
-        'package.json': JSON.stringify(
-          {
-            baseConfig: 'self',
-          },
-          undefined,
-          2
-        ),
       })
-      await execa.command('base prepare')
-      await lint()
+      await new Base({ name: P.resolve('..', 'src', 'index.js') }).prepare()
+      await self()
     }),
 }

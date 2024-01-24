@@ -1,15 +1,14 @@
 import depcheckParserSass from '@dword-design/depcheck-parser-sass'
 import { endent } from '@dword-design/functions'
 import packageName from 'depcheck-package-name'
-import execa from 'execa'
-import { outputFile } from 'fs-extra'
+import { execaCommand } from 'execa'
+import fs from 'fs-extra'
 
-import baseConfig from './base-config'
-import dev from './dev'
-import lint from './lint'
-import prepublishOnly from './prepublish-only'
+import dev from './dev.js'
+import lint from './lint.js'
+import prepublishOnly from './prepublish-only.js'
 
-export default {
+export default config => ({
   allowedMatches: [
     'artifacts',
     'assets',
@@ -27,10 +26,10 @@ export default {
   commands: {
     dev: {
       arguments: '[target]',
-      handler: dev,
+      handler: dev(config),
     },
-    prepublishOnly,
-    source: () => execa.command('git archive --output=source.zip HEAD'),
+    prepublishOnly: prepublishOnly(config),
+    source: () => execaCommand('git archive --output=source.zip HEAD'),
   },
   depcheckConfig: {
     parsers: {
@@ -59,7 +58,7 @@ export default {
       packageName`semantic-release-chrome`,
       {
         asset: 'extension.zip',
-        extensionId: baseConfig.chromeExtensionId,
+        extensionId: config.chromeExtensionId,
         target: 'draft',
       },
     ],
@@ -69,7 +68,7 @@ export default {
   isLockFileFixCommitType: true,
   lint,
   prepare: () =>
-    outputFile(
+    fs.outputFile(
       '.eslintrc.json',
       JSON.stringify(
         {
@@ -79,8 +78,8 @@ export default {
           },
         },
         undefined,
-        2
-      )
+        2,
+      ),
     ),
   readmeInstallString: endent`
     ## Recommended setup
@@ -108,4 +107,4 @@ export default {
     $ yarn source
     \`\`\`
   `,
-}
+})

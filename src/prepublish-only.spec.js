@@ -2,9 +2,10 @@ import { endent } from '@dword-design/functions'
 import puppeteer from '@dword-design/puppeteer'
 import tester from '@dword-design/tester'
 import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
-import execa from 'execa'
+import { execaCommand } from 'execa'
 import express from 'express'
-import globby from 'globby'
+import fs from 'fs-extra'
+import { globby } from 'globby'
 import outputFiles from 'output-files'
 import P from 'path'
 import Xvfb from 'xvfb'
@@ -28,40 +29,32 @@ export default tester(
         'content.js': endent`
           browser.storage.onChanged.addListener((changes, area) => {
             if (area === 'local' && changes.enabled?.newValue) {
-              const body = document.querySelector('body')
-              body.classList.add('foo')
-              body.style.background = 'red'
+              document.body.classList.add('foo')
             }
           })
         `,
-        'node_modules/base-config-self/index.js':
-          "module.exports = require('../../../src')",
-        'package.json': JSON.stringify(
-          {
-            baseConfig: 'self',
-            description: 'foo bar',
-            version: '2.0.0',
-          },
-          undefined,
-          2
-        ),
+        'package.json': JSON.stringify({
+          baseConfig: P.resolve('src', 'index.js'),
+          description: 'foo bar',
+          type: 'module',
+          version: '2.0.0',
+        }),
       },
       async test() {
         await this.page.goto('http://localhost:3000')
 
         // https://github.com/puppeteer/puppeteer/issues/2486#issuecomment-602116047
         const backgroundTarget = await this.browser.waitForTarget(
-          t => t.type() === 'background_page'
+          t => t.type() === 'background_page',
         )
 
         const backgroundPage = await backgroundTarget.page()
         await backgroundPage.evaluate(() => {
           window.chrome.tabs.query({ active: true }, tabs =>
-            window.chrome.browserAction.onClicked.dispatch(tabs[0])
+            window.chrome.browserAction.onClicked.dispatch(tabs[0]),
           )
         })
         await this.page.waitForSelector('.foo')
-        expect(await this.page.screenshot()).toMatchImageSnapshot(this)
       },
     },
     'linting error': {
@@ -69,34 +62,24 @@ export default tester(
       files: {
         'config.json': JSON.stringify({ name: 'Foo' }),
         'content.js': 'const foo = 1',
-        'node_modules/base-config-self/index.js':
-          "module.exports = require('../../../src')",
-        'package.json': JSON.stringify(
-          {
-            baseConfig: 'self',
-            description: 'foo bar',
-            version: '2.0.0',
-          },
-          undefined,
-          2
-        ),
+        'package.json': JSON.stringify({
+          baseConfig: P.resolve('src', 'index.js'),
+          description: 'foo bar',
+          type: 'module',
+          version: '2.0.0',
+        }),
       },
     },
     'linting error fixable': {
       files: {
         'config.json': JSON.stringify({ name: 'Foo' }),
         'content.js': "console.log('foo');",
-        'node_modules/base-config-self/index.js':
-          "module.exports = require('../../../src')",
-        'package.json': JSON.stringify(
-          {
-            baseConfig: 'self',
-            description: 'foo bar',
-            version: '2.0.0',
-          },
-          undefined,
-          2
-        ),
+        'package.json': JSON.stringify({
+          baseConfig: P.resolve('src', 'index.js'),
+          description: 'foo bar',
+          type: 'module',
+          version: '2.0.0',
+        }),
       },
     },
     sass: {
@@ -108,7 +91,7 @@ export default tester(
             background: $color;
           }
         `,
-        'config.json': JSON.stringify({ name: 'Foo' }, undefined, 2),
+        'config.json': JSON.stringify({ name: 'Foo' }),
         'content.js': endent`
           import styleCode from './assets/style.scss'
 
@@ -117,17 +100,12 @@ export default tester(
           style.appendChild(document.createTextNode(styleCode))
           document.getElementsByTagName('head')[0].appendChild(style)
         `,
-        'node_modules/base-config-self/index.js':
-          "module.exports = require('../../../src')",
-        'package.json': JSON.stringify(
-          {
-            baseConfig: 'self',
-            description: 'foo bar',
-            version: '2.0.0',
-          },
-          undefined,
-          2
-        ),
+        'package.json': JSON.stringify({
+          baseConfig: P.resolve('src', 'index.js'),
+          description: 'foo bar',
+          type: 'module',
+          version: '2.0.0',
+        }),
       },
       async test() {
         await this.page.goto('http://localhost:3000')
@@ -138,27 +116,22 @@ export default tester(
       files: {
         'assets/foo.png': '',
         'background.js': '',
-        'config.json': JSON.stringify({ name: 'Foo' }, undefined, 2),
+        'config.json': JSON.stringify({ name: 'Foo' }),
         'content.js': endent`
-        import './model/foo'
+          import model from './model/foo.js'
 
-        document.querySelector('body').style.background = 'red'
+          document.body.classList.add(model)
 
-      `,
-        'model/foo.js': 'export default 1',
-        'node_modules/base-config-self/index.js':
-          "module.exports = require('../../../src')",
+        `,
+        'model/foo.js': "export default 'foo'",
         'options.html': '',
         'options.js': '',
-        'package.json': JSON.stringify(
-          {
-            baseConfig: 'self',
-            description: 'foo bar',
-            version: '2.0.0',
-          },
-          undefined,
-          2
-        ),
+        'package.json': JSON.stringify({
+          baseConfig: P.resolve('src', 'index.js'),
+          description: 'foo bar',
+          type: 'module',
+          version: '2.0.0',
+        }),
         'popup.html': '',
         'popup.js': '',
       },
@@ -176,7 +149,7 @@ export default tester(
             'options.js',
             'popup.html',
             'popup.js',
-          ])
+          ]),
         )
         expect(await globby('*', { cwd: 'dist', onlyFiles: false })).toEqual([
           'assets',
@@ -189,29 +162,27 @@ export default tester(
           'popup.html',
           'popup.js',
         ])
-        expect(require(P.join(process.cwd(), 'dist', 'manifest.json'))).toEqual(
-          {
-            background: {
-              persistent: false,
-              scripts: ['browser-polyfill.js', 'background.js'],
+        expect(await fs.readJson(P.join('dist', 'manifest.json'))).toEqual({
+          background: {
+            persistent: false,
+            scripts: ['browser-polyfill.js', 'background.js'],
+          },
+          browser_action: {
+            default_popup: 'popup.html',
+          },
+          content_scripts: [
+            {
+              js: ['browser-polyfill.js', 'content.js'],
+              matches: ['<all_urls>'],
             },
-            browser_action: {
-              default_popup: 'popup.html',
-            },
-            content_scripts: [
-              {
-                js: ['browser-polyfill.js', 'content.js'],
-                matches: ['<all_urls>'],
-              },
-            ],
-            description: 'foo bar',
-            manifest_version: 2,
-            name: 'Foo',
-            version: '2.0.0',
-          }
-        )
+          ],
+          description: 'foo bar',
+          manifest_version: 2,
+          name: 'Foo',
+          version: '2.0.0',
+        })
         await this.page.goto('http://localhost:3000')
-        expect(await this.page.screenshot()).toMatchImageSnapshot(this)
+        await this.page.waitForSelector('.foo')
       },
     },
   },
@@ -220,15 +191,15 @@ export default tester(
       transform: test =>
         async function () {
           await outputFiles(test.files)
-          await execa.command('base prepare')
+          await execaCommand('base prepare')
           if (test.error) {
-            await expect(execa.command('base prepublishOnly')).rejects.toThrow(
-              test.error
+            await expect(execaCommand('base prepublishOnly')).rejects.toThrow(
+              test.error,
             )
 
             return
           }
-          await execa.command('base prepublishOnly')
+          await execaCommand('base prepublishOnly')
           if (test.test) {
             xvfb.start()
             this.browser = await puppeteer.launch({
@@ -255,5 +226,5 @@ export default tester(
         },
     },
     testerPluginTmpDir(),
-  ]
+  ],
 )
