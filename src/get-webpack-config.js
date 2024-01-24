@@ -5,13 +5,14 @@ import EslintWebpackPlugin from 'eslint-webpack-plugin'
 import fs from 'fs-extra'
 import { WebExtWebpackPlugin } from 'webext-webpack-plugin'
 import WebpackBar from 'webpackbar'
+import webpack from 'webpack'
 
 import configToManifest from './config-to-manifest.js'
 
 export default config => ({
   devtool: false,
   entry: {
-    ...(fs.existsSync('background.js') && { background: './background.js' }),
+    ...(fs.existsSync('service-worker.js') && { 'service-worker': './service-worker.js' }),
     ...(fs.existsSync('content.js') && { content: './content.js' }),
     ...(fs.existsSync('options.js') && { options: './options.js' }),
     ...(fs.existsSync('popup.js') && { popup: './popup.js' }),
@@ -44,11 +45,14 @@ export default config => ({
           to: 'manifest.json',
           transform: configToManifest,
         },
-        { from: require.resolve('webextension-polyfill') },
+        //{ from: require.resolve('webextension-polyfill') },
         { from: 'assets', noErrorOnMissing: true, to: 'assets' },
         { from: 'options.html', noErrorOnMissing: true },
         { from: 'popup.html', noErrorOnMissing: true },
       ],
+    }),
+    new webpack.ProvidePlugin({
+      browser: "webextension-polyfill"
     }),
     new WebExtWebpackPlugin({
       build: {

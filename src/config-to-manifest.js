@@ -14,7 +14,7 @@ export default async configString => {
   return JSON.stringify({
     name: config.name,
     ...(packageConfig |> pick(['version', 'description'])),
-    manifest_version: 2,
+    manifest_version: 3,
     ...(iconExists && {
       icons: {
         128: 'assets/icon.png',
@@ -30,17 +30,16 @@ export default async configString => {
     ...(fs.existsSync('content.js') && {
       content_scripts: [
         {
-          js: ['browser-polyfill.js', 'content.js'],
+          js: ['content.js'],
           matches: config.matches || ['<all_urls>'],
         },
       ],
     }),
-    ...(fs.existsSync('background.js') && {
+    ...(fs.existsSync('service-worker.js') && {
       background: {
-        persistent: false,
-        scripts: ['browser-polyfill.js', 'background.js'],
+        service_worker: 'service-worker.js',
       },
     }),
-    ...(config |> pick(['permissions', 'browser_specific_settings'])),
+    ...(config |> pick(['permissions', 'host_permissions', 'browser_specific_settings'])),
   })
 }

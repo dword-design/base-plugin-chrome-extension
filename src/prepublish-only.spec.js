@@ -16,7 +16,7 @@ export default tester(
   {
     'browser variable': {
       files: {
-        'background.js': endent`
+        'service-worker.js': endent`
           browser.browserAction.onClicked.addListener(
             () => browser.storage.local.set({ enabled: true })
           )
@@ -115,7 +115,7 @@ export default tester(
     valid: {
       files: {
         'assets/foo.png': '',
-        'background.js': '',
+        'service-worker.js': '',
         'config.json': JSON.stringify({ name: 'Foo' }),
         'content.js': endent`
           import model from './model/foo.js'
@@ -140,7 +140,6 @@ export default tester(
           expect.arrayContaining([
             'artifacts',
             'assets',
-            'background.js',
             'content.js',
             'dist',
             'config.json',
@@ -149,35 +148,34 @@ export default tester(
             'options.js',
             'popup.html',
             'popup.js',
+            'service-worker.js',
           ]),
         )
         expect(await globby('*', { cwd: 'dist', onlyFiles: false })).toEqual([
           'assets',
-          'background.js',
-          'browser-polyfill.js',
           'content.js',
           'manifest.json',
           'options.html',
           'options.js',
           'popup.html',
           'popup.js',
+          'service-worker.js',
         ])
         expect(await fs.readJson(P.join('dist', 'manifest.json'))).toEqual({
           background: {
-            persistent: false,
-            scripts: ['browser-polyfill.js', 'background.js'],
+            service_worker: 'service-worker.js',
           },
           browser_action: {
             default_popup: 'popup.html',
           },
           content_scripts: [
             {
-              js: ['browser-polyfill.js', 'content.js'],
+              js: ['content.js'],
               matches: ['<all_urls>'],
             },
           ],
           description: 'foo bar',
-          manifest_version: 2,
+          manifest_version: 3,
           name: 'Foo',
           version: '2.0.0',
         })
@@ -202,6 +200,10 @@ export default tester(
           await execaCommand('base prepublishOnly')
           if (test.test) {
             xvfb.start()
+            const server = express()
+              .get('/', (req, res) => res.send(''))
+              .listen(3000)
+            await execaCommand('base dev')
             this.browser = await puppeteer.launch({
               args: [
                 `--load-extension=${P.join(process.cwd(), 'dist')}`,
@@ -211,9 +213,6 @@ export default tester(
             })
             this.page = await this.browser.newPage()
 
-            const server = express()
-              .get('/', (req, res) => res.send(''))
-              .listen(3000)
             try {
               await test.test.call(this)
             } finally {

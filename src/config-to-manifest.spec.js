@@ -16,16 +16,15 @@ const runTest = options => () =>
   })
 
 export default {
-  'background script': {
+  'service worker': {
     files: {
-      'background.js': '',
+      'service-worker.js': '',
     },
     result: {
       background: {
-        persistent: false,
-        scripts: ['browser-polyfill.js', 'background.js'],
+        service_worker: 'service-worker.js',
       },
-      manifest_version: 2,
+      manifest_version: 3,
     },
   },
   'browser action': {
@@ -38,7 +37,7 @@ export default {
       browser_action: {
         foo: 'bar',
       },
-      manifest_version: 2,
+      manifest_version: 3,
     },
   },
   'browser action and icon': {
@@ -58,7 +57,7 @@ export default {
       icons: {
         128: 'assets/icon.png',
       },
-      manifest_version: 2,
+      manifest_version: 3,
     },
   },
   'browser action true': {
@@ -67,7 +66,7 @@ export default {
     },
     result: {
       browser_action: {},
-      manifest_version: 2,
+      manifest_version: 3,
     },
   },
   'browser specific settings': {
@@ -84,7 +83,7 @@ export default {
           id: '{071e944b-8d1c-4b48-8bba-4c2519deee01}',
         },
       },
-      manifest_version: 2,
+      manifest_version: 3,
     },
   },
   'content script': {
@@ -94,16 +93,16 @@ export default {
     result: {
       content_scripts: [
         {
-          js: ['browser-polyfill.js', 'content.js'],
+          js: ['content.js'],
           matches: ['<all_urls>'],
         },
       ],
-      manifest_version: 2,
+      manifest_version: 3,
     },
   },
   empty: {
     result: {
-      manifest_version: 2,
+      manifest_version: 3,
     },
   },
   icon: {
@@ -114,7 +113,7 @@ export default {
       icons: {
         128: 'assets/icon.png',
       },
-      manifest_version: 2,
+      manifest_version: 3,
     },
   },
   matches: {
@@ -127,11 +126,11 @@ export default {
     result: {
       content_scripts: [
         {
-          js: ['browser-polyfill.js', 'content.js'],
+          js: ['content.js'],
           matches: ['foo'],
         },
       ],
-      manifest_version: 2,
+      manifest_version: 3,
     },
   },
   name: {
@@ -139,7 +138,7 @@ export default {
       name: 'Foo',
     },
     result: {
-      manifest_version: 2,
+      manifest_version: 3,
       name: 'Foo',
     },
   },
@@ -152,7 +151,7 @@ export default {
     },
     result: {
       description: 'foo',
-      manifest_version: 2,
+      manifest_version: 3,
       version: '1.0.0',
     },
   },
@@ -161,8 +160,17 @@ export default {
       permissions: ['storage'],
     },
     result: {
-      manifest_version: 2,
+      manifest_version: 3,
       permissions: ['storage'],
+    },
+  },
+  'host permissions': {
+    config: {
+      host_permissions: ['storage'],
+    },
+    result: {
+      manifest_version: 3,
+      host_permissions: ['storage'],
     },
   },
   'popup.html': {
@@ -173,7 +181,7 @@ export default {
       browser_action: {
         default_popup: 'popup.html',
       },
-      manifest_version: 2,
+      manifest_version: 3,
     },
   },
 } |> mapValues(runTest)

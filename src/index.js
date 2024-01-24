@@ -12,7 +12,7 @@ export default config => ({
   allowedMatches: [
     'artifacts',
     'assets',
-    'background.js',
+    'service-worker.js',
     'content.js',
     'config.json',
     'icon.png',
