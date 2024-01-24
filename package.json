@@ -57,8 +57,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "baseConfig": {
-    "testInContainer": true
   }
 }

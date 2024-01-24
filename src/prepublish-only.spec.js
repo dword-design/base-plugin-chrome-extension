@@ -29,9 +29,7 @@ export default tester(
         'content.js': endent`
           browser.storage.onChanged.addListener((changes, area) => {
             if (area === 'local' && changes.enabled?.newValue) {
-              const body = document.querySelector('body')
-              body.classList.add('foo')
-              body.style.background = 'red'
+              document.body.classList.add('foo')
             }
           })
         `,
@@ -82,7 +80,7 @@ export default tester(
           description: 'foo bar',
           type: 'module',
           version: '2.0.0',
-          }),
+        }),
       },
     },
     sass: {
@@ -115,38 +113,18 @@ export default tester(
         expect(await this.page.screenshot()).toMatchImageSnapshot(this)
       },
     },
-    simple: {
-      files: {
-        'config.json': JSON.stringify({
-          browser_action: {},
-          name: 'Foo',
-          permissions: ['storage'],
-        }),
-        'content.js': "document.body.classList.add('foo')",
-        'package.json': JSON.stringify({
-          baseConfig: P.resolve('src', 'index.js'),
-          description: 'foo bar',
-          type: 'module',
-          version: '2.0.0',
-        }),
-      },
-      async test() {
-        await this.page.goto('http://localhost:3000')
-        await this.page.this.page.waitForSelector('.foo')
-      },
-    },
     valid: {
       files: {
         'assets/foo.png': '',
         'background.js': '',
         'config.json': JSON.stringify({ name: 'Foo' }),
         'content.js': endent`
-          import './model/foo'
+          import model from './model/foo.js'
 
-          document.querySelector('body').style.background = 'red'
+          document.body.classList.add(model)
 
         `,
-        'model/foo.js': 'export default 1',
+        'model/foo.js': "export default 'foo'",
         'options.html': '',
         'options.js': '',
         'package.json': JSON.stringify({
@@ -205,7 +183,7 @@ export default tester(
           version: '2.0.0',
         })
         await this.page.goto('http://localhost:3000')
-        expect(await this.page.screenshot()).toMatchImageSnapshot(this)
+        await this.page.waitForSelector('.foo')
       },
     },
   },
