@@ -1,8 +1,8 @@
-import { execa } from 'execa'
+import webpack from 'webpack'
 
-export default (target = 'firefox-desktop') =>
-  execa(
-    'webpack-cli',
-    ['--watch', '--config', require.resolve('./webpack.config')],
-    { env: { WEB_EXT_TARGET: target }, stdio: 'inherit' },
-  )
+import getWebpackConfig from './get-webpack-config.js'
+
+export default config => (target = 'chromium') => {
+  process.env.WEB_EXT_TARGET = target
+  return new Promise(() => webpack(getWebpackConfig(config)).watch({}, () => {}))
+}

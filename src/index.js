@@ -26,7 +26,7 @@ export default config => ({
   commands: {
     dev: {
       arguments: '[target]',
-      handler: dev,
+      handler: dev(config),
     },
     prepublishOnly: prepublishOnly(config),
     source: () => execaCommand('git archive --output=source.zip HEAD'),
