@@ -1,3 +1,17 @@
+# [2.0.0](https://github.com/dword-design/base-config-web-extension/compare/v1.10.35...v2.0.0) (2024-01-24)
+
+
+### Bug Fixes
+
+* fix base ([85cc711](https://github.com/dword-design/base-config-web-extension/commit/85cc7112e3f56f1beeb729b09fa1ff4630b0d30e))
+* lock file maintenance ([#75](https://github.com/dword-design/base-config-web-extension/issues/75)) ([24cc1a5](https://github.com/dword-design/base-config-web-extension/commit/24cc1a598d0cb881e9dfcb014d643b9f0dfa9e0d))
+
+
+### BREAKING CHANGES
+
+* node.js >= 18
+* esm
+
 ## [1.10.35](https://github.com/dword-design/base-config-web-extension/compare/v1.10.34...v1.10.35) (2023-05-28)
 
 
