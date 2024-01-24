@@ -9,7 +9,9 @@ export default config => () =>
         return reject(error)
       }
       if (stats.hasErrors()) {
-        return reject(new Error(JSON.stringify(stats.toJson().errors, undefined, 2)))
+        return reject(
+          new Error(JSON.stringify(stats.toJson().errors, undefined, 2)),
+        )
       }
 
       return resolve()

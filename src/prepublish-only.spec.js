@@ -212,8 +212,8 @@ export default tester(
             this.page = await this.browser.newPage()
 
             const server = express()
-            .get('/', (req, res) => res.send(''))
-            .listen(3000)
+              .get('/', (req, res) => res.send(''))
+              .listen(3000)
             try {
               await test.test.call(this)
             } finally {
