@@ -35,29 +35,25 @@ export default tester(
             }
           })
         `,
-        'package.json': JSON.stringify(
-          {
-            baseConfig: P.resolve('src', 'index.js'),
-            description: 'foo bar',
-            version: '2.0.0',
-            type: 'module',
-          },
-          undefined,
-          2
-        ),
+        'package.json': JSON.stringify({
+          baseConfig: P.resolve('src', 'index.js'),
+          description: 'foo bar',
+          type: 'module',
+          version: '2.0.0',
+        }),
       },
       async test() {
         await this.page.goto('http://localhost:3000')
 
         // https://github.com/puppeteer/puppeteer/issues/2486#issuecomment-602116047
         const backgroundTarget = await this.browser.waitForTarget(
-          t => t.type() === 'background_page'
+          t => t.type() === 'background_page',
         )
 
         const backgroundPage = await backgroundTarget.page()
         await backgroundPage.evaluate(() => {
           window.chrome.tabs.query({ active: true }, tabs =>
-            window.chrome.browserAction.onClicked.dispatch(tabs[0])
+            window.chrome.browserAction.onClicked.dispatch(tabs[0]),
           )
         })
         await this.page.waitForSelector('.foo')
@@ -69,32 +65,24 @@ export default tester(
       files: {
         'config.json': JSON.stringify({ name: 'Foo' }),
         'content.js': 'const foo = 1',
-        'package.json': JSON.stringify(
-          {
-            baseConfig: P.resolve('src', 'index.js'),
-            description: 'foo bar',
-            version: '2.0.0',
-            type: 'module',
-          },
-          undefined,
-          2
-        ),
+        'package.json': JSON.stringify({
+          baseConfig: P.resolve('src', 'index.js'),
+          description: 'foo bar',
+          type: 'module',
+          version: '2.0.0',
+        }),
       },
     },
     'linting error fixable': {
       files: {
         'config.json': JSON.stringify({ name: 'Foo' }),
         'content.js': "console.log('foo');",
-        'package.json': JSON.stringify(
-          {
-            baseConfig: P.resolve('src', 'index.js'),
-            description: 'foo bar',
-            version: '2.0.0',
-            type: 'module',
-          },
-          undefined,
-          2
-        ),
+        'package.json': JSON.stringify({
+          baseConfig: P.resolve('src', 'index.js'),
+          description: 'foo bar',
+          type: 'module',
+          version: '2.0.0',
+          }),
       },
     },
     sass: {
@@ -106,7 +94,7 @@ export default tester(
             background: $color;
           }
         `,
-        'config.json': JSON.stringify({ name: 'Foo' }, undefined, 2),
+        'config.json': JSON.stringify({ name: 'Foo' }),
         'content.js': endent`
           import styleCode from './assets/style.scss'
 
@@ -115,22 +103,36 @@ export default tester(
           style.appendChild(document.createTextNode(styleCode))
           document.getElementsByTagName('head')[0].appendChild(style)
         `,
-        'node_modules/base-config-self/index.js':
-          "module.exports = require('../../../src')",
-        'package.json': JSON.stringify(
-          {
-            baseConfig: 'self',
-            description: 'foo bar',
-            version: '2.0.0',
-            type: 'module',
-          },
-          undefined,
-          2
-        ),
+        'package.json': JSON.stringify({
+          baseConfig: P.resolve('src', 'index.js'),
+          description: 'foo bar',
+          type: 'module',
+          version: '2.0.0',
+        }),
       },
       async test() {
         await this.page.goto('http://localhost:3000')
         expect(await this.page.screenshot()).toMatchImageSnapshot(this)
+      },
+    },
+    simple: {
+      files: {
+        'config.json': JSON.stringify({
+          browser_action: {},
+          name: 'Foo',
+          permissions: ['storage'],
+        }),
+        'content.js': "document.body.classList.add('foo')",
+        'package.json': JSON.stringify({
+          baseConfig: P.resolve('src', 'index.js'),
+          description: 'foo bar',
+          type: 'module',
+          version: '2.0.0',
+        }),
+      },
+      async test() {
+        await this.page.goto('http://localhost:3000')
+        await this.page.this.page.waitForSelector('.foo')
       },
     },
     valid: {
@@ -139,19 +141,19 @@ export default tester(
         'background.js': '',
         'config.json': JSON.stringify({ name: 'Foo' }),
         'content.js': endent`
-        import './model/foo'
+          import './model/foo'
 
-        document.querySelector('body').style.background = 'red'
+          document.querySelector('body').style.background = 'red'
 
-      `,
+        `,
         'model/foo.js': 'export default 1',
         'options.html': '',
         'options.js': '',
         'package.json': JSON.stringify({
           baseConfig: P.resolve('src', 'index.js'),
           description: 'foo bar',
-          version: '2.0.0',
           type: 'module',
+          version: '2.0.0',
         }),
         'popup.html': '',
         'popup.js': '',
@@ -170,7 +172,7 @@ export default tester(
             'options.js',
             'popup.html',
             'popup.js',
-          ])
+          ]),
         )
         expect(await globby('*', { cwd: 'dist', onlyFiles: false })).toEqual([
           'assets',
@@ -215,7 +217,7 @@ export default tester(
           await execaCommand('base prepare')
           if (test.error) {
             await expect(execaCommand('base prepublishOnly')).rejects.toThrow(
-              test.error
+              test.error,
             )
 
             return
@@ -247,5 +249,5 @@ export default tester(
         },
     },
     testerPluginTmpDir(),
-  ]
+  ],
 )

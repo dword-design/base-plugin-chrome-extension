@@ -78,8 +78,8 @@ export default config => ({
           },
         },
         undefined,
-        2
-      )
+        2,
+      ),
     ),
   readmeInstallString: endent`
     ## Recommended setup

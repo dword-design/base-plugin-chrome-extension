@@ -1,8 +1,8 @@
+import { Base } from '@dword-design/base'
 import { endent } from '@dword-design/functions'
 import outputFiles from 'output-files'
-import withLocalTmpDir from 'with-local-tmp-dir'
 import P from 'path'
-import { Base } from '@dword-design/base'
+import withLocalTmpDir from 'with-local-tmp-dir'
 
 import self from './lint.js'
 
@@ -18,7 +18,7 @@ export default {
       })
       await new Base({ name: P.resolve('..', 'src', 'index.js') }).prepare()
       await expect(self()).rejects.toThrow(
-        "'foo' is assigned a value but never used"
+        "'foo' is assigned a value but never used",
       )
     }),
   valid: () =>
@@ -26,7 +26,7 @@ export default {
       await outputFiles({
         'config.json': JSON.stringify({ name: 'foo' }),
         'content.js': endent`
-          import './model/foo'
+          import './model/foo.js'
 
         `,
         'model/foo.js': '',

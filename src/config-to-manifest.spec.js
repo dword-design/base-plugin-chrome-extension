@@ -11,7 +11,7 @@ const runTest = options => () =>
     const config = options.config || {}
     await outputFiles(files)
     expect(config |> JSON.stringify |> subject |> await |> JSON.parse).toEqual(
-      options.result
+      options.result,
     )
   })
 
