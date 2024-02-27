@@ -27,10 +27,11 @@ export default async () => {
         ...(typeof config.browser_action === 'object' && config.browser_action),
       },
     }),
-    ...((await fs.exists('content.js')) && {
+    ...(((await fs.exists('content.js')) || config.css?.length > 0) && {
       content_scripts: [
         {
           js: ['content.js'],
+          ...(config.css?.length > 0 && { css: config.css }),
           matches: config.matches || ['<all_urls>'],
         },
       ],
@@ -41,6 +42,6 @@ export default async () => {
         scripts: ['background.js'],
       },
     }),
-    ...(config |> pick(['permissions', 'browser_specific_settings'])),
+    ...(config |> pick(['permissions', 'browser_specific_settings', 'css'])),
   }
 }

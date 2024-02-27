@@ -2,6 +2,7 @@ import { endent } from '@dword-design/functions'
 import puppeteer from '@dword-design/puppeteer'
 import tester from '@dword-design/tester'
 import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
+import packageName from 'depcheck-package-name'
 import { execaCommand } from 'execa'
 import express from 'express'
 import fs from 'fs-extra'
@@ -14,10 +15,26 @@ const xvfb = new Xvfb()
 
 export default tester(
   {
+    babel: {
+      files: {
+        'config.json': JSON.stringify({ name: 'Foo' }),
+        'content.js': 'console.log(1 |> x => x * 2)',
+        'package.json': JSON.stringify({
+          baseConfig: P.resolve('src', 'index.js'),
+          description: 'foo bar',
+          type: 'module',
+          version: '2.0.0',
+        }),
+      },
+      test: async () =>
+        expect(await fs.readFile(P.join('dist', 'content.js'), 'utf8')).toEqual(
+          '(function(){"use strict";var o;console.log((o=1,o*2))})();\n',
+        ),
+    },
     'browser variable': {
       files: {
         'background.js': endent`
-          import browser from 'webextension-polyfill'
+          import browser from '${packageName`webextension-polyfill`}'
 
           browser.browserAction.onClicked.addListener(
             () => browser.storage.local.set({ enabled: true })
@@ -29,8 +46,8 @@ export default tester(
           permissions: ['storage'],
         }),
         'content.js': endent`
-          import browser from 'webextension-polyfill'
-          
+          import browser from '${packageName`webextension-polyfill`}'
+
           browser.storage.onChanged.addListener((changes, area) => {
             if (area === 'local' && changes.enabled?.newValue) {
               document.body.classList.add('foo')
@@ -39,6 +56,9 @@ export default tester(
         `,
         'package.json': JSON.stringify({
           baseConfig: P.resolve('src', 'index.js'),
+          dependencies: {
+            'webextension-polyfill': '*',
+          },
           description: 'foo bar',
           type: 'module',
           version: '2.0.0',
@@ -92,18 +112,14 @@ export default tester(
           $color: red;
 
           body {
-            background: $color;
+            color: $color;
           }
         `,
-        'config.json': JSON.stringify({ name: 'Foo' }),
-        'content.js': endent`
-          import styleCode from './assets/style.scss'
-
-          const style = document.createElement('style')
-          style.type = 'text/css'
-          style.appendChild(document.createTextNode(styleCode))
-          document.getElementsByTagName('head')[0].appendChild(style)
-        `,
+        'config.json': JSON.stringify({
+          css: ['assets/style.scss'],
+          name: 'Foo',
+        }),
+        'content.js': '',
         'package.json': JSON.stringify({
           baseConfig: P.resolve('src', 'index.js'),
           description: 'foo bar',
@@ -113,7 +129,11 @@ export default tester(
       },
       async test() {
         await this.page.goto('http://localhost:3000')
-        expect(await this.page.screenshot()).toMatchImageSnapshot(this)
+        expect(
+          await this.page.evaluate(
+            () => window.getComputedStyle(document.body).color,
+          ),
+        ).toEqual('rgb(255, 0, 0)')
       },
     },
     valid: {
@@ -125,7 +145,6 @@ export default tester(
           import model from './model/foo.js'
 
           document.body.classList.add(model)
-
         `,
         'model/foo.js': "export default 'foo'",
         'options.html': '',
@@ -142,7 +161,6 @@ export default tester(
       async test() {
         expect(await globby('*', { onlyFiles: false })).toEqual(
           expect.arrayContaining([
-            'artifacts',
             'assets',
             'background.js',
             'content.js',
