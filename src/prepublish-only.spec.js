@@ -17,6 +17,8 @@ export default tester(
     'browser variable': {
       files: {
         'background.js': endent`
+          import browser from 'webextension-polyfill'
+
           browser.browserAction.onClicked.addListener(
             () => browser.storage.local.set({ enabled: true })
           )
@@ -27,6 +29,8 @@ export default tester(
           permissions: ['storage'],
         }),
         'content.js': endent`
+          import browser from 'webextension-polyfill'
+          
           browser.storage.onChanged.addListener((changes, area) => {
             if (area === 'local' && changes.enabled?.newValue) {
               document.body.classList.add('foo')
