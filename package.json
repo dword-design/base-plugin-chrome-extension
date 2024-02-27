@@ -1,6 +1,7 @@
 {
   "name": "@dword-design/base-config-web-extension",
   "version": "2.0.0",
+  "private": true,
   "repository": "dword-design/base-config-web-extension",
   "funding": "https://github.com/sponsors/dword-design",
   "license": "MIT",
@@ -39,6 +40,8 @@
     "raw-loader": "^4.0.1",
     "sass-loader": "^14.0.0",
     "semantic-release-chrome": "dword-design/semantic-release-chrome#fork",
+    "vite": "^5.1.4",
+    "vite-plugin-web-extension": "^4.1.1",
     "webext-webpack-plugin": "^0.0.11",
     "webextension-polyfill": "^0.10.0",
     "webpack": "^5.33.2",

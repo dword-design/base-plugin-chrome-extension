@@ -2,16 +2,16 @@ import { pick } from '@dword-design/functions'
 import fs from 'fs-extra'
 import loadPkg from 'load-pkg'
 
-export default async configString => {
+export default async () => {
   const packageConfig = await loadPkg()
 
-  const config = JSON.parse(configString)
+  const config = await fs.readJson('config.json').catch(() => ({}))
 
-  const iconExists = fs.existsSync('assets/icon.png')
+  const iconExists = await fs.exists('assets/icon.png')
 
-  const popupExists = fs.existsSync('popup.html')
+  const popupExists = await fs.exists('popup.html')
 
-  return JSON.stringify({
+  return {
     name: config.name,
     ...(packageConfig |> pick(['version', 'description'])),
     manifest_version: 2,
@@ -27,20 +27,20 @@ export default async configString => {
         ...(typeof config.browser_action === 'object' && config.browser_action),
       },
     }),
-    ...(fs.existsSync('content.js') && {
+    ...((await fs.exists('content.js')) && {
       content_scripts: [
         {
-          js: ['browser-polyfill.js', 'content.js'],
+          js: ['content.js'],
           matches: config.matches || ['<all_urls>'],
         },
       ],
     }),
-    ...(fs.existsSync('background.js') && {
+    ...((await fs.exists('background.js')) && {
       background: {
         persistent: false,
-        scripts: ['browser-polyfill.js', 'background.js'],
+        scripts: ['background.js'],
       },
     }),
     ...(config |> pick(['permissions', 'browser_specific_settings'])),
-  })
+  }
 }

@@ -1,12 +1,11 @@
-import webpack from 'webpack'
+import { createServer } from 'vite'
 
-import getWebpackConfig from './get-webpack-config.js'
+import getViteConfig from './get-vite-config.js'
 
-export default config =>
-  (target = 'firefox-desktop') => {
-    process.env.WEB_EXT_TARGET = target
-
-    return new Promise(() =>
-      webpack(getWebpackConfig(config)).watch({}, () => {}),
-    )
+export default () =>
+  async (browser = 'firefox') => {
+    const server = await createServer(getViteConfig({ browser }))
+    await server.listen()
+    server.printUrls()
+    server.bindCLIShortcuts({ print: true })
   }

@@ -154,7 +154,6 @@ export default tester(
         expect(await globby('*', { cwd: 'dist', onlyFiles: false })).toEqual([
           'assets',
           'background.js',
-          'browser-polyfill.js',
           'content.js',
           'manifest.json',
           'options.html',
@@ -165,14 +164,14 @@ export default tester(
         expect(await fs.readJson(P.join('dist', 'manifest.json'))).toEqual({
           background: {
             persistent: false,
-            scripts: ['browser-polyfill.js', 'background.js'],
+            scripts: ['background.js'],
           },
           browser_action: {
             default_popup: 'popup.html',
           },
           content_scripts: [
             {
-              js: ['browser-polyfill.js', 'content.js'],
+              js: ['content.js'],
               matches: ['<all_urls>'],
             },
           ],

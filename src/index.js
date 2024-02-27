@@ -70,16 +70,12 @@ export default config => ({
   prepare: () =>
     fs.outputFile(
       '.eslintrc.json',
-      JSON.stringify(
-        {
-          extends: packageName`@dword-design/eslint-config`,
-          globals: {
-            browser: 'readonly',
-          },
+      JSON.stringify({
+        extends: packageName`@dword-design/eslint-config`,
+        globals: {
+          browser: 'readonly',
         },
-        undefined,
-        2,
-      ),
+      }),
     ),
   readmeInstallString: endent`
     ## Recommended setup
