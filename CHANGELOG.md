@@ -1,3 +1,15 @@
+# [3.0.0](https://github.com/dword-design/base-config-web-extension/compare/v2.0.0...v3.0.0) (2024-03-02)
+
+
+### Bug Fixes
+
+* migrate to vite ([#108](https://github.com/dword-design/base-config-web-extension/issues/108)) ([2f59b82](https://github.com/dword-design/base-config-web-extension/commit/2f59b8243af53ada370adc821b6643cd6146a860))
+
+
+### BREAKING CHANGES
+
+* vite and manifest version 3
+
 # [2.0.0](https://github.com/dword-design/base-config-web-extension/compare/v1.10.35...v2.0.0) (2024-01-24)
 
 
