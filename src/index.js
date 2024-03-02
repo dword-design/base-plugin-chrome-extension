@@ -80,8 +80,8 @@ export default config => ({
   },
   readmeInstallString: endent`
     ## Recommended setup
-    * Node.js 12.16.0
-    * Yarn 1.21.1
+    * Node.js 20.11.1
+    * Yarn 1.22.19
 
     ## Install
     \`\`\`bash
