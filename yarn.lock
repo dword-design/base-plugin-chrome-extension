@@ -12907,9 +12907,9 @@ winreg@0.0.12:
   integrity sha512-typ/+JRmi7RqP1NanzFULK36vczznSNN8kWVA9vIqXyv8GhghUlwhGp1Xj3Nms1FsPcNnsQrJOR10N58/nQ9hQ==
 
 with-local-tmp-dir@^5.0.0, with-local-tmp-dir@^5.0.1:
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/with-local-tmp-dir/-/with-local-tmp-dir-5.0.1.tgz#5fa0570e1560008c6089c8f6759a5236f7af4a28"
-  integrity sha512-Ds8Ssl9sfMZArPBlSkEQwxh+EVq3IG8lWxTUipe1ZxP5eNNrkRC622ukpAkhR63jCSu5mvqJ/3bEl1RakRZufw==
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/with-local-tmp-dir/-/with-local-tmp-dir-5.1.0.tgz#275adb0f619e70466df7f76ccf0e39035dede24b"
+  integrity sha512-hjOdNpgPyO1mX880ojVlO0mCqNYghnzyn7TRUN1llHVX9N6uEBOzJteEz16v0HRmdP+AWZMPn+NtIRy9lMPUxg==
   dependencies:
     "@dword-design/chdir" "^2.0.0"
     tmp-promise "^3.0.0"
