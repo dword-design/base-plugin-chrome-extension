@@ -96,12 +96,7 @@ export default config => ({
 
     ## Building the extension for upload
     \`\`\`bash
-    $ yarn prepublishOnly
+    $ yarn prepublishOnly [target]
     \`\`\`
-
-    ## Archiving the source for upload
-    \`\`\`bash
-    $ yarn source
-    \`\`\`\n
   `,
 })
