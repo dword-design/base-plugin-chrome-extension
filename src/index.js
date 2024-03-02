@@ -1,9 +1,9 @@
 import depcheckParserSass from '@dword-design/depcheck-parser-sass'
 import { endent } from '@dword-design/functions'
 import packageName from 'depcheck-package-name'
+import { createRequire } from 'module'
 import outputFiles from 'output-files'
 import P from 'path'
-import { createRequire } from 'module'
 import { fileURLToPath } from 'url'
 
 import dev from './dev.js'
@@ -11,7 +11,9 @@ import lint from './lint.js'
 import prepublishOnly from './prepublish-only.js'
 
 const __dirname = P.dirname(fileURLToPath(import.meta.url))
+
 const isInNodeModules = __dirname.split(P.sep).includes('node_modules')
+
 const resolver = createRequire(import.meta.url)
 
 export default config => ({
@@ -58,8 +60,7 @@ export default config => ({
     [
       packageName`@semantic-release/exec`,
       {
-        prepareCmd:
-          `yarn prepublishOnly && yarn prepublishOnly firefox && zip -r dist/chrome dist/chrome.zip && zip -r dist/firefox dist/firefox.zip && git archive --output=dist/firefox-sources.zip HEAD && ${packageName`publish-browser-extension`} --chrome-zip=dist/chrome.zip --firefox-zip=dist/firefox.zip --firefox-sources=dist/firefox-sources.zip`,
+        prepareCmd: `yarn prepublishOnly && yarn prepublishOnly firefox && zip -r dist/chrome dist/chrome.zip && zip -r dist/firefox dist/firefox.zip && git archive --output=dist/firefox-sources.zip HEAD && ${packageName`publish-browser-extension`} --chrome-zip=dist/chrome.zip --firefox-zip=dist/firefox.zip --firefox-sources=dist/firefox-sources.zip`,
       },
     ],
   ],
@@ -94,13 +95,13 @@ export default config => ({
 
     ## Running a development server
     \`\`\`bash
-    $ yarn dev [target]
+    $ yarn dev [browser]
     \`\`\`
-    Available targets are \`firefox\` and \`chrome\`. Default is \`firefox\`.
+    Available browsers are \`firefox\` and \`chrome\`. Default is \`firefox\`.
 
     ## Building the extension for upload
     \`\`\`bash
-    $ yarn prepublishOnly [target]
+    $ yarn prepublishOnly [browser]
     \`\`\`
   `,
 })

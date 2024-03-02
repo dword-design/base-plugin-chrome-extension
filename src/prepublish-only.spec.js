@@ -27,7 +27,9 @@ export default tester(
         }),
       },
       test: async () =>
-        expect(await fs.readFile(P.join('dist', 'content.js'), 'utf8')).toEqual(
+        expect(
+          await fs.readFile(P.join('dist', 'chrome', 'content.js'), 'utf8'),
+        ).toEqual(
           '(function(){"use strict";var o;console.log((o=1,o*2))})();\n',
         ),
     },
@@ -67,15 +69,15 @@ export default tester(
       async test() {
         await this.page.goto('http://localhost:3000')
 
-        // https://github.com/puppeteer/puppeteer/issues/2486#issuecomment-602116047
-        const backgroundTarget = await this.browser.waitForTarget(
-          t => t.type() === 'background_page',
+        // https://github.com/puppeteer/puppeteer/issues/2486#issuecomment-1159705685
+        const target = await this.browser.waitForTarget(
+          t => t.type() === 'service_worker',
         )
 
-        const backgroundPage = await backgroundTarget.page()
-        await backgroundPage.evaluate(() => {
-          window.chrome.tabs.query({ active: true }, tabs =>
-            window.chrome.action.onClicked.dispatch(tabs[0]),
+        const worker = await target.worker()
+        await worker.evaluate(() => {
+          self.chrome.tabs.query({ active: true }, tabs =>
+            self.chrome.action.onClicked.dispatch(tabs[0]),
           )
         })
         await this.page.waitForSelector('.foo')
@@ -174,16 +176,22 @@ export default tester(
           ]),
         )
         expect(await globby('*', { cwd: 'dist', onlyFiles: false })).toEqual([
-          'assets',
+          'chrome',
+        ])
+        expect(
+          await globby('*', {
+            cwd: P.join('dist', 'chrome'),
+            onlyFiles: false,
+          }),
+        ).toEqual([
           'background.js',
           'content.js',
           'manifest.json',
-          'options.html',
-          'options.js',
           'popup.html',
-          'popup.js',
         ])
-        expect(await fs.readJson(P.join('dist', 'manifest.json'))).toEqual({
+        expect(
+          await fs.readJson(P.join('dist', 'chrome', 'manifest.json')),
+        ).toEqual({
           action: {
             default_popup: 'popup.html',
           },
@@ -225,8 +233,8 @@ export default tester(
             xvfb.start()
             this.browser = await puppeteer.launch({
               args: [
-                `--load-extension=${P.join(process.cwd(), 'dist')}`,
-                `--disable-extensions-except=${P.join(process.cwd(), 'dist')}`,
+                `--load-extension=${P.join(process.cwd(), 'dist', 'chrome')}`,
+                `--disable-extensions-except=${P.join(process.cwd(), 'dist', 'chrome')}`,
               ],
               headless: false,
             })

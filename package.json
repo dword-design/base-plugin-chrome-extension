@@ -38,7 +38,6 @@
     "lodash-es": "^4.17.21",
     "output-files": "^2.0.0",
     "publish-browser-extension": "^2.1.3",
-    "semantic-release-chrome": "dword-design/semantic-release-chrome#fork",
     "vite": "^5.1.4",
     "vite-plugin-babel": "^1.2.0",
     "vite-plugin-eslint": "^1.8.1",

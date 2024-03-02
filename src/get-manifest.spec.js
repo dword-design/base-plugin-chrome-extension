@@ -6,18 +6,6 @@ import self from './get-manifest.js'
 
 export default tester(
   {
-    'background script': {
-      files: {
-        'background.js': '',
-      },
-      result: {
-        background: {
-          persistent: false,
-          scripts: ['background.js'],
-        },
-        manifest_version: 2,
-      },
-    },
     'browser action': {
       files: {
         'config.json': JSON.stringify({
@@ -30,7 +18,7 @@ export default tester(
         action: {
           foo: 'bar',
         },
-        manifest_version: 2,
+        manifest_version: 3,
       },
     },
     'browser action and icon': {
@@ -50,7 +38,7 @@ export default tester(
         icons: {
           128: 'assets/icon.png',
         },
-        manifest_version: 2,
+        manifest_version: 3,
       },
     },
     'browser action true': {
@@ -61,7 +49,7 @@ export default tester(
       },
       result: {
         action: {},
-        manifest_version: 2,
+        manifest_version: 3,
       },
     },
     'browser specific settings': {
@@ -80,7 +68,7 @@ export default tester(
             id: '{071e944b-8d1c-4b48-8bba-4c2519deee01}',
           },
         },
-        manifest_version: 2,
+        manifest_version: 3,
       },
     },
     'content script': {
@@ -94,12 +82,12 @@ export default tester(
             matches: ['<all_urls>'],
           },
         ],
-        manifest_version: 2,
+        manifest_version: 3,
       },
     },
     empty: {
       result: {
-        manifest_version: 2,
+        manifest_version: 3,
       },
     },
     icon: {
@@ -110,7 +98,7 @@ export default tester(
         icons: {
           128: 'assets/icon.png',
         },
-        manifest_version: 2,
+        manifest_version: 3,
       },
     },
     matches: {
@@ -127,7 +115,7 @@ export default tester(
             matches: ['foo'],
           },
         ],
-        manifest_version: 2,
+        manifest_version: 3,
       },
     },
     name: {
@@ -137,7 +125,7 @@ export default tester(
         }),
       },
       result: {
-        manifest_version: 2,
+        manifest_version: 3,
         name: 'Foo',
       },
     },
@@ -150,7 +138,7 @@ export default tester(
       },
       result: {
         description: 'foo',
-        manifest_version: 2,
+        manifest_version: 3,
         version: '1.0.0',
       },
     },
@@ -161,7 +149,7 @@ export default tester(
         }),
       },
       result: {
-        manifest_version: 2,
+        manifest_version: 3,
         permissions: ['storage'],
       },
     },
@@ -173,7 +161,31 @@ export default tester(
         action: {
           default_popup: 'popup.html',
         },
-        manifest_version: 2,
+        manifest_version: 3,
+      },
+    },
+    'service worker': {
+      files: {
+        'background.js': '',
+      },
+      result: {
+        background: {
+          service_worker: 'background.js',
+        },
+        manifest_version: 3,
+      },
+    },
+    'service worker firefox': {
+      browser: 'firefox',
+      files: {
+        'background.js': '',
+      },
+      result: {
+        background: {
+          persistent: false,
+          scripts: ['background.js'],
+        },
+        manifest_version: 3,
       },
     },
   },
@@ -181,10 +193,10 @@ export default tester(
     testerPluginTmpDir(),
     {
       transform:
-        ({ files = {}, result } = {}) =>
+        ({ files = {}, result, browser = 'chrome' } = {}) =>
         async () => {
           await outputFiles(files)
-          expect(await self()).toEqual(result)
+          expect(await self({ browser })).toEqual(result)
         },
     },
   ],

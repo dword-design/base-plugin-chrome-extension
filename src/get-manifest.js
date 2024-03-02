@@ -1,6 +1,6 @@
-import { pick } from 'lodash-es'
 import fs from 'fs-extra'
 import loadPkg from 'load-pkg'
+import { pick } from 'lodash-es'
 
 export default async ({ browser }) => {
   const packageConfig = await loadPkg()
