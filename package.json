@@ -1,7 +1,6 @@
 {
   "name": "@dword-design/base-config-web-extension",
   "version": "2.0.0",
-  "private": true,
   "repository": "dword-design/base-config-web-extension",
   "funding": "https://github.com/sponsors/dword-design",
   "license": "MIT",
@@ -18,6 +17,7 @@
     "depcheck": "base depcheck",
     "dev": "base dev",
     "lint": "base lint",
+    "prepare": "base prepare",
     "prepublishOnly": "base prepublishOnly",
     "test": "base test",
     "test:raw": "base test:raw"
