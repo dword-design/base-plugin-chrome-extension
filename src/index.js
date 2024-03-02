@@ -2,11 +2,18 @@ import depcheckParserSass from '@dword-design/depcheck-parser-sass'
 import { endent } from '@dword-design/functions'
 import packageName from 'depcheck-package-name'
 import { execaCommand } from 'execa'
-import fs from 'fs-extra'
+import outputFiles from 'output-files'
+import P from 'path'
+import { createRequire } from 'module'
+import { fileURLToPath } from 'url'
 
 import dev from './dev.js'
 import lint from './lint.js'
 import prepublishOnly from './prepublish-only.js'
+
+const __dirname = P.dirname(fileURLToPath(import.meta.url))
+const isInNodeModules = __dirname.split(P.sep).includes('node_modules')
+const resolver = createRequire(import.meta.url)
 
 export default config => ({
   allowedMatches: [
@@ -25,11 +32,13 @@ export default config => ({
   ],
   commands: {
     dev: {
-      arguments: '[target]',
+      arguments: '[browser]',
       handler: dev(config),
     },
-    prepublishOnly: prepublishOnly(config),
-    source: () => execaCommand('git archive --output=source.zip HEAD'),
+    prepublishOnly: {
+      arguments: '[browser]',
+      handler: prepublishOnly(config),
+    },
   },
   depcheckConfig: {
     parsers: {
@@ -51,7 +60,8 @@ export default config => ({
     [
       packageName`@semantic-release/exec`,
       {
-        prepareCmd: 'yarn prepublishOnly',
+        prepareCmd:
+          'yarn prepublishOnly && yarn prepublishOnly firefox && zip -r dist/chrome dist/chrome.zip && zip -r dist/firefox dist/firefox.zip && git archive --output=dist/firefox-sources.zip HEAD && release-browser-extension --chrome-zip=dist/chrome.zip --firefox-zip=dist/firefox.zip --firefox-sources=dist/firefox-sources.zip',
       },
     ],
     [
@@ -64,19 +74,20 @@ export default config => ({
     ],
   ],
   editorIgnore: ['.eslintrc.json', 'dist'],
-  gitignore: ['/.eslintrc.json', '/artifacts', '/dist', 'source.zip'],
+  gitignore: ['/.eslintrc.json', '/artifacts', '/dist'],
   isLockFileFixCommitType: true,
   lint,
-  prepare: () =>
-    fs.outputFile(
-      '.eslintrc.json',
-      JSON.stringify({
-        extends: packageName`@dword-design/eslint-config`,
-        globals: {
-          browser: 'readonly',
-        },
-      }),
-    ),
+  prepare: () => {
+    const configPath = isInNodeModules
+      ? '@dword-design/base-config-web-extension/config'
+      : `./${P.relative(process.cwd(), resolver.resolve('./config.js'))
+          .split(P.sep)
+          .join('/')}`
+    outputFiles({
+      '.eslintrc.json': `${JSON.stringify({ extends: packageName`@dword-design/eslint-config` }, undefined, 2)}\n`,
+      'vite.config.js': `export { default } from '${configPath}'`,
+    })
+  },
   readmeInstallString: endent`
     ## Recommended setup
     * Node.js 12.16.0
@@ -101,6 +112,6 @@ export default config => ({
     ## Archiving the source for upload
     \`\`\`bash
     $ yarn source
-    \`\`\`
+    \`\`\`\n
   `,
 })

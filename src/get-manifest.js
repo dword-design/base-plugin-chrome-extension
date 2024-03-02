@@ -1,8 +1,8 @@
-import { pick } from '@dword-design/functions'
+import { pick } from 'lodash-es'
 import fs from 'fs-extra'
 import loadPkg from 'load-pkg'
 
-export default async () => {
+export default async ({ browser }) => {
   const packageConfig = await loadPkg()
 
   const config = await fs.readJson('config.json').catch(() => ({}))
@@ -13,18 +13,18 @@ export default async () => {
 
   return {
     name: config.name,
-    ...(packageConfig |> pick(['version', 'description'])),
-    manifest_version: 2,
+    ...pick(packageConfig, ['version', 'description']),
+    manifest_version: 3,
     ...(iconExists && {
       icons: {
         128: 'assets/icon.png',
       },
     }),
-    ...(('browser_action' in config || popupExists) && {
-      browser_action: {
+    ...(('action' in config || popupExists) && {
+      action: {
         ...(iconExists && { default_icon: 'assets/icon.png' }),
         ...(popupExists && { default_popup: 'popup.html' }),
-        ...(typeof config.browser_action === 'object' && config.browser_action),
+        ...(typeof config.action === 'object' && config.action),
       },
     }),
     ...(((await fs.exists('content.js')) || config.css?.length > 0) && {
@@ -38,10 +38,14 @@ export default async () => {
     }),
     ...((await fs.exists('background.js')) && {
       background: {
-        persistent: false,
-        scripts: ['background.js'],
+        ...(browser === 'firefox'
+          ? {
+              persistent: false,
+              scripts: ['background.js'],
+            }
+          : { service_worker: 'background.js' }),
       },
     }),
-    ...(config |> pick(['permissions', 'browser_specific_settings', 'css'])),
+    ...pick(config, ['permissions', 'browser_specific_settings', 'css']),
   }
 }

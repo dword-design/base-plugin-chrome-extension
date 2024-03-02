@@ -1,5 +1,3 @@
-import { build } from 'vite'
+import { execaCommand } from 'execa'
 
-import getViteConfig from './get-vite-config.js'
-
-export default () => () => build(getViteConfig())
+export default () => browser => execaCommand('vite build', { env: { TARGET: browser }, stdio: 'inherit' })

@@ -1,6 +1,6 @@
 {
-  "browser_action": {},
   "name": "Foo",
+  "action": {},
   "permissions": [
     "storage"
   ]

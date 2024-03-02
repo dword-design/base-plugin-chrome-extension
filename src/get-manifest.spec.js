@@ -21,13 +21,13 @@ export default tester(
     'browser action': {
       files: {
         'config.json': JSON.stringify({
-          browser_action: {
+          action: {
             foo: 'bar',
           },
         }),
       },
       result: {
-        browser_action: {
+        action: {
           foo: 'bar',
         },
         manifest_version: 2,
@@ -37,13 +37,13 @@ export default tester(
       files: {
         'assets/icon.png': '',
         'config.json': JSON.stringify({
-          browser_action: {
+          action: {
             foo: 'bar',
           },
         }),
       },
       result: {
-        browser_action: {
+        action: {
           default_icon: 'assets/icon.png',
           foo: 'bar',
         },
@@ -56,11 +56,11 @@ export default tester(
     'browser action true': {
       files: {
         'config.json': JSON.stringify({
-          browser_action: true,
+          action: true,
         }),
       },
       result: {
-        browser_action: {},
+        action: {},
         manifest_version: 2,
       },
     },
@@ -170,7 +170,7 @@ export default tester(
         'popup.html': '',
       },
       result: {
-        browser_action: {
+        action: {
           default_popup: 'popup.html',
         },
         manifest_version: 2,

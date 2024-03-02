@@ -1,8 +1,4 @@
 {
   "name": "@dword-design/node",
-  "testInContainer": true,
-  "gitignore": [
-    "/demo/dist",
-    "/demo/node_modules"
-  ]
+  "testInContainer": true
 }

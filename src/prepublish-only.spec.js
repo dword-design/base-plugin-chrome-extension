@@ -36,12 +36,12 @@ export default tester(
         'background.js': endent`
           import browser from '${packageName`webextension-polyfill`}'
 
-          browser.browserAction.onClicked.addListener(
+          browser.action.onClicked.addListener(
             () => browser.storage.local.set({ enabled: true })
           )
         `,
         'config.json': JSON.stringify({
-          browser_action: {},
+          action: {},
           name: 'Foo',
           permissions: ['storage'],
         }),
@@ -75,7 +75,7 @@ export default tester(
         const backgroundPage = await backgroundTarget.page()
         await backgroundPage.evaluate(() => {
           window.chrome.tabs.query({ active: true }, tabs =>
-            window.chrome.browserAction.onClicked.dispatch(tabs[0]),
+            window.chrome.action.onClicked.dispatch(tabs[0]),
           )
         })
         await this.page.waitForSelector('.foo')
@@ -184,12 +184,12 @@ export default tester(
           'popup.js',
         ])
         expect(await fs.readJson(P.join('dist', 'manifest.json'))).toEqual({
+          action: {
+            default_popup: 'popup.html',
+          },
           background: {
             persistent: false,
             scripts: ['background.js'],
-          },
-          browser_action: {
-            default_popup: 'popup.html',
           },
           content_scripts: [
             {

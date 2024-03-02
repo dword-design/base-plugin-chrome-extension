@@ -1,6 +1,14 @@
 {
   "version": "0.0.1",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "dev": "../node_modules/.bin/base dev"
+    "dev": "PATH=$PATH:../node_modules/.bin base dev",
+    "prepublishOnly": "PATH=$PATH:../node_modules/.bin base prepublishOnly"
+  },
+  "peerDependencies": {
+    "webextension-polyfill": "*"
   }
 }
