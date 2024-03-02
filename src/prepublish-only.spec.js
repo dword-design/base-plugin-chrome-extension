@@ -196,8 +196,7 @@ export default tester(
             default_popup: 'popup.html',
           },
           background: {
-            persistent: false,
-            scripts: ['background.js'],
+            service_worker: 'background.js',
           },
           content_scripts: [
             {
@@ -206,7 +205,7 @@ export default tester(
             },
           ],
           description: 'foo bar',
-          manifest_version: 2,
+          manifest_version: 3,
           name: 'Foo',
           version: '2.0.0',
         })
