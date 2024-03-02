@@ -1,16 +1,23 @@
 import depcheckParserSass from '@dword-design/depcheck-parser-sass'
 import { endent } from '@dword-design/functions'
 import packageName from 'depcheck-package-name'
-import { execaCommand } from 'execa'
-import fs from 'fs-extra'
+import { createRequire } from 'module'
+import outputFiles from 'output-files'
+import P from 'path'
+import { fileURLToPath } from 'url'
 
 import dev from './dev.js'
 import lint from './lint.js'
 import prepublishOnly from './prepublish-only.js'
 
+const __dirname = P.dirname(fileURLToPath(import.meta.url))
+
+const isInNodeModules = __dirname.split(P.sep).includes('node_modules')
+
+const resolver = createRequire(import.meta.url)
+
 export default config => ({
   allowedMatches: [
-    'artifacts',
     'assets',
     'background.js',
     'content.js',
@@ -25,11 +32,13 @@ export default config => ({
   ],
   commands: {
     dev: {
-      arguments: '[target]',
+      arguments: '[browser]',
       handler: dev(config),
     },
-    prepublishOnly: prepublishOnly(config),
-    source: () => execaCommand('git archive --output=source.zip HEAD'),
+    prepublishOnly: {
+      arguments: '[browser]',
+      handler: prepublishOnly(config),
+    },
   },
   depcheckConfig: {
     parsers: {
@@ -51,40 +60,33 @@ export default config => ({
     [
       packageName`@semantic-release/exec`,
       {
-        prepareCmd: 'yarn prepublishOnly',
-      },
-    ],
-    [
-      packageName`semantic-release-chrome`,
-      {
-        asset: 'extension.zip',
-        extensionId: config.chromeExtensionId,
-        target: 'draft',
+        prepareCmd: `yarn prepublishOnly && yarn prepublishOnly firefox && zip -r dist/chrome dist/chrome.zip && zip -r dist/firefox dist/firefox.zip && git archive --output=dist/firefox-sources.zip HEAD && ${packageName`publish-browser-extension`} --chrome-zip=dist/chrome.zip --firefox-zip=dist/firefox.zip --firefox-sources=dist/firefox-sources.zip`,
       },
     ],
   ],
   editorIgnore: ['.eslintrc.json', 'dist'],
-  gitignore: ['/.eslintrc.json', '/artifacts', '/dist', 'source.zip'],
+  gitignore: ['/.eslintrc.json', '/dist'],
   isLockFileFixCommitType: true,
   lint,
-  prepare: () =>
-    fs.outputFile(
-      '.eslintrc.json',
-      JSON.stringify(
-        {
-          extends: packageName`@dword-design/eslint-config`,
-          globals: {
-            browser: 'readonly',
-          },
-        },
-        undefined,
-        2,
-      ),
-    ),
+  prepare: () => {
+    const configPath = isInNodeModules
+      ? '@dword-design/base-config-web-extension/config'
+      : `./${P.relative(process.cwd(), resolver.resolve('./config.js'))
+          .split(P.sep)
+          .join('/')}`
+    outputFiles({
+      '.eslintrc.json': `${JSON.stringify({ extends: packageName`@dword-design/eslint-config` }, undefined, 2)}\n`,
+      'vite.config.js': endent`
+        import config from '${configPath}'
+
+        export default config
+      `,
+    })
+  },
   readmeInstallString: endent`
     ## Recommended setup
-    * Node.js 12.16.0
-    * Yarn 1.21.1
+    * Node.js 20.11.1
+    * Yarn 1.22.19
 
     ## Install
     \`\`\`bash
@@ -93,18 +95,13 @@ export default config => ({
 
     ## Running a development server
     \`\`\`bash
-    $ yarn dev [target]
+    $ yarn dev [browser]
     \`\`\`
-    Available targets are \`firefox\` and \`chrome\`. Default is \`firefox\`.
+    Available browsers are \`firefox\` and \`chrome\`. Default is \`firefox\`.
 
     ## Building the extension for upload
     \`\`\`bash
-    $ yarn prepublishOnly
-    \`\`\`
-
-    ## Archiving the source for upload
-    \`\`\`bash
-    $ yarn source
+    $ yarn prepublishOnly [browser]
     \`\`\`
   `,
 })

@@ -2,6 +2,7 @@ import { endent } from '@dword-design/functions'
 import puppeteer from '@dword-design/puppeteer'
 import tester from '@dword-design/tester'
 import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
+import packageName from 'depcheck-package-name'
 import { execaCommand } from 'execa'
 import express from 'express'
 import fs from 'fs-extra'
@@ -14,19 +15,41 @@ const xvfb = new Xvfb()
 
 export default tester(
   {
+    babel: {
+      files: {
+        'config.json': JSON.stringify({ name: 'Foo' }),
+        'content.js': 'console.log(1 |> x => x * 2)',
+        'package.json': JSON.stringify({
+          baseConfig: P.resolve('src', 'index.js'),
+          description: 'foo bar',
+          type: 'module',
+          version: '2.0.0',
+        }),
+      },
+      test: async () =>
+        expect(
+          await fs.readFile(P.join('dist', 'chrome', 'content.js'), 'utf8'),
+        ).toEqual(
+          '(function(){"use strict";var o;console.log((o=1,o*2))})();\n',
+        ),
+    },
     'browser variable': {
       files: {
         'background.js': endent`
-          browser.browserAction.onClicked.addListener(
+          import browser from '${packageName`webextension-polyfill`}'
+
+          browser.action.onClicked.addListener(
             () => browser.storage.local.set({ enabled: true })
           )
         `,
         'config.json': JSON.stringify({
-          browser_action: {},
+          action: {},
           name: 'Foo',
           permissions: ['storage'],
         }),
         'content.js': endent`
+          import browser from '${packageName`webextension-polyfill`}'
+
           browser.storage.onChanged.addListener((changes, area) => {
             if (area === 'local' && changes.enabled?.newValue) {
               document.body.classList.add('foo')
@@ -35,6 +58,9 @@ export default tester(
         `,
         'package.json': JSON.stringify({
           baseConfig: P.resolve('src', 'index.js'),
+          dependencies: {
+            'webextension-polyfill': '*',
+          },
           description: 'foo bar',
           type: 'module',
           version: '2.0.0',
@@ -43,15 +69,15 @@ export default tester(
       async test() {
         await this.page.goto('http://localhost:3000')
 
-        // https://github.com/puppeteer/puppeteer/issues/2486#issuecomment-602116047
-        const backgroundTarget = await this.browser.waitForTarget(
-          t => t.type() === 'background_page',
+        // https://github.com/puppeteer/puppeteer/issues/2486#issuecomment-1159705685
+        const target = await this.browser.waitForTarget(
+          t => t.type() === 'service_worker',
         )
 
-        const backgroundPage = await backgroundTarget.page()
-        await backgroundPage.evaluate(() => {
-          window.chrome.tabs.query({ active: true }, tabs =>
-            window.chrome.browserAction.onClicked.dispatch(tabs[0]),
+        const worker = await target.worker()
+        await worker.evaluate(() => {
+          self.chrome.tabs.query({ active: true }, tabs =>
+            self.chrome.action.onClicked.dispatch(tabs[0]),
           )
         })
         await this.page.waitForSelector('.foo')
@@ -88,18 +114,14 @@ export default tester(
           $color: red;
 
           body {
-            background: $color;
+            color: $color;
           }
         `,
-        'config.json': JSON.stringify({ name: 'Foo' }),
-        'content.js': endent`
-          import styleCode from './assets/style.scss'
-
-          const style = document.createElement('style')
-          style.type = 'text/css'
-          style.appendChild(document.createTextNode(styleCode))
-          document.getElementsByTagName('head')[0].appendChild(style)
-        `,
+        'config.json': JSON.stringify({
+          css: ['assets/style.scss'],
+          name: 'Foo',
+        }),
+        'content.js': '',
         'package.json': JSON.stringify({
           baseConfig: P.resolve('src', 'index.js'),
           description: 'foo bar',
@@ -109,7 +131,11 @@ export default tester(
       },
       async test() {
         await this.page.goto('http://localhost:3000')
-        expect(await this.page.screenshot()).toMatchImageSnapshot(this)
+        expect(
+          await this.page.evaluate(
+            () => window.getComputedStyle(document.body).color,
+          ),
+        ).toEqual('rgb(255, 0, 0)')
       },
     },
     valid: {
@@ -121,7 +147,6 @@ export default tester(
           import model from './model/foo.js'
 
           document.body.classList.add(model)
-
         `,
         'model/foo.js': "export default 'foo'",
         'options.html': '',
@@ -138,7 +163,6 @@ export default tester(
       async test() {
         expect(await globby('*', { onlyFiles: false })).toEqual(
           expect.arrayContaining([
-            'artifacts',
             'assets',
             'background.js',
             'content.js',
@@ -152,32 +176,36 @@ export default tester(
           ]),
         )
         expect(await globby('*', { cwd: 'dist', onlyFiles: false })).toEqual([
-          'assets',
+          'chrome',
+        ])
+        expect(
+          await globby('*', {
+            cwd: P.join('dist', 'chrome'),
+            onlyFiles: false,
+          }),
+        ).toEqual([
           'background.js',
-          'browser-polyfill.js',
           'content.js',
           'manifest.json',
-          'options.html',
-          'options.js',
           'popup.html',
-          'popup.js',
         ])
-        expect(await fs.readJson(P.join('dist', 'manifest.json'))).toEqual({
-          background: {
-            persistent: false,
-            scripts: ['browser-polyfill.js', 'background.js'],
-          },
-          browser_action: {
+        expect(
+          await fs.readJson(P.join('dist', 'chrome', 'manifest.json')),
+        ).toEqual({
+          action: {
             default_popup: 'popup.html',
+          },
+          background: {
+            service_worker: 'background.js',
           },
           content_scripts: [
             {
-              js: ['browser-polyfill.js', 'content.js'],
+              js: ['content.js'],
               matches: ['<all_urls>'],
             },
           ],
           description: 'foo bar',
-          manifest_version: 2,
+          manifest_version: 3,
           name: 'Foo',
           version: '2.0.0',
         })
@@ -204,8 +232,8 @@ export default tester(
             xvfb.start()
             this.browser = await puppeteer.launch({
               args: [
-                `--load-extension=${P.join(process.cwd(), 'dist')}`,
-                `--disable-extensions-except=${P.join(process.cwd(), 'dist')}`,
+                `--load-extension=${P.join(process.cwd(), 'dist', 'chrome')}`,
+                `--disable-extensions-except=${P.join(process.cwd(), 'dist', 'chrome')}`,
               ],
               headless: false,
             })
