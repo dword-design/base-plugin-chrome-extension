@@ -16,7 +16,6 @@ const resolver = createRequire(import.meta.url)
 
 export default config => ({
   allowedMatches: [
-    'artifacts',
     'assets',
     'background.js',
     'content.js',
@@ -63,17 +62,9 @@ export default config => ({
           `yarn prepublishOnly && yarn prepublishOnly firefox && zip -r dist/chrome dist/chrome.zip && zip -r dist/firefox dist/firefox.zip && git archive --output=dist/firefox-sources.zip HEAD && ${packageName`publish-browser-extension`} --chrome-zip=dist/chrome.zip --firefox-zip=dist/firefox.zip --firefox-sources=dist/firefox-sources.zip`,
       },
     ],
-    [
-      packageName`semantic-release-chrome`,
-      {
-        asset: 'extension.zip',
-        extensionId: config.chromeExtensionId,
-        target: 'draft',
-      },
-    ],
   ],
   editorIgnore: ['.eslintrc.json', 'dist'],
-  gitignore: ['/.eslintrc.json', '/artifacts', '/dist'],
+  gitignore: ['/.eslintrc.json', '/dist'],
   isLockFileFixCommitType: true,
   lint,
   prepare: () => {
