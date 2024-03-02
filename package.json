@@ -36,6 +36,7 @@
     "fs-extra": "^11.1.0",
     "load-pkg": "^4.0.0",
     "lodash-es": "^4.17.21",
+    "output-files": "^2.0.0",
     "publish-browser-extension": "^2.1.3",
     "semantic-release-chrome": "dword-design/semantic-release-chrome#fork",
     "vite": "^5.1.4",
@@ -51,7 +52,6 @@
     "@dword-design/tester-plugin-tmp-dir": "^2.0.3",
     "express": "^4.17.1",
     "globby": "^14.0.0",
-    "output-files": "^2.0.0",
     "webextension-polyfill": "^0.10.0",
     "with-local-tmp-dir": "^5.0.1",
     "xvfb": "^0.4.0"

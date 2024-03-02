@@ -9,6 +9,7 @@
     "prepublishOnly": "PATH=$PATH:../node_modules/.bin base prepublishOnly"
   },
   "peerDependencies": {
+    "vue": "*",
     "webextension-polyfill": "*"
   }
 }

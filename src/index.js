@@ -75,7 +75,11 @@ export default config => ({
           .join('/')}`
     outputFiles({
       '.eslintrc.json': `${JSON.stringify({ extends: packageName`@dword-design/eslint-config` }, undefined, 2)}\n`,
-      'vite.config.js': `export { default } from '${configPath}'`,
+      'vite.config.js': endent`
+        import config from '${configPath}'
+
+        export default config
+      `,
     })
   },
   readmeInstallString: endent`
