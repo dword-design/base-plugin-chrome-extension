@@ -1,7 +1,6 @@
 import depcheckParserSass from '@dword-design/depcheck-parser-sass'
 import { endent } from '@dword-design/functions'
 import packageName from 'depcheck-package-name'
-import { execaCommand } from 'execa'
 import outputFiles from 'output-files'
 import P from 'path'
 import { createRequire } from 'module'
@@ -61,7 +60,7 @@ export default config => ({
       packageName`@semantic-release/exec`,
       {
         prepareCmd:
-          'yarn prepublishOnly && yarn prepublishOnly firefox && zip -r dist/chrome dist/chrome.zip && zip -r dist/firefox dist/firefox.zip && git archive --output=dist/firefox-sources.zip HEAD && release-browser-extension --chrome-zip=dist/chrome.zip --firefox-zip=dist/firefox.zip --firefox-sources=dist/firefox-sources.zip',
+          `yarn prepublishOnly && yarn prepublishOnly firefox && zip -r dist/chrome dist/chrome.zip && zip -r dist/firefox dist/firefox.zip && git archive --output=dist/firefox-sources.zip HEAD && ${packageName`publish-browser-extension`} --chrome-zip=dist/chrome.zip --firefox-zip=dist/firefox.zip --firefox-sources=dist/firefox-sources.zip`,
       },
     ],
     [
