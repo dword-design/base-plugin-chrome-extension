@@ -1294,9 +1294,9 @@
     micromatch "^4.0.2"
 
 "@dword-design/base@^11.0.2":
-  version "11.0.4"
-  resolved "https://registry.yarnpkg.com/@dword-design/base/-/base-11.0.4.tgz#578b9c2f3e916932ef2dad918bf923606b45da3a"
-  integrity sha512-goYI9ZQY42OszPFBvjAAJLOtg2sDdc8hmc3FoOncQJ1vIx3UWp2kE0ZVjwY2LPaV/yIfl+1idgiB3T9wp+QzMg==
+  version "11.0.5"
+  resolved "https://registry.yarnpkg.com/@dword-design/base/-/base-11.0.5.tgz#d6762b0683246b2294d7cd31eee3b49d9d285eb5"
+  integrity sha512-EM68TfTMymY7s2duBxk3q/nGUblec8l+ssg+c0y5Azygu4hE0DsHRAEmJMX53FvyIVwId428Z1dRn5u0VuODsQ==
   dependencies:
     "@commitlint/cli" "^18.4.4"
     "@commitlint/config-conventional" "^18.4.4"
