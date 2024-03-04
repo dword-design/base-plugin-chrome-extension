@@ -46,6 +46,13 @@ export default async ({ browser }) => {
           : { service_worker: 'background.js' }),
       },
     }),
-    ...pick(config, ['host_permissions', 'optional_host_permissions', 'optional_permissions', 'permissions', 'browser_specific_settings', 'css']),
+    ...pick(config, [
+      'host_permissions',
+      'optional_host_permissions',
+      'optional_permissions',
+      'permissions',
+      'browser_specific_settings',
+      'css',
+    ]),
   }
 }
