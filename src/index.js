@@ -64,8 +64,8 @@ export default config => ({
       },
     ],
   ],
-  editorIgnore: ['.eslintrc.json', 'dist'],
-  gitignore: ['/.eslintrc.json', '/dist'],
+  editorIgnore: ['.eslintrc.json', 'dist', '/vite.config.js'],
+  gitignore: ['/.eslintrc.json', '/dist', '/vite.config.js'],
   isLockFileFixCommitType: true,
   lint,
   prepare: () => {
