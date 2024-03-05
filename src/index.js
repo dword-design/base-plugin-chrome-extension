@@ -1,20 +1,11 @@
 import depcheckParserSass from '@dword-design/depcheck-parser-sass'
 import { endent } from '@dword-design/functions'
 import packageName from 'depcheck-package-name'
-import { createRequire } from 'module'
 import outputFiles from 'output-files'
-import P from 'path'
-import { fileURLToPath } from 'url'
 
 import dev from './dev.js'
 import lint from './lint.js'
 import prepublishOnly from './prepublish-only.js'
-
-const __dirname = P.dirname(fileURLToPath(import.meta.url))
-
-const isInNodeModules = __dirname.split(P.sep).includes('node_modules')
-
-const resolver = createRequire(import.meta.url)
 
 export default config => ({
   allowedMatches: [
@@ -68,21 +59,32 @@ export default config => ({
   gitignore: ['/.eslintrc.json', '/dist', '/vite.config.js'],
   isLockFileFixCommitType: true,
   lint,
-  prepare: () => {
-    const configPath = isInNodeModules
-      ? '@dword-design/base-config-web-extension/config'
-      : `./${P.relative(process.cwd(), resolver.resolve('./config.js'))
-          .split(P.sep)
-          .join('/')}`
+  prepare: () =>
     outputFiles({
       '.eslintrc.json': `${JSON.stringify({ extends: packageName`@dword-design/eslint-config` }, undefined, 2)}\n`,
       'vite.config.js': endent`
-        import config from '${configPath}'
+        import vue from '${packageName`@vitejs/plugin-vue`}'
+        import P from 'path'
+        import { defineConfig } from '${packageName`vite`}'
+        import babel from '${packageName`vite-plugin-babel`}'
+        import eslint from '${packageName`vite-plugin-eslint`}'
+        import webExtension from '${packageName`vite-plugin-web-extension`}'
 
-        export default config
+        export default defineConfig({
+          build: {
+            outDir: P.join('dist', process.env.TARGET),
+          },
+          plugins: [
+            vue(),
+            webExtension({
+              browser: process.env.TARGET,
+              manifest: () => JSON.parse(process.env.MANIFEST),
+              scriptViteConfig: { plugins: [eslint({ fix: true }), babel()] },
+            }),
+          ],
+        })\n
       `,
-    })
-  },
+    }),
   readmeInstallString: endent`
     ## Recommended setup
     * Node.js 20.11.1

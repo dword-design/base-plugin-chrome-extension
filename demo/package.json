@@ -9,6 +9,11 @@
     "prepublishOnly": "PATH=$PATH:../node_modules/.bin base prepublishOnly"
   },
   "peerDependencies": {
+    "@vitejs/plugin-vue": "*",
+    "vite": "*",
+    "vite-plugin-babel": "*",
+    "vite-plugin-eslint": "*",
+    "vite-plugin-web-extension": "*",
     "vue": "*",
     "webextension-polyfill": "*"
   }
