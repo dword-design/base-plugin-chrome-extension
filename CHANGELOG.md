@@ -1,3 +1,13 @@
+## [3.0.1](https://github.com/dword-design/base-config-web-extension/compare/v3.0.0...v3.0.1) (2024-03-05)
+
+
+### Bug Fixes
+
+* add permissions ([19e9926](https://github.com/dword-design/base-config-web-extension/commit/19e992634885000e885670bc5f563788bddb66d2))
+* ignore vite.config.js ([21bda4e](https://github.com/dword-design/base-config-web-extension/commit/21bda4e36709180bf0145046bb45a37ab1479828))
+* linting ([1e9f911](https://github.com/dword-design/base-config-web-extension/commit/1e9f9115712c5236f42993979a456aca9521ed8a))
+* lock file maintenance ([#109](https://github.com/dword-design/base-config-web-extension/issues/109)) ([1f7edf5](https://github.com/dword-design/base-config-web-extension/commit/1f7edf53cf9d46e31fdd6a12fed86c4cffdafda4))
+
 # [3.0.0](https://github.com/dword-design/base-config-web-extension/compare/v2.0.0...v3.0.0) (2024-03-02)
 
 
