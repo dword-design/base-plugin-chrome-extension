@@ -23,12 +23,12 @@ export default tester(
     },
     'browser action and icon': {
       files: {
-        'public/icon.png': '',
         'config.json': JSON.stringify({
           action: {
             foo: 'bar',
           },
         }),
+        'public/icon.png': '',
       },
       result: {
         action: {
