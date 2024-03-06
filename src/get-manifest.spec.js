@@ -52,25 +52,6 @@ export default tester(
         manifest_version: 3,
       },
     },
-    'browser specific settings': {
-      files: {
-        'config.json': JSON.stringify({
-          browser_specific_settings: {
-            gecko: {
-              id: '{071e944b-8d1c-4b48-8bba-4c2519deee01}',
-            },
-          },
-        }),
-      },
-      result: {
-        browser_specific_settings: {
-          gecko: {
-            id: '{071e944b-8d1c-4b48-8bba-4c2519deee01}',
-          },
-        },
-        manifest_version: 3,
-      },
-    },
     'content script': {
       files: {
         'content.js': '',
@@ -89,6 +70,26 @@ export default tester(
       result: {
         manifest_version: 3,
       },
+    },
+    'firefox id and firefox': {
+      browser: 'firefox',
+      env: {
+        FIREFOX_EXTENSION_ID: '95cd69f2-2600-4bf7-aab9-ceb5d27e5685',
+      },
+      result: {
+        browser_specific_settings: {
+          gecko: {
+            id: '95cd69f2-2600-4bf7-aab9-ceb5d27e5685',
+          },
+        },
+        manifest_version: 3,
+      },
+    },
+    'firefox id outside firefox': {
+      env: {
+        FIREFOX_EXTENSION_ID: '95cd69f2-2600-4bf7-aab9-ceb5d27e5685',
+      },
+      result: { manifest_version: 3 },
     },
     icon: {
       files: {
@@ -193,10 +194,16 @@ export default tester(
     testerPluginTmpDir(),
     {
       transform:
-        ({ files = {}, result, browser = 'chrome' } = {}) =>
+        ({ files = {}, result, browser = 'chrome', env } = {}) =>
         async () => {
           await outputFiles(files)
-          expect(await self({ browser })).toEqual(result)
+          const previousEnv = { ...process.env }
+          Object.assign(process.env, env)
+          try {
+            expect(await self({ browser })).toEqual(result)
+          } finally {
+            process.env = previousEnv
+          }
         },
     },
   ],
