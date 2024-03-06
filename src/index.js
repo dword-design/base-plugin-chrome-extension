@@ -43,9 +43,13 @@ export default config => ({
     },
   ],
   deployEnv: {
-    GOOGLE_CLIENT_ID: '${{ secrets.GOOGLE_CLIENT_ID }}',
-    GOOGLE_CLIENT_SECRET: '${{ secrets.GOOGLE_CLIENT_SECRET }}',
-    GOOGLE_REFRESH_TOKEN: '${{ secrets.GOOGLE_REFRESH_TOKEN }}',
+    CHROME_CLIENT_ID: '${{ secrets.CHROME_CLIENT_ID }}',
+    CHROME_CLIENT_SECRET: '${{ secrets.CHROME_CLIENT_SECRET }}',
+    CHROME_EXTENSION_ID: '${{ secrets.CHROME_EXTENSION_ID }}',
+    CHROME_REFRESH_TOKEN: '${{ secrets.CHROME_REFRESH_TOKEN }}',
+    FIREFOX_EXTENSION_ID: '${{ secrets.FIREFOX_EXTENSION_ID }}',
+    FIREFOX_JWT_ISSUER: '${{ secrets.FIREFOX_JWT_ISSUER }}',
+    FIREFOX_JWT_SECRET: '${{ secrets.FIREFOX_JWT_SECRET }}'
   },
   deployPlugins: [
     [
