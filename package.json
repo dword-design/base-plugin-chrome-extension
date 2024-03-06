@@ -49,8 +49,7 @@
     "express": "^4.17.1",
     "globby": "^14.0.0",
     "webextension-polyfill": "^0.10.0",
-    "with-local-tmp-dir": "^5.0.1",
-    "xvfb": "^0.4.0"
+    "with-local-tmp-dir": "^5.0.1"
   },
   "engines": {
     "node": ">=18"

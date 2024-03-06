@@ -9,9 +9,6 @@ import fs from 'fs-extra'
 import { globby } from 'globby'
 import outputFiles from 'output-files'
 import P from 'path'
-import Xvfb from 'xvfb'
-
-const xvfb = new Xvfb()
 
 export default tester(
   {
@@ -229,13 +226,12 @@ export default tester(
           }
           await execaCommand('base prepublishOnly')
           if (test.test) {
-            xvfb.start()
             this.browser = await puppeteer.launch({
               args: [
                 `--load-extension=${P.join(process.cwd(), 'dist', 'chrome')}`,
                 `--disable-extensions-except=${P.join(process.cwd(), 'dist', 'chrome')}`,
               ],
-              headless: false,
+              headless: 'new',
             })
             this.page = await this.browser.newPage()
 
@@ -248,7 +244,6 @@ export default tester(
               await this.page.close()
               await this.browser.close()
               await server.close()
-              xvfb.stop()
             }
           }
         },
