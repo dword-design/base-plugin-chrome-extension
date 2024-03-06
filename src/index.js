@@ -9,11 +9,10 @@ import prepublishOnly from './prepublish-only.js'
 
 export default config => ({
   allowedMatches: [
-    'assets',
+    'public',
     'background.js',
     'content.js',
     'config.json',
-    'icon.png',
     'index.spec.js',
     'options.html',
     'popup.html',
