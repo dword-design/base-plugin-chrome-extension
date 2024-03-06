@@ -23,7 +23,7 @@ export default tester(
     },
     'browser action and icon': {
       files: {
-        'assets/icon.png': '',
+        'public/icon.png': '',
         'config.json': JSON.stringify({
           action: {
             foo: 'bar',
@@ -32,11 +32,11 @@ export default tester(
       },
       result: {
         action: {
-          default_icon: 'assets/icon.png',
+          default_icon: 'icon.png',
           foo: 'bar',
         },
         icons: {
-          128: 'assets/icon.png',
+          128: 'icon.png',
         },
         manifest_version: 3,
       },
@@ -92,11 +92,11 @@ export default tester(
     },
     icon: {
       files: {
-        'assets/icon.png': '',
+        'public/icon.png': '',
       },
       result: {
         icons: {
-          128: 'assets/icon.png',
+          128: 'icon.png',
         },
         manifest_version: 3,
       },
