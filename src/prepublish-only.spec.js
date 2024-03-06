@@ -228,8 +228,8 @@ export default tester(
           if (test.test) {
             this.browser = await puppeteer.launch({
               args: [
-                `--load-extension=${P.join(process.cwd(), 'dist', 'chrome')}`,
-                `--disable-extensions-except=${P.join(process.cwd(), 'dist', 'chrome')}`,
+                '--load-extension=dist/chrome',
+                '--disable-extensions-except=dist/chrome',
               ],
               headless: 'new',
             })
