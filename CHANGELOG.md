@@ -1,3 +1,10 @@
+## [3.0.3](https://github.com/dword-design/base-config-web-extension/compare/v3.0.2...v3.0.3) (2024-03-06)
+
+
+### Bug Fixes
+
+* fix icon folder ([969b8e8](https://github.com/dword-design/base-config-web-extension/commit/969b8e8cbec5cbd09cd07875046408bf2e4cf236))
+
 ## [3.0.2](https://github.com/dword-design/base-config-web-extension/compare/v3.0.1...v3.0.2) (2024-03-05)
 
 
