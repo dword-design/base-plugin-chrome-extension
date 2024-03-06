@@ -7,7 +7,7 @@ export default async ({ browser }) => {
 
   const config = await fs.readJson('config.json').catch(() => ({}))
 
-  const iconExists = await fs.exists('assets/icon.png')
+  const iconExists = await fs.exists('public/icon.png')
 
   const popupExists = await fs.exists('popup.html')
 
@@ -17,12 +17,12 @@ export default async ({ browser }) => {
     manifest_version: 3,
     ...(iconExists && {
       icons: {
-        128: 'assets/icon.png',
+        128: 'icon.png',
       },
     }),
     ...(('action' in config || popupExists) && {
       action: {
-        ...(iconExists && { default_icon: 'assets/icon.png' }),
+        ...(iconExists && { default_icon: 'icon.png' }),
         ...(popupExists && { default_popup: 'popup.html' }),
         ...(typeof config.action === 'object' && config.action),
       },
