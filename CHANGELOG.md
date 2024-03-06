@@ -1,3 +1,10 @@
+## [3.0.4](https://github.com/dword-design/base-config-web-extension/compare/v3.0.3...v3.0.4) (2024-03-06)
+
+
+### Bug Fixes
+
+* foo ([6f4b45b](https://github.com/dword-design/base-config-web-extension/commit/6f4b45b4e5f9dadd0660bf9655486da56999494d))
+
 ## [3.0.3](https://github.com/dword-design/base-config-web-extension/compare/v3.0.2...v3.0.3) (2024-03-06)
 
 
