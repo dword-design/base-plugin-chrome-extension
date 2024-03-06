@@ -197,6 +197,7 @@ export default tester(
         ({ files = {}, result, browser = 'chrome', env } = {}) =>
         async () => {
           await outputFiles(files)
+
           const previousEnv = { ...process.env }
           Object.assign(process.env, env)
           try {

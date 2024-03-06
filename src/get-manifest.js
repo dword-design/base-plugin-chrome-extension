@@ -46,13 +46,14 @@ export default async ({ browser }) => {
           : { service_worker: 'background.js' }),
       },
     }),
-    ...(process.env.FIREFOX_EXTENSION_ID && browser === 'firefox' && {
-      browser_specific_settings: {
-        gecko: {
-          id: process.env.FIREFOX_EXTENSION_ID,
+    ...(process.env.FIREFOX_EXTENSION_ID &&
+      browser === 'firefox' && {
+        browser_specific_settings: {
+          gecko: {
+            id: process.env.FIREFOX_EXTENSION_ID,
+          },
         },
-      },
-    }),
+      }),
     ...pick(config, [
       'host_permissions',
       'optional_host_permissions',
