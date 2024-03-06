@@ -49,7 +49,7 @@ export default config => ({
     CHROME_REFRESH_TOKEN: '${{ secrets.CHROME_REFRESH_TOKEN }}',
     FIREFOX_EXTENSION_ID: '${{ secrets.FIREFOX_EXTENSION_ID }}',
     FIREFOX_JWT_ISSUER: '${{ secrets.FIREFOX_JWT_ISSUER }}',
-    FIREFOX_JWT_SECRET: '${{ secrets.FIREFOX_JWT_SECRET }}'
+    FIREFOX_JWT_SECRET: '${{ secrets.FIREFOX_JWT_SECRET }}',
   },
   deployPlugins: [
     [
