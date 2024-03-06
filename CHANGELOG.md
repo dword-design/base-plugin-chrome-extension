@@ -1,3 +1,10 @@
+## [3.0.7](https://github.com/dword-design/base-config-web-extension/compare/v3.0.6...v3.0.7) (2024-03-06)
+
+
+### Bug Fixes
+
+* headless-new ([2835797](https://github.com/dword-design/base-config-web-extension/commit/283579710fa60c098ac1944c59b01d5d25f30538))
+
 ## [3.0.6](https://github.com/dword-design/base-config-web-extension/compare/v3.0.5...v3.0.6) (2024-03-06)
 
 
