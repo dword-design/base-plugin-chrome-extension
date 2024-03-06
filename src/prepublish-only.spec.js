@@ -231,7 +231,6 @@ export default tester(
                 '--load-extension=dist/chrome',
                 '--disable-extensions-except=dist/chrome',
               ],
-              headless: 'new',
             })
             this.page = await this.browser.newPage()
 
