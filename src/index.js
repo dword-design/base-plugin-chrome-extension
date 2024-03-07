@@ -59,6 +59,10 @@ export default config => ({
       },
     ],
   ],
+  editorIgnore: ['.eslintrc.json', 'dist', 'vite.config.js'],
+  gitignore: ['/.eslintrc.json', '/dist', '/vite.config.js'],
+  isLockFileFixCommitType: true,
+  lint,
   preDeploySteps: [
     'yarn prepublishOnly',
     'yarn prepublishOnly firefox',
@@ -66,10 +70,6 @@ export default config => ({
     'cd dist/firefox && zip -r ../firefox.zip .',
     'git archive --output=dist/firefox-sources.zip HEAD',
   ],
-  editorIgnore: ['.eslintrc.json', 'dist', 'vite.config.js'],
-  gitignore: ['/.eslintrc.json', '/dist', '/vite.config.js'],
-  isLockFileFixCommitType: true,
-  lint,
   prepare: () =>
     outputFiles({
       '.eslintrc.json': `${JSON.stringify({ extends: packageName`@dword-design/eslint-config` }, undefined, 2)}\n`,
