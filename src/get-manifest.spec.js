@@ -74,12 +74,12 @@ export default tester(
     'firefox id and firefox': {
       browser: 'firefox',
       env: {
-        FIREFOX_EXTENSION_ID: '95cd69f2-2600-4bf7-aab9-ceb5d27e5685',
+        FIREFOX_EXTENSION_ID: '{95cd69f2-2600-4bf7-aab9-ceb5d27e5685}',
       },
       result: {
         browser_specific_settings: {
           gecko: {
-            id: '95cd69f2-2600-4bf7-aab9-ceb5d27e5685',
+            id: '{95cd69f2-2600-4bf7-aab9-ceb5d27e5685}',
           },
         },
         manifest_version: 3,
@@ -87,7 +87,7 @@ export default tester(
     },
     'firefox id outside firefox': {
       env: {
-        FIREFOX_EXTENSION_ID: '95cd69f2-2600-4bf7-aab9-ceb5d27e5685',
+        FIREFOX_EXTENSION_ID: '{95cd69f2-2600-4bf7-aab9-ceb5d27e5685}',
       },
       result: { manifest_version: 3 },
     },
