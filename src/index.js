@@ -64,11 +64,11 @@ export default config => ({
   isLockFileFixCommitType: true,
   lint,
   preDeploySteps: [
-    'yarn prepublishOnly',
-    'yarn prepublishOnly firefox',
-    'cd dist/chrome && zip -r ../chrome.zip .',
-    'cd dist/firefox && zip -r ../firefox.zip .',
-    'git archive --output=dist/firefox-sources.zip HEAD',
+    { run: 'yarn prepublishOnly' },
+    { run: 'yarn prepublishOnly firefox' },
+    { run: 'zip -r ../chrome.zip .', 'working-directory': 'dist/chrome' },
+    { run: 'zip -r ../firefox.zip .', 'working-directory': 'dist/firefox' },
+    { run: 'git archive --output=dist/firefox-sources.zip HEAD' },
   ],
   prepare: () =>
     outputFiles({
