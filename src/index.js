@@ -55,9 +55,16 @@ export default config => ({
     [
       packageName`@semantic-release/exec`,
       {
-        prepareCmd: `yarn prepublishOnly && yarn prepublishOnly firefox && (cd dist/chrome && zip -r ../chrome.zip .) && (cd dist/firefox && zip -r ../firefox.zip .) && git archive --output=dist/firefox-sources.zip HEAD && yarn ${binName`publish-extension`} --chrome-zip=dist/chrome.zip --firefox-zip=dist/firefox.zip --firefox-sources-zip=dist/firefox-sources.zip`,
+        publishCmd: `yarn ${binName`publish-extension`} --chrome-zip=dist/chrome.zip --firefox-zip=dist/firefox.zip --firefox-sources-zip=dist/firefox-sources.zip`,
       },
     ],
+  ],
+  preDeploySteps: [
+    'yarn prepublishOnly',
+    'yarn prepublishOnly firefox',
+    'cd dist/chrome && zip -r ../chrome.zip .',
+    'cd dist/firefox && zip -r ../firefox.zip .',
+    'git archive --output=dist/firefox-sources.zip HEAD',
   ],
   editorIgnore: ['.eslintrc.json', 'dist', 'vite.config.js'],
   gitignore: ['/.eslintrc.json', '/dist', '/vite.config.js'],
