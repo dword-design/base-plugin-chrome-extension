@@ -65,7 +65,7 @@ export default config => ({
   lint,
   preDeploySteps: [
     { run: 'yarn prepublishOnly' },
-    { run: 'yarn prepublishOnly firefox' },
+    { run: 'yarn prepublishOnly firefox', env: { FIREFOX_EXTENSION_ID: '${{ secrets.FIREFOX_EXTENSION_ID }}' } },
     { run: 'zip -r ../chrome.zip .', 'working-directory': 'dist/chrome' },
     { run: 'zip -r ../firefox.zip .', 'working-directory': 'dist/firefox' },
     { run: 'git archive --output=dist/firefox-sources.zip HEAD' },
