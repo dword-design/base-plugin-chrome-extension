@@ -1,3 +1,10 @@
+## [3.0.17](https://github.com/dword-design/base-config-web-extension/compare/v3.0.16...v3.0.17) (2024-04-18)
+
+
+### Bug Fixes
+
+* update dependency webextension-polyfill to ^0.11.0 ([#117](https://github.com/dword-design/base-config-web-extension/issues/117)) ([de95f52](https://github.com/dword-design/base-config-web-extension/commit/de95f5233b0b810be3b405c635944257bdb061fc))
+
 ## [3.0.16](https://github.com/dword-design/base-config-web-extension/compare/v3.0.15...v3.0.16) (2024-03-07)
 
 
