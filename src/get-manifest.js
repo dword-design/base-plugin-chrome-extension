@@ -22,7 +22,7 @@ export default async ({ browser }) => {
     }),
     ...(('action' in config || popupExists) && {
       action: {
-        ...(iconExists && { default_icon: 'icon.png' }),
+        ...(iconExists && { default_icon: { 128: 'icon.png' } }),
         ...(popupExists && { default_popup: 'popup.html' }),
         ...(typeof config.action === 'object' && config.action),
       },

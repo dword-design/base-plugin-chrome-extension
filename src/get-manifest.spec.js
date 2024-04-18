@@ -32,7 +32,9 @@ export default tester(
       },
       result: {
         action: {
-          default_icon: 'icon.png',
+          default_icon: {
+            128: 'icon.png',
+          },
           foo: 'bar',
         },
         icons: {

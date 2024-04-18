@@ -12,6 +12,23 @@ import P from 'path'
 
 export default tester(
   {
+    'action with icon': {
+      files: {
+        'config.json': JSON.stringify({
+          action: {},
+          name: 'Foo',
+          permissions: ['storage'],
+        }),
+        'content.js': '',
+        'package.json': JSON.stringify({
+          baseConfig: P.resolve('src', 'index.js'),
+          description: 'foo bar',
+          type: 'module',
+          version: '2.0.0',
+        }),
+        'public/icon.png': '',
+      },
+    },
     babel: {
       files: {
         'config.json': JSON.stringify({ name: 'Foo' }),
