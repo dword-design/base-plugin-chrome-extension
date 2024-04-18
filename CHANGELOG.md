@@ -1,3 +1,10 @@
+## [3.0.18](https://github.com/dword-design/base-config-web-extension/compare/v3.0.17...v3.0.18) (2024-04-18)
+
+
+### Bug Fixes
+
+* fix action and icon ([6368505](https://github.com/dword-design/base-config-web-extension/commit/63685055aff1c911b2f41ac0827fbdfd7f93d033))
+
 ## [3.0.17](https://github.com/dword-design/base-config-web-extension/compare/v3.0.16...v3.0.17) (2024-04-18)
 
 
