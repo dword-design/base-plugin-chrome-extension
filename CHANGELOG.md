@@ -1,3 +1,10 @@
+## [3.0.19](https://github.com/dword-design/base-config-web-extension/compare/v3.0.18...v3.0.19) (2024-04-19)
+
+
+### Bug Fixes
+
+* allow assets ([8d281b7](https://github.com/dword-design/base-config-web-extension/commit/8d281b7166ce32e0337445eb4e2b9fc6e0e8bd97))
+
 ## [3.0.18](https://github.com/dword-design/base-config-web-extension/compare/v3.0.17...v3.0.18) (2024-04-18)
 
 
