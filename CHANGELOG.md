@@ -1,3 +1,10 @@
+## [3.0.20](https://github.com/dword-design/base-config-web-extension/compare/v3.0.19...v3.0.20) (2024-06-08)
+
+
+### Bug Fixes
+
+* add vue svg loader ([aab7c24](https://github.com/dword-design/base-config-web-extension/commit/aab7c248d19ccef651192ac0f089868743f59ba8))
+
 ## [3.0.19](https://github.com/dword-design/base-config-web-extension/compare/v3.0.18...v3.0.19) (2024-04-19)
 
 
