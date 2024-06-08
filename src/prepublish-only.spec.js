@@ -152,6 +152,52 @@ export default tester(
         ).toEqual('rgb(255, 0, 0)')
       },
     },
+    svg: {
+      files: {
+        'App.vue': endent`
+          <template>
+            <svg-icon />
+          </template>
+
+          <script setup>
+          import SvgIcon from '${packageName`@mdi/svg`}/svg/checkbox-marked-circle.svg';
+          </script>
+        `,
+        'background.js': '',
+        'config.json': JSON.stringify({ name: 'Foo' }),
+        'package.json': JSON.stringify({
+          baseConfig: P.resolve('src', 'index.js'),
+          description: 'foo bar',
+          type: 'module',
+          version: '2.0.0',
+        }),
+        'popup.html': endent`
+          <div id="app"></div>
+          <script type="module" src="./popup.js"></script>
+        `,
+        'popup.js': endent`
+          import { createApp } from 'vue';
+
+          import App from './App.vue';
+
+          createApp(App).mount('#app');
+        `,
+      },
+      async test() {
+        await this.page.goto('http://localhost:3000')
+
+        // https://github.com/puppeteer/puppeteer/issues/2486#issuecomment-1159705685
+        const target = await this.browser.waitForTarget(
+          t => t.type() === 'service_worker',
+        )
+
+        const worker = await target.worker()
+
+        const extensionId = worker.url().split('/')[2]
+        await this.page.goto(`chrome-extension://${extensionId}/popup.html`)
+        expect(await this.page.$('svg')).not.toBeNull()
+      },
+    },
     valid: {
       files: {
         'assets/foo.png': '',

@@ -84,6 +84,7 @@ export default config => ({
         import babel from '${packageName`vite-plugin-babel`}'
         import eslint from '${packageName`vite-plugin-eslint`}'
         import webExtension from '${packageName`vite-plugin-web-extension`}'
+        import svgLoader from '${packageName`vite-svg-loader`}'
 
         export default defineConfig({
           build: {
@@ -91,6 +92,7 @@ export default config => ({
           },
           plugins: [
             vue(),
+            svgLoader(),
             webExtension({
               browser: process.env.TARGET,
               manifest: () => JSON.parse(process.env.MANIFEST),
