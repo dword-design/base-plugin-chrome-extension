@@ -3,6 +3,7 @@ import { endent } from '@dword-design/functions'
 import binName from 'depcheck-bin-name'
 import packageName from 'depcheck-package-name'
 import outputFiles from 'output-files'
+import depcheckParserVue from 'depcheck-parser-vue'
 
 import dev from './dev.js'
 import lint from './lint.js'
@@ -35,6 +36,7 @@ export default config => ({
   depcheckConfig: {
     parsers: {
       '**/*.scss': depcheckParserSass,
+      '**/*.vue': depcheckParserVue,
     },
   },
   deployAssets: [

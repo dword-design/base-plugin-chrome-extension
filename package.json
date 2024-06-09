@@ -19,7 +19,8 @@
     "lint": "base lint",
     "prepare": "base prepare",
     "prepublishOnly": "base prepublishOnly",
-    "test": "base test"
+    "test": "base test",
+    "test:raw": "base test:raw"
   },
   "dependencies": {
     "@dword-design/depcheck-parser-sass": "^4.0.4",
@@ -29,6 +30,7 @@
     "@vitejs/plugin-vue": "^5.0.4",
     "depcheck-bin-name": "^1.0.0",
     "depcheck-package-name": "^3.0.1",
+    "depcheck-parser-vue": "^5.0.0",
     "execa": "^8.0.1",
     "fs-extra": "^11.1.0",
     "load-pkg": "^4.0.0",
