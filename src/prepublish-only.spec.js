@@ -122,6 +122,42 @@ export default tester(
         }),
       },
     },
+    'linting error in vue': {
+      error: "'foo' is not defined",
+      files: {
+        'App.vue': endent`
+          <template>
+            <div class="foo" />
+          </template>
+
+          <script setup>
+          foo
+          </script>
+        `,
+        'background.js': '',
+        'config.json': JSON.stringify({ name: 'Foo' }),
+        'package.json': JSON.stringify({
+          baseConfig: P.resolve('src', 'index.js'),
+          dependencies: {
+            vue: '*',
+          },
+          description: 'foo bar',
+          type: 'module',
+          version: '2.0.0',
+        }),
+        'popup.html': endent`
+          <div id="app"></div>
+          <script type="module" src="./popup.js"></script>
+        `,
+        'popup.js': endent`
+          import { createApp } from 'vue';
+
+          import App from './App.vue';
+
+          createApp(App).mount('#app');
+        `,
+      },
+    },
     sass: {
       files: {
         'assets/style.scss': endent`
@@ -167,6 +203,10 @@ export default tester(
         'config.json': JSON.stringify({ name: 'Foo' }),
         'package.json': JSON.stringify({
           baseConfig: P.resolve('src', 'index.js'),
+          dependencies: {
+            '@mdi/svg': '*',
+            vue: '*',
+          },
           description: 'foo bar',
           type: 'module',
           version: '2.0.0',
@@ -271,6 +311,51 @@ export default tester(
         })
         await this.page.goto('http://localhost:3000')
         await this.page.waitForSelector('.foo')
+      },
+    },
+    vue: {
+      files: {
+        'App.vue': endent`
+          <template>
+            <div class="foo" />
+          </template>
+        `,
+        'background.js': '',
+        'config.json': JSON.stringify({ name: 'Foo' }),
+        'package.json': JSON.stringify({
+          baseConfig: P.resolve('src', 'index.js'),
+          dependencies: {
+            vue: '*',
+          },
+          description: 'foo bar',
+          type: 'module',
+          version: '2.0.0',
+        }),
+        'popup.html': endent`
+          <div id="app"></div>
+          <script type="module" src="./popup.js"></script>
+        `,
+        'popup.js': endent`
+          import { createApp } from 'vue';
+
+          import App from './App.vue';
+
+          createApp(App).mount('#app');
+        `,
+      },
+      async test() {
+        await this.page.goto('http://localhost:3000')
+
+        // https://github.com/puppeteer/puppeteer/issues/2486#issuecomment-1159705685
+        const target = await this.browser.waitForTarget(
+          t => t.type() === 'service_worker',
+        )
+
+        const worker = await target.worker()
+
+        const extensionId = worker.url().split('/')[2]
+        await this.page.goto(`chrome-extension://${extensionId}/popup.html`)
+        expect(await this.page.$('.foo')).not.toBeNull()
       },
     },
   },

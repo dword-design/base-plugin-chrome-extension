@@ -93,6 +93,7 @@ export default config => ({
           plugins: [
             vue(),
             svgLoader(),
+            eslint({ fix: true }),
             webExtension({
               browser: process.env.TARGET,
               manifest: () => JSON.parse(process.env.MANIFEST),
