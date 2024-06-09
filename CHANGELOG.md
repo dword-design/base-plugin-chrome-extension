@@ -1,3 +1,11 @@
+## [3.0.21](https://github.com/dword-design/base-config-web-extension/compare/v3.0.20...v3.0.21) (2024-06-09)
+
+
+### Bug Fixes
+
+* foo ([a0f69d1](https://github.com/dword-design/base-config-web-extension/commit/a0f69d1ed62e245e881830402773b5eaeebdcbe6))
+* linting for vue files ([0fdf105](https://github.com/dword-design/base-config-web-extension/commit/0fdf10530b0ecbc5a9e6c291a513f7d8de06855f))
+
 ## [3.0.20](https://github.com/dword-design/base-config-web-extension/compare/v3.0.19...v3.0.20) (2024-06-08)
 
 
