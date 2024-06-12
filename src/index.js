@@ -83,6 +83,7 @@ export default config => ({
         import vue from '${packageName`@vitejs/plugin-vue`}'
         import P from 'path'
         import { defineConfig } from '${packageName`vite`}'
+        import vueBabel from '${packageName`@dword-design/vite-plugin-vue-babel`}'
         import babel from '${packageName`vite-plugin-babel`}'
         import eslint from '${packageName`vite-plugin-eslint`}'
         import webExtension from '${packageName`vite-plugin-web-extension`}'
@@ -93,13 +94,14 @@ export default config => ({
             outDir: P.join('dist', process.env.TARGET),
           },
           plugins: [
+            vueBabel(),
             vue(),
             svgLoader(),
             eslint({ fix: true }),
             webExtension({
               browser: process.env.TARGET,
               manifest: () => JSON.parse(process.env.MANIFEST),
-              scriptViteConfig: { plugins: [eslint({ fix: true }), babel()] },
+              scriptViteConfig: { plugins: [babel(), eslint({ fix: true })] },
               webExtConfig: { keepProfileChanges: true, chromiumProfile: 'userdata' },
             }),
           ],

@@ -29,7 +29,7 @@ export default tester(
         'public/icon.png': '',
       },
     },
-    babel: {
+    'babel in js': {
       files: {
         'config.json': JSON.stringify({ name: 'Foo' }),
         'content.js': 'console.log(1 |> x => x * 2)',
@@ -46,6 +46,52 @@ export default tester(
         ).toEqual(
           '(function(){"use strict";var o;console.log((o=1,o*2))})();\n',
         ),
+    },
+    'babel in vue': {
+      files: {
+        'background.js': '',
+        'config.json': JSON.stringify({ name: 'Foo' }),
+        'package.json': JSON.stringify({
+          baseConfig: P.resolve('src', 'index.js'),
+          dependencies: {
+            vue: '*',
+          },
+          description: 'foo bar',
+          type: 'module',
+          version: '2.0.0',
+        }),
+        'popup.html': endent`
+          <div id="app"></div>
+          <script type="module" src="./popup.js"></script>
+        `,
+        'popup.js': endent`
+          import { createApp } from 'vue';
+
+          import Popup from './popup.vue';
+
+          createApp(Popup).mount('#app');
+        `,
+        'popup.vue': endent`
+          <template>
+            <div class="foo">{{ foo }}</div>
+          </template>
+
+          <script setup>
+          const foo = 1 |> x => x * 2
+          </script>
+        `,
+      },
+      async test() {
+        const target = await this.browser.waitForTarget(
+          t => t.type() === 'service_worker',
+        )
+
+        const worker = await target.worker()
+
+        const extensionId = worker.url().split('/')[2]
+        await this.page.goto(`chrome-extension://${extensionId}/popup.html`)
+        expect(await this.page.$eval('.foo', _ => _.innerText)).toEqual('2')
+      },
     },
     'browser variable': {
       files: {
@@ -125,7 +171,7 @@ export default tester(
     'linting error in vue': {
       error: "'foo' is not defined",
       files: {
-        'App.vue': endent`
+        'Popup.vue': endent`
           <template>
             <div class="foo" />
           </template>
@@ -152,9 +198,9 @@ export default tester(
         'popup.js': endent`
           import { createApp } from 'vue';
 
-          import App from './App.vue';
+          import Popup from './popup.vue';
 
-          createApp(App).mount('#app');
+          createApp(Popup).mount('#app');
         `,
       },
     },
@@ -190,7 +236,7 @@ export default tester(
     },
     svg: {
       files: {
-        'App.vue': endent`
+        'Popup.vue': endent`
           <template>
             <svg-icon />
           </template>
@@ -218,9 +264,9 @@ export default tester(
         'popup.js': endent`
           import { createApp } from 'vue';
 
-          import App from './App.vue';
+          import Popup from './Popup.vue';
 
-          createApp(App).mount('#app');
+          createApp(Popup).mount('#app');
         `,
       },
       async test() {
@@ -315,7 +361,7 @@ export default tester(
     },
     vue: {
       files: {
-        'App.vue': endent`
+        'Popup.vue': endent`
           <template>
             <div class="foo" />
           </template>
@@ -338,9 +384,9 @@ export default tester(
         'popup.js': endent`
           import { createApp } from 'vue';
 
-          import App from './App.vue';
+          import Popup from './Popup.vue';
 
-          createApp(App).mount('#app');
+          createApp(Popup).mount('#app');
         `,
       },
       async test() {
