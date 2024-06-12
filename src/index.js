@@ -23,6 +23,8 @@ export default config => ({
     'popup.js',
     'model',
   ],
+  editorIgnore: ['dist'],
+  gitignore: ['/userdata'],
   commands: {
     dev: {
       arguments: '[browser]',
@@ -100,6 +102,7 @@ export default config => ({
               browser: process.env.TARGET,
               manifest: () => JSON.parse(process.env.MANIFEST),
               scriptViteConfig: { plugins: [eslint({ fix: true }), babel()] },
+              webExtConfig: { keepProfileChanges: true, chromiumProfile: 'userdata' },
             }),
           ],
         })\n
