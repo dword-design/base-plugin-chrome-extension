@@ -1,3 +1,15 @@
+# [3.1.0](https://github.com/dword-design/base-config-web-extension/compare/v3.0.21...v3.1.0) (2024-06-12)
+
+
+### Bug Fixes
+
+* foo ([59da2cf](https://github.com/dword-design/base-config-web-extension/commit/59da2cfbf34363aa26497bea5600070a6252b63a))
+
+
+### Features
+
+* persist session ([d31ed83](https://github.com/dword-design/base-config-web-extension/commit/d31ed832f01e4aef068a09aee5c1261839e92e3f))
+
 ## [3.0.21](https://github.com/dword-design/base-config-web-extension/compare/v3.0.20...v3.0.21) (2024-06-09)
 
 
