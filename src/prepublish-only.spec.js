@@ -171,7 +171,7 @@ export default tester(
     'linting error in vue': {
       error: "'foo' is not defined",
       files: {
-        'Popup.vue': endent`
+        'popup.vue': endent`
           <template>
             <div class="foo" />
           </template>
@@ -236,7 +236,7 @@ export default tester(
     },
     svg: {
       files: {
-        'Popup.vue': endent`
+        'popup.vue': endent`
           <template>
             <svg-icon />
           </template>
@@ -264,7 +264,7 @@ export default tester(
         'popup.js': endent`
           import { createApp } from 'vue';
 
-          import Popup from './Popup.vue';
+          import Popup from './popup.vue';
 
           createApp(Popup).mount('#app');
         `,
@@ -361,7 +361,7 @@ export default tester(
     },
     vue: {
       files: {
-        'Popup.vue': endent`
+        'popup.vue': endent`
           <template>
             <div class="foo" />
           </template>
@@ -384,7 +384,7 @@ export default tester(
         'popup.js': endent`
           import { createApp } from 'vue';
 
-          import Popup from './Popup.vue';
+          import Popup from './popup.vue';
 
           createApp(Popup).mount('#app');
         `,
