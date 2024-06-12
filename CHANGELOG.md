@@ -1,3 +1,10 @@
+## [3.1.1](https://github.com/dword-design/base-config-web-extension/compare/v3.1.0...v3.1.1) (2024-06-12)
+
+
+### Bug Fixes
+
+* babel in vue ([b7f1981](https://github.com/dword-design/base-config-web-extension/commit/b7f198136a896b53a3f3a3ae9d90771e5bfa2cf0))
+
 # [3.1.0](https://github.com/dword-design/base-config-web-extension/compare/v3.0.21...v3.1.0) (2024-06-12)
 
 
