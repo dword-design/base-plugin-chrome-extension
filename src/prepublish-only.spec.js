@@ -171,15 +171,6 @@ export default tester(
     'linting error in vue': {
       error: "'foo' is not defined",
       files: {
-        'popup.vue': endent`
-          <template>
-            <div class="foo" />
-          </template>
-
-          <script setup>
-          foo
-          </script>
-        `,
         'background.js': '',
         'config.json': JSON.stringify({ name: 'Foo' }),
         'package.json': JSON.stringify({
@@ -201,6 +192,15 @@ export default tester(
           import Popup from './popup.vue';
 
           createApp(Popup).mount('#app');
+        `,
+        'popup.vue': endent`
+          <template>
+            <div class="foo" />
+          </template>
+
+          <script setup>
+          foo
+          </script>
         `,
       },
     },
@@ -236,15 +236,6 @@ export default tester(
     },
     svg: {
       files: {
-        'popup.vue': endent`
-          <template>
-            <svg-icon />
-          </template>
-
-          <script setup>
-          import SvgIcon from '${packageName`@mdi/svg`}/svg/checkbox-marked-circle.svg';
-          </script>
-        `,
         'background.js': '',
         'config.json': JSON.stringify({ name: 'Foo' }),
         'package.json': JSON.stringify({
@@ -267,6 +258,15 @@ export default tester(
           import Popup from './popup.vue';
 
           createApp(Popup).mount('#app');
+        `,
+        'popup.vue': endent`
+          <template>
+            <svg-icon />
+          </template>
+
+          <script setup>
+          import SvgIcon from '${packageName`@mdi/svg`}/svg/checkbox-marked-circle.svg';
+          </script>
         `,
       },
       async test() {
@@ -361,11 +361,6 @@ export default tester(
     },
     vue: {
       files: {
-        'popup.vue': endent`
-          <template>
-            <div class="foo" />
-          </template>
-        `,
         'background.js': '',
         'config.json': JSON.stringify({ name: 'Foo' }),
         'package.json': JSON.stringify({
@@ -387,6 +382,11 @@ export default tester(
           import Popup from './popup.vue';
 
           createApp(Popup).mount('#app');
+        `,
+        'popup.vue': endent`
+          <template>
+            <div class="foo" />
+          </template>
         `,
       },
       async test() {
