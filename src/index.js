@@ -23,8 +23,6 @@ export default config => ({
     'popup.js',
     'model',
   ],
-  editorIgnore: ['dist'],
-  gitignore: ['/userdata'],
   commands: {
     dev: {
       arguments: '[browser]',
@@ -64,8 +62,8 @@ export default config => ({
       },
     ],
   ],
-  editorIgnore: ['.eslintrc.json', 'dist', 'vite.config.js'],
-  gitignore: ['/.eslintrc.json', '/dist', '/vite.config.js'],
+  editorIgnore: ['.eslintrc.json', 'dist', 'userdata', 'vite.config.js'],
+  gitignore: ['/.eslintrc.json', '/dist', '/userdata', '/vite.config.js'],
   isLockFileFixCommitType: true,
   lint,
   preDeploySteps: [
