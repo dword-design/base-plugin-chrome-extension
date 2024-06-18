@@ -1,3 +1,10 @@
+## [3.1.2](https://github.com/dword-design/base-config-web-extension/compare/v3.1.1...v3.1.2) (2024-06-18)
+
+
+### Bug Fixes
+
+* web accessible resources ([2209f8c](https://github.com/dword-design/base-config-web-extension/commit/2209f8ca7b3899d039e73b140f73f48b8bbcd561))
+
 ## [3.1.1](https://github.com/dword-design/base-config-web-extension/compare/v3.1.0...v3.1.1) (2024-06-12)
 
 
