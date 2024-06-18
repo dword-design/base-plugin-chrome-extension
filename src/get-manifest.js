@@ -54,12 +54,16 @@ export default async ({ browser }) => {
           },
         },
       }),
-    ...pick(config, [
-      'host_permissions',
-      'optional_host_permissions',
-      'optional_permissions',
-      'permissions',
-      'css',
-    ]),
+    ...pick(
+      config,
+      Object.keys({
+        css: true,
+        host_permissions: true,
+        optional_host_permissions: true,
+        optional_permissions: true,
+        permissions: true,
+        web_accessible_resources: true,
+      }),
+    ),
   }
 }

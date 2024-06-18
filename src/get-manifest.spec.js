@@ -191,6 +191,28 @@ export default tester(
         manifest_version: 3,
       },
     },
+    web_accessible_resources: {
+      browser: 'firefox',
+      files: {
+        'config.json': JSON.stringify({
+          web_accessible_resources: [
+            {
+              matches: ['<all_urls>'],
+              resources: ['popup.html'],
+            },
+          ],
+        }),
+      },
+      result: {
+        manifest_version: 3,
+        web_accessible_resources: [
+          {
+            matches: ['<all_urls>'],
+            resources: ['popup.html'],
+          },
+        ],
+      },
+    },
   },
   [
     testerPluginTmpDir(),
