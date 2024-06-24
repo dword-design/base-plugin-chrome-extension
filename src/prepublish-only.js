@@ -1,6 +1,6 @@
-import { execaCommand } from 'execa'
+import { execaCommand } from 'execa';
 
-import getManifest from './get-manifest.js'
+import getManifest from './get-manifest.js';
 
 export default () =>
   async (browser = 'chrome') =>
@@ -10,4 +10,4 @@ export default () =>
         TARGET: browser,
       },
       stdio: 'inherit',
-    })
+    });

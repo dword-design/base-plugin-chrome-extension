@@ -1,8 +1,8 @@
-import tester from '@dword-design/tester'
-import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
-import outputFiles from 'output-files'
+import tester from '@dword-design/tester';
+import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir';
+import outputFiles from 'output-files';
 
-import self from './get-manifest.js'
+import self from './get-manifest.js';
 
 export default tester(
   {
@@ -220,16 +220,16 @@ export default tester(
       transform:
         ({ files = {}, result, browser = 'chrome', env } = {}) =>
         async () => {
-          await outputFiles(files)
+          await outputFiles(files);
+          const previousEnv = { ...process.env };
+          Object.assign(process.env, env);
 
-          const previousEnv = { ...process.env }
-          Object.assign(process.env, env)
           try {
-            expect(await self({ browser })).toEqual(result)
+            expect(await self({ browser })).toEqual(result);
           } finally {
-            process.env = previousEnv
+            process.env = previousEnv;
           }
         },
     },
   ],
-)
+);
