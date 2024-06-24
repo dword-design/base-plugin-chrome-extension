@@ -1,9 +1,9 @@
-import vue from '@vitejs/plugin-vue'
-import P from 'path'
-import { defineConfig } from 'vite'
-import babel from 'vite-plugin-babel'
-import eslint from 'vite-plugin-eslint'
-import webExtension from 'vite-plugin-web-extension'
+import vue from '@vitejs/plugin-vue';
+import P from 'path';
+import { defineConfig } from 'vite';
+import babel from 'vite-plugin-babel';
+import eslint from 'vite-plugin-eslint';
+import webExtension from 'vite-plugin-web-extension';
 
 export default defineConfig({
   build: {
@@ -17,4 +17,4 @@ export default defineConfig({
       scriptViteConfig: { plugins: [eslint({ fix: true }), babel()] },
     }),
   ],
-})
+});

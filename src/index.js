@@ -1,13 +1,13 @@
-import depcheckParserSass from '@dword-design/depcheck-parser-sass'
-import { endent } from '@dword-design/functions'
-import binName from 'depcheck-bin-name'
-import packageName from 'depcheck-package-name'
-import depcheckParserVue from 'depcheck-parser-vue'
-import outputFiles from 'output-files'
+import depcheckParserSass from '@dword-design/depcheck-parser-sass';
+import { endent } from '@dword-design/functions';
+import binName from 'depcheck-bin-name';
+import packageName from 'depcheck-package-name';
+import depcheckParserVue from 'depcheck-parser-vue';
+import outputFiles from 'output-files';
 
-import dev from './dev.js'
-import lint from './lint.js'
-import prepublishOnly from './prepublish-only.js'
+import dev from './dev.js';
+import lint from './lint.js';
+import prepublishOnly from './prepublish-only.js';
 
 export default config => ({
   allowedMatches: [
@@ -129,4 +129,4 @@ export default config => ({
     $ yarn prepublishOnly [browser]
     \`\`\`
   `,
-})
+});

@@ -1,14 +1,14 @@
-import { endent } from '@dword-design/functions'
-import puppeteer from '@dword-design/puppeteer'
-import tester from '@dword-design/tester'
-import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir'
-import packageName from 'depcheck-package-name'
-import { execaCommand } from 'execa'
-import express from 'express'
-import fs from 'fs-extra'
-import { globby } from 'globby'
-import outputFiles from 'output-files'
-import P from 'path'
+import { endent } from '@dword-design/functions';
+import puppeteer from '@dword-design/puppeteer';
+import tester from '@dword-design/tester';
+import testerPluginTmpDir from '@dword-design/tester-plugin-tmp-dir';
+import packageName from 'depcheck-package-name';
+import { execaCommand } from 'execa';
+import express from 'express';
+import fs from 'fs-extra';
+import { globby } from 'globby';
+import outputFiles from 'output-files';
+import P from 'path';
 
 export default tester(
   {
@@ -84,13 +84,12 @@ export default tester(
       async test() {
         const target = await this.browser.waitForTarget(
           t => t.type() === 'service_worker',
-        )
+        );
 
-        const worker = await target.worker()
-
-        const extensionId = worker.url().split('/')[2]
-        await this.page.goto(`chrome-extension://${extensionId}/popup.html`)
-        expect(await this.page.$eval('.foo', _ => _.innerText)).toEqual('2')
+        const worker = await target.worker();
+        const extensionId = worker.url().split('/')[2];
+        await this.page.goto(`chrome-extension://${extensionId}/popup.html`);
+        expect(await this.page.$eval('.foo', _ => _.innerText)).toEqual('2');
       },
     },
     'browser variable': {
@@ -127,20 +126,22 @@ export default tester(
         }),
       },
       async test() {
-        await this.page.goto('http://localhost:3000')
+        await this.page.goto('http://localhost:3000');
 
         // https://github.com/puppeteer/puppeteer/issues/2486#issuecomment-1159705685
         const target = await this.browser.waitForTarget(
           t => t.type() === 'service_worker',
-        )
+        );
 
-        const worker = await target.worker()
+        const worker = await target.worker();
+
         await worker.evaluate(() => {
           self.chrome.tabs.query({ active: true }, tabs =>
             self.chrome.action.onClicked.dispatch(tabs[0]),
-          )
-        })
-        await this.page.waitForSelector('.foo')
+          );
+        });
+
+        await this.page.waitForSelector('.foo');
       },
     },
     'linting error': {
@@ -226,12 +227,13 @@ export default tester(
         }),
       },
       async test() {
-        await this.page.goto('http://localhost:3000')
+        await this.page.goto('http://localhost:3000');
+
         expect(
           await this.page.evaluate(
             () => window.getComputedStyle(document.body).color,
           ),
-        ).toEqual('rgb(255, 0, 0)')
+        ).toEqual('rgb(255, 0, 0)');
       },
     },
     svg: {
@@ -270,18 +272,17 @@ export default tester(
         `,
       },
       async test() {
-        await this.page.goto('http://localhost:3000')
+        await this.page.goto('http://localhost:3000');
 
         // https://github.com/puppeteer/puppeteer/issues/2486#issuecomment-1159705685
         const target = await this.browser.waitForTarget(
           t => t.type() === 'service_worker',
-        )
+        );
 
-        const worker = await target.worker()
-
-        const extensionId = worker.url().split('/')[2]
-        await this.page.goto(`chrome-extension://${extensionId}/popup.html`)
-        expect(await this.page.$('svg')).not.toBeNull()
+        const worker = await target.worker();
+        const extensionId = worker.url().split('/')[2];
+        await this.page.goto(`chrome-extension://${extensionId}/popup.html`);
+        expect(await this.page.$('svg')).not.toBeNull();
       },
     },
     valid: {
@@ -320,10 +321,12 @@ export default tester(
             'popup.html',
             'popup.js',
           ]),
-        )
+        );
+
         expect(await globby('*', { cwd: 'dist', onlyFiles: false })).toEqual([
           'chrome',
-        ])
+        ]);
+
         expect(
           await globby('*', {
             cwd: P.join('dist', 'chrome'),
@@ -334,7 +337,8 @@ export default tester(
           'content.js',
           'manifest.json',
           'popup.html',
-        ])
+        ]);
+
         expect(
           await fs.readJson(P.join('dist', 'chrome', 'manifest.json')),
         ).toEqual({
@@ -354,9 +358,10 @@ export default tester(
           manifest_version: 3,
           name: 'Foo',
           version: '2.0.0',
-        })
-        await this.page.goto('http://localhost:3000')
-        await this.page.waitForSelector('.foo')
+        });
+
+        await this.page.goto('http://localhost:3000');
+        await this.page.waitForSelector('.foo');
       },
     },
     vue: {
@@ -390,18 +395,17 @@ export default tester(
         `,
       },
       async test() {
-        await this.page.goto('http://localhost:3000')
+        await this.page.goto('http://localhost:3000');
 
         // https://github.com/puppeteer/puppeteer/issues/2486#issuecomment-1159705685
         const target = await this.browser.waitForTarget(
           t => t.type() === 'service_worker',
-        )
+        );
 
-        const worker = await target.worker()
-
-        const extensionId = worker.url().split('/')[2]
-        await this.page.goto(`chrome-extension://${extensionId}/popup.html`)
-        expect(await this.page.$('.foo')).not.toBeNull()
+        const worker = await target.worker();
+        const extensionId = worker.url().split('/')[2];
+        await this.page.goto(`chrome-extension://${extensionId}/popup.html`);
+        expect(await this.page.$('.foo')).not.toBeNull();
       },
     },
   },
@@ -409,38 +413,43 @@ export default tester(
     {
       transform: test =>
         async function () {
-          await outputFiles(test.files)
-          await execaCommand('base prepare')
+          await outputFiles(test.files);
+          await execaCommand('base prepare');
+
           if (test.error) {
             await expect(execaCommand('base prepublishOnly')).rejects.toThrow(
               test.error,
-            )
+            );
 
-            return
+            return;
           }
-          await execaCommand('base prepublishOnly')
+
+          await execaCommand('base prepublishOnly');
+
           if (test.test) {
             this.browser = await puppeteer.launch({
               args: [
                 '--load-extension=dist/chrome',
                 '--disable-extensions-except=dist/chrome',
               ],
-            })
-            this.page = await this.browser.newPage()
+            });
+
+            this.page = await this.browser.newPage();
 
             const server = express()
               .get('/', (req, res) => res.send(''))
-              .listen(3000)
+              .listen(3000);
+
             try {
-              await test.test.call(this)
+              await test.test.call(this);
             } finally {
-              await this.page.close()
-              await this.browser.close()
-              await server.close()
+              await this.page.close();
+              await this.browser.close();
+              await server.close();
             }
           }
         },
     },
     testerPluginTmpDir(),
   ],
-)
+);

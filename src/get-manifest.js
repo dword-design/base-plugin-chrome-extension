@@ -1,16 +1,12 @@
-import fs from 'fs-extra'
-import loadPkg from 'load-pkg'
-import { pick } from 'lodash-es'
+import fs from 'fs-extra';
+import loadPkg from 'load-pkg';
+import { pick } from 'lodash-es';
 
 export default async ({ browser }) => {
-  const packageConfig = await loadPkg()
-
-  const config = await fs.readJson('config.json').catch(() => ({}))
-
-  const iconExists = await fs.exists('public/icon.png')
-
-  const popupExists = await fs.exists('popup.html')
-
+  const packageConfig = await loadPkg();
+  const config = await fs.readJson('config.json').catch(() => ({}));
+  const iconExists = await fs.exists('public/icon.png');
+  const popupExists = await fs.exists('popup.html');
   return {
     name: config.name,
     ...pick(packageConfig, ['version', 'description']),
@@ -65,5 +61,5 @@ export default async ({ browser }) => {
         web_accessible_resources: true,
       }),
     ),
-  }
-}
+  };
+};
