@@ -19,6 +19,8 @@ export default config => ({
     'index.spec.js',
     'options.html',
     'popup.html',
+    'popup.js',
+    'popup.vue',
     'options.js',
     'popup.js',
     'model',
