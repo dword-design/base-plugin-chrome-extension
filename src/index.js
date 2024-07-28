@@ -12,6 +12,7 @@ import prepublishOnly from './prepublish-only.js';
 export default config => ({
   allowedMatches: [
     'assets',
+    'components',
     'public',
     'background.js',
     'content.js',
