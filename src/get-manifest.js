@@ -35,10 +35,7 @@ export default async ({ browser }) => {
     ...((await fs.exists('background.js')) && {
       background: {
         ...(browser === 'firefox'
-          ? {
-              persistent: false,
-              scripts: ['background.js'],
-            }
+          ? { scripts: ['background.js'] }
           : { service_worker: 'background.js' }),
       },
     }),
