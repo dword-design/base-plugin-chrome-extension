@@ -27,27 +27,13 @@ export default config => ({
     'model',
   ],
   commands: {
-    dev: {
-      arguments: '[browser]',
-      handler: dev(config),
-    },
-    prepublishOnly: {
-      arguments: '[browser]',
-      handler: prepublishOnly(config),
-    },
+    dev: { arguments: '[browser]', handler: dev(config) },
+    prepublishOnly: { arguments: '[browser]', handler: prepublishOnly(config) },
   },
   depcheckConfig: {
-    parsers: {
-      '**/*.scss': depcheckParserSass,
-      '**/*.vue': depcheckParserVue,
-    },
+    parsers: { '**/*.scss': depcheckParserSass, '**/*.vue': depcheckParserVue },
   },
-  deployAssets: [
-    {
-      label: 'Extension',
-      path: 'extension.zip',
-    },
-  ],
+  deployAssets: [{ label: 'Extension', path: 'extension.zip' }],
   deployEnv: {
     CHROME_CLIENT_ID: '${{ secrets.CHROME_CLIENT_ID }}',
     CHROME_CLIENT_SECRET: '${{ secrets.CHROME_CLIENT_SECRET }}',

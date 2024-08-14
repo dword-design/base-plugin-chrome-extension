@@ -11,11 +11,7 @@ export default async ({ browser }) => {
     name: config.name,
     ...pick(packageConfig, ['version', 'description']),
     manifest_version: 3,
-    ...(iconExists && {
-      icons: {
-        128: 'icon.png',
-      },
-    }),
+    ...(iconExists && { icons: { 128: 'icon.png' } }),
     ...(('action' in config || popupExists) && {
       action: {
         ...(iconExists && { default_icon: { 128: 'icon.png' } }),
@@ -42,9 +38,7 @@ export default async ({ browser }) => {
     ...(process.env.FIREFOX_EXTENSION_ID &&
       browser === 'firefox' && {
         browser_specific_settings: {
-          gecko: {
-            id: process.env.FIREFOX_EXTENSION_ID,
-          },
+          gecko: { id: process.env.FIREFOX_EXTENSION_ID },
         },
       }),
     ...pick(
