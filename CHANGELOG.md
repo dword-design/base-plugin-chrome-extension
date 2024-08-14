@@ -1,3 +1,11 @@
+## [3.1.5](https://github.com/dword-design/base-config-web-extension/compare/v3.1.4...v3.1.5) (2024-08-14)
+
+
+### Bug Fixes
+
+* fix for firefox ([76e1990](https://github.com/dword-design/base-config-web-extension/commit/76e19908634b0aa0453e550bd37bdb1a0a385227))
+* foo ([8a41950](https://github.com/dword-design/base-config-web-extension/commit/8a41950937a2959d3a3b3d634d307285f2b031a5))
+
 ## [3.1.4](https://github.com/dword-design/base-config-web-extension/compare/v3.1.3...v3.1.4) (2024-07-28)
 
 
