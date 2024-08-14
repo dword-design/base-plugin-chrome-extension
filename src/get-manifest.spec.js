@@ -185,7 +185,6 @@ export default tester(
       },
       result: {
         background: {
-          persistent: false,
           scripts: ['background.js'],
         },
         manifest_version: 3,
