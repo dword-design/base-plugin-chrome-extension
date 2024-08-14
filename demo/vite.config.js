@@ -6,9 +6,7 @@ import eslint from 'vite-plugin-eslint';
 import webExtension from 'vite-plugin-web-extension';
 
 export default defineConfig({
-  build: {
-    outDir: P.join('dist', process.env.TARGET),
-  },
+  build: { outDir: P.join('dist', process.env.TARGET) },
   plugins: [
     vue(),
     webExtension({

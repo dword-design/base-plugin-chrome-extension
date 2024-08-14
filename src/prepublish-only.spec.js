@@ -53,9 +53,7 @@ export default tester(
         'config.json': JSON.stringify({ name: 'Foo' }),
         'package.json': JSON.stringify({
           baseConfig: P.resolve('src', 'index.js'),
-          dependencies: {
-            vue: '*',
-          },
+          dependencies: { vue: '*' },
           description: 'foo bar',
           type: 'module',
           version: '2.0.0',
@@ -117,9 +115,7 @@ export default tester(
         `,
         'package.json': JSON.stringify({
           baseConfig: P.resolve('src', 'index.js'),
-          dependencies: {
-            'webextension-polyfill': '*',
-          },
+          dependencies: { 'webextension-polyfill': '*' },
           description: 'foo bar',
           type: 'module',
           version: '2.0.0',
@@ -176,9 +172,7 @@ export default tester(
         'config.json': JSON.stringify({ name: 'Foo' }),
         'package.json': JSON.stringify({
           baseConfig: P.resolve('src', 'index.js'),
-          dependencies: {
-            vue: '*',
-          },
+          dependencies: { vue: '*' },
           description: 'foo bar',
           type: 'module',
           version: '2.0.0',
@@ -242,10 +236,7 @@ export default tester(
         'config.json': JSON.stringify({ name: 'Foo' }),
         'package.json': JSON.stringify({
           baseConfig: P.resolve('src', 'index.js'),
-          dependencies: {
-            '@mdi/svg': '*',
-            vue: '*',
-          },
+          dependencies: { '@mdi/svg': '*', vue: '*' },
           description: 'foo bar',
           type: 'module',
           version: '2.0.0',
@@ -342,18 +333,9 @@ export default tester(
         expect(
           await fs.readJson(P.join('dist', 'chrome', 'manifest.json')),
         ).toEqual({
-          action: {
-            default_popup: 'popup.html',
-          },
-          background: {
-            service_worker: 'background.js',
-          },
-          content_scripts: [
-            {
-              js: ['content.js'],
-              matches: ['<all_urls>'],
-            },
-          ],
+          action: { default_popup: 'popup.html' },
+          background: { service_worker: 'background.js' },
+          content_scripts: [{ js: ['content.js'], matches: ['<all_urls>'] }],
           description: 'foo bar',
           manifest_version: 3,
           name: 'Foo',
@@ -370,9 +352,7 @@ export default tester(
         'config.json': JSON.stringify({ name: 'Foo' }),
         'package.json': JSON.stringify({
           baseConfig: P.resolve('src', 'index.js'),
-          dependencies: {
-            vue: '*',
-          },
+          dependencies: { vue: '*' },
           description: 'foo bar',
           type: 'module',
           version: '2.0.0',
