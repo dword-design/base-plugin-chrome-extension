@@ -1,3 +1,10 @@
+## [3.1.6](https://github.com/dword-design/base-config-web-extension/compare/v3.1.5...v3.1.6) (2024-08-16)
+
+
+### Bug Fixes
+
+* babelrc ([286c35d](https://github.com/dword-design/base-config-web-extension/commit/286c35dec917cc0019c12a697e0461c57e389161))
+
 ## [3.1.5](https://github.com/dword-design/base-config-web-extension/compare/v3.1.4...v3.1.5) (2024-08-14)
 
 
