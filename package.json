@@ -32,7 +32,7 @@
     "depcheck-bin-name": "^1.0.0",
     "depcheck-package-name": "^3.0.1",
     "depcheck-parser-vue": "^5.0.0",
-    "execa": "^8.0.1",
+    "execa": "^9.5.2",
     "fs-extra": "^11.1.0",
     "load-pkg": "^4.0.0",
     "lodash-es": "^4.17.21",
@@ -53,7 +53,7 @@
     "@mdi/svg": "^7.4.47",
     "express": "^4.17.1",
     "globby": "^14.0.0",
-    "webextension-polyfill": "^0.11.0",
+    "webextension-polyfill": "^0.12.0",
     "with-local-tmp-dir": "^5.0.1"
   },
   "packageManager": "pnpm@9.15.3+sha256.c1da43727ccbc1ed42aff4fd6bdb4b1e91e65a818e6efff5b240fbf070ba4eaf",
